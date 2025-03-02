@@ -1,68 +1,74 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  html {
+    font-family: 'Open Sans', system-ui, sans-serif;
   }
-  a:hover {
-    color: #747bff;
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: theme('colors.navy-blue');
+    line-height: 1.2;
   }
-  button {
-    background-color: #f9f9f9;
+  
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  h5, h6 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  body {
+    color: theme('colors.deep-navy');
+    background-color: theme('colors.pearl-white');
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 rounded-md font-semibold text-center cursor-pointer transition-all duration-200 inline-block;
+  }
+  
+  .btn-primary {
+    @apply bg-navy-blue text-alpine-white hover:bg-deep-navy;
+  }
+  
+  .btn-secondary {
+    @apply bg-mountain-blue text-alpine-white hover:bg-navy-blue;
+  }
+  
+  .btn-text {
+    @apply bg-transparent text-deep-navy px-4 py-2 hover:bg-ice-blue;
+  }
+  
+  .card {
+    @apply bg-alpine-white border border-mountain-blue/10 rounded-lg p-6 shadow-sm;
+  }
+  
+  .container {
+    @apply w-full max-w-7xl mx-auto px-4 md:px-6;
   }
 }
