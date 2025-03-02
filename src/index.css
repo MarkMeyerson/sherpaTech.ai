@@ -1,3 +1,41 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/600.css';
+@import '@fontsource/open-sans/700.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-brand-dark;
+  }
+  
+  h1 {
+    @apply font-inter font-bold text-h1 text-brand-white;
+  }
+  
+  h2 {
+    @apply font-inter font-semibold text-h2 text-brand-white;
+  }
+  
+  h3 {
+    @apply font-inter font-medium text-h3 text-brand-primary;
+  }
+  
+  h4 {
+    @apply font-inter font-medium text-h4 text-brand-white;
+  }
+  
+  h5 {
+    @apply font-inter font-medium text-h5 text-brand-white;
+  }
+  
+  body {
+    @apply font-opensans text-body text-brand-white bg-brand-dark;
+  }
+}
