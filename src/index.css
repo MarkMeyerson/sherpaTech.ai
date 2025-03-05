@@ -1,74 +1,37 @@
-/* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: 'Open Sans', system-ui, sans-serif;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: theme('colors.navy-blue');
-    line-height: 1.2;
-  }
-  
-  h1 {
-    font-size: 3rem;
-    font-weight: 700;
-  }
-  
-  h2 {
-    font-size: 2.25rem;
-    font-weight: 700;
-  }
-  
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-  
-  h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-  
-  h5, h6 {
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  
-  body {
-    color: theme('colors.deep-navy');
-    background-color: theme('colors.pearl-white');
-  }
+/* Custom component classes */
+.btn {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition-property: all;
+  transition-duration: 200ms;
+  display: inline-block;
 }
 
-@layer components {
-  .btn {
-    @apply px-6 py-3 rounded-md font-semibold text-center cursor-pointer transition-all duration-200 inline-block;
-  }
-  
-  .btn-primary {
-    @apply bg-navy-blue text-alpine-white hover:bg-deep-navy;
-  }
-  
-  .btn-secondary {
-    @apply bg-mountain-blue text-alpine-white hover:bg-navy-blue;
-  }
-  
-  .btn-text {
-    @apply bg-transparent text-deep-navy px-4 py-2 hover:bg-ice-blue;
-  }
-  
-  .card {
-    @apply bg-alpine-white border border-mountain-blue/10 rounded-lg p-6 shadow-sm;
-  }
-  
-  .container {
-    @apply w-full max-w-7xl mx-auto px-4 md:px-6;
-  }
+.btn-primary {
+  background-color: #1B365D;
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: #2B517A;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
