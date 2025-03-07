@@ -8,6 +8,19 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Function to handle smooth scrolling to sections
+  const scrollToSection = (sectionId, event) => {
+    event.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Close mobile menu if open
+      if (isMenuOpen) setIsMenuOpen(false);
+      
+      // Smooth scroll to the section
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="bg-navy-blue text-alpine-white py-4">
       <div className="container flex justify-between items-center">
@@ -46,14 +59,47 @@ const Header = () => {
           className={`${isMenuOpen ? 'block' : 'hidden'} md:block absolute md:relative top-16 md:top-0 left-0 right-0 bg-navy-blue md:bg-transparent z-50 md:z-auto`}
         >
           <ul className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6 p-4 md:p-0">
-            <li><a href="/" className="text-alpine-white hover:text-ice-blue transition-colors">Home</a></li>
-            <li><a href="/services" className="text-alpine-white hover:text-ice-blue transition-colors">Services</a></li>
-            <li><a href="/about" className="text-alpine-white hover:text-ice-blue transition-colors">About</a></li>
-            <li><a href="/contact" className="text-alpine-white hover:text-ice-blue transition-colors">Contact</a></li>
+            <li>
+              <a 
+                href="#hero" 
+                className="text-alpine-white hover:text-ice-blue transition-colors"
+                onClick={(e) => scrollToSection('hero', e)}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#services" 
+                className="text-alpine-white hover:text-ice-blue transition-colors"
+                onClick={(e) => scrollToSection('services', e)}
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#about" 
+                className="text-alpine-white hover:text-ice-blue transition-colors"
+                onClick={(e) => scrollToSection('about', e)}
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#contact" 
+                className="text-alpine-white hover:text-ice-blue transition-colors"
+                onClick={(e) => scrollToSection('contact', e)}
+              >
+                Contact
+              </a>
+            </li>
             <li className="md:ml-2">
               <a 
-                href="/get-started" 
+                href="#contact" 
                 className="btn btn-secondary inline-block mt-2 md:mt-0"
+                onClick={(e) => scrollToSection('contact', e)}
               >
                 Get Started
               </a>

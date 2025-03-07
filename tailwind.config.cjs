@@ -4,30 +4,29 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: [
-    'px-6',
-    'py-3',
-    'rounded-md'
-  ],
   theme: {
     extend: {
       colors: {
-        // Primary Colors
+        // Primary colors
         'navy-blue': '#1B365D',
         'alpine-white': '#FFFFFF',
         
-        // Supporting Colors
+        // Supporting colors
         'mountain-blue': '#2B517A',
         'ice-blue': '#E8EEF4',
         
-        // Background Colors
+        // Background colors
         'pearl-white': '#F7FAFC',
         'deep-navy': '#152A4A',
       },
-      padding: {
-        '3': '0.75rem',
-        '6': '1.5rem',
-      }
+      container: {
+        center: true,
+        padding: '1rem',
+      },
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'open-sans': ['Open Sans', 'sans-serif'],
+      },
     },
   },
   plugins: [],
