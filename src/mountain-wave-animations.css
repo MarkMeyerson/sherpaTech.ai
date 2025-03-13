@@ -1,0 +1,59 @@
+/* mountain-wave-animations.css - place this in your src directory */
+/* Smooth wave-like mountain animations */
+
+@keyframes mountainWave1 {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(5px) translateX(-2%);
+  }
+  100% {
+    transform: translateY(0) translateX(-4%);
+  }
+}
+
+@keyframes mountainWave2 {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-5px) translateX(2%);
+  }
+  100% {
+    transform: translateY(0) translateX(4%);
+  }
+}
+
+@keyframes mountainWave3 {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(3px) translateX(-1%);
+  }
+  100% {
+    transform: translateY(0) translateX(-2%);
+  }
+}
+
+/* SVG filter for subtle wave effect */
+.wave-filter {
+  filter: url(#wave-filter);
+}
+
+/* Mountain wave classes */
+.mountain-wave-1 {
+  animation: mountainWave1 30s ease-in-out infinite alternate;
+  opacity: 0.08;
+}
+
+.mountain-wave-2 {
+  animation: mountainWave2 25s ease-in-out infinite alternate;
+  opacity: 0.12;
+}
+
+.mountain-wave-3 {
+  animation: mountainWave3 20s ease-in-out infinite alternate;
+  opacity: 0.15;
+}

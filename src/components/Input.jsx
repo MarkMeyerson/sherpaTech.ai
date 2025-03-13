@@ -1,53 +1,71 @@
-// src/components/Input.js
-import styled, { css } from 'styled-components';
+// src/components/Input.jsx
+import React from 'react';
 
-const inputStyles = css`
-  font-family: ${({ theme }) => theme.typography.fontFamily.body};
-  font-size: ${({ theme }) => theme.typography.fontSize.bodyRegular};
-  background-color: ${({ theme }) => theme.colors.alpineWhite};
-  border: 1px solid ${({ theme, error }) => 
-    error ? theme.colors.error : theme.colors.mountainBlue};
-  border-radius: ${({ theme }) => theme.borderRadius.button};
-  padding: 12px 16px;
-  width: 100%;
-  transition: border-color 0.2s;
-  
-  &:focus {
-    outline: none;
-    border-color: ${({ theme, error }) => 
-      error ? theme.colors.error : theme.colors.navyBlue};
-  }
-  
-  &::placeholder {
-    color: rgba(27, 54, 93, 0.5); /* Navy Blue with 50% opacity */
-  }
-`;
+// Base input styles as a function to share between components
+const getInputStyles = (error) => {
+  return `
+    w-full 
+    font-sans 
+    text-base 
+    bg-white 
+    border 
+    ${error ? 'border-red-500' : 'border-[#2B517A]'} 
+    rounded-md 
+    px-4 
+    py-3 
+    transition-colors 
+    focus:outline-none 
+    focus:border-${error ? 'red-700' : '[#1B365D]'}
+    placeholder:text-[#1B365D]/50
+  `;
+};
 
-export const Input = styled.input`
-  ${inputStyles}
-`;
+export const Input = ({ error, className = '', ...props }) => {
+  return (
+    <input
+      className={`${getInputStyles(error)} ${className}`}
+      {...props}
+    />
+  );
+};
 
-export const TextArea = styled.textarea`
-  ${inputStyles}
-  min-height: 120px;
-  resize: vertical;
-`;
+export const TextArea = ({ error, className = '', ...props }) => {
+  return (
+    <textarea
+      className={`${getInputStyles(error)} min-h-[120px] resize-vertical ${className}`}
+      {...props}
+    />
+  );
+};
 
-export const FormGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
+export const FormGroup = ({ className = '', children, ...props }) => {
+  return (
+    <div className={`mb-6 ${className}`} {...props}>
+      {children}
+    </div>
+  );
+};
 
-export const Label = styled.label`
-  display: block;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-  color: ${({ theme }) => theme.colors.deepNavy};
-`;
+export const Label = ({ className = '', children, ...props }) => {
+  return (
+    <label
+      className={`block font-semibold mb-2 text-[#152A4A] ${className}`}
+      {...props}
+    >
+      {children}
+    </label>
+  );
+};
 
-export const ErrorMessage = styled.p`
-  color: ${({ theme }) => theme.colors.error};
-  font-size: ${({ theme }) => theme.typography.fontSize.bodySmall};
-  margin-top: ${({ theme }) => theme.spacing.xs};
-`;
+export const ErrorMessage = ({ className = '', children, ...props }) => {
+  return (
+    <p
+      className={`text-red-500 text-sm mt-2 ${className}`}
+      {...props}
+    >
+      {children}
+    </p>
+  );
+};
 
 export default Input;

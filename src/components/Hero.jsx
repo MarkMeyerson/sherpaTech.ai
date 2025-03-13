@@ -12,35 +12,60 @@ const Hero = () => {
         }}
       ></div>
       
-      {/* Enhanced Mountain SVG Graphics */}
-      <svg
-        viewBox="0 0 1440 520"
-        className="absolute bottom-0 w-full h-full z-0"
-        preserveAspectRatio="xMidYMax slice"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Background Mountains */}
-        <path
-          fill="#ffffff"
-          fillOpacity="0.1"
-          d="M0,160L60,170.7C120,181,240,203,360,192C480,181,600,139,720,128C840,117,960,139,1080,149.3C1200,160,1320,160,1380,160L1440,160L1440,520L1380,520C1320,520,1200,520,1080,520C960,520,840,520,720,520C600,520,480,520,360,520C240,520,120,520,60,520L0,520Z"
-        ></path>
+      {/* Mountain Range SVG Graphics - with animation */}
+      <div className="absolute bottom-0 w-full h-full z-0 overflow-hidden">
+        {/* First Mountain Range - Back */}
+        <svg
+          viewBox="0 0 1440 320"
+          className="absolute bottom-0 w-full"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            animation: "mountainMove1 25s ease-in-out infinite alternate",
+            opacity: 0.15
+          }}
+        >
+          <path
+            fill="#ffffff"
+            d="M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,197.3C1120,192,1280,160,1360,144L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+          ></path>
+        </svg>
         
-        {/* Middle Mountains */}
-        <path
-          fill="#ffffff"
-          fillOpacity="0.15"
-          d="M0,256L60,261.3C120,267,240,277,360,245.3C480,213,600,139,720,144C840,149,960,235,1080,240C1200,245,1320,171,1380,133.3L1440,96L1440,520L1380,520C1320,520,1200,520,1080,520C960,520,840,520,720,520C600,520,480,520,360,520C240,520,120,520,60,520L0,520Z"
-        ></path>
+        {/* Second Mountain Range - Middle */}
+        <svg
+          viewBox="0 0 1440 320"
+          className="absolute bottom-0 w-full"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            animation: "mountainMove2 20s ease-in-out infinite alternate",
+            opacity: 0.2
+          }}
+        >
+          <path
+            fill="#ffffff"
+            d="M0,96L48,122.7C96,149,192,203,288,224C384,245,480,235,576,213.3C672,192,768,160,864,165.3C960,171,1056,213,1152,208C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
         
-        {/* Foreground Mountains - more visible */}
-        <path
-          fill="#ffffff"
-          fillOpacity="0.2"
-          d="M0,160L48,181.3C96,203,192,245,288,229.3C384,213,480,139,576,122.7C672,107,768,149,864,165.3C960,181,1056,171,1152,165.3C1248,160,1344,160,1392,160L1440,160L1440,520L1392,520C1344,520,1248,520,1152,520C1056,520,960,520,864,520C768,520,672,520,576,520C480,520,384,520,288,520C192,520,96,520,48,520L0,520Z"
-        ></path>
-      </svg>
-
+        {/* Third Mountain Range - Front */}
+        <svg
+          viewBox="0 0 1440 320"
+          className="absolute bottom-0 w-full"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            animation: "mountainMove3 15s ease-in-out infinite alternate",
+            opacity: 0.25
+          }}
+        >
+          <path
+            fill="#ffffff"
+            d="M0,160L40,149.3C80,139,160,117,240,128C320,139,400,181,480,176C560,171,640,117,720,101.3C800,85,880,107,960,144C1040,181,1120,235,1200,240C1280,245,1360,203,1400,181.3L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+      
       {/* Snow Caps */}
       <svg 
         viewBox="0 0 1440 200" 
@@ -56,11 +81,20 @@ const Hero = () => {
       </svg>
       
       <div className="container relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-8">
+          {/* Right column - image */}
+          <div className="md:w-1/2">
+            <img 
+              src="/ai-serpa.jpg" 
+              alt="AI Sherpa Guide" 
+              className="w-full max-w-md mx-auto rounded-lg shadow-xl"
+            />
+          </div>
+          
           {/* Left column - text content */}
           <div className="md:w-1/2 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">
-              Your AI Sherpa
+              Your AI Strategy Sherpa
             </h1>
             
             <p className="text-xl mb-8 text-white drop-shadow-md">
@@ -82,19 +116,29 @@ const Hero = () => {
               </a>
             </div>
           </div>
-          
-          {/* Right column - image */}
-          <div className="md:w-1/2 mt-8 md:mt-0">
-            <img 
-              src="/ai-serpa.jpg" 
-              alt="AI Sherpa Guide" 
-              className="w-full max-w-md mx-auto rounded-lg shadow-xl"
-            />
-          </div>
         </div>
       </div>
     </section>
   );
 };
+
+// Add keyframe animations for moving mountains
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = `
+  @keyframes mountainMove1 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-5%); }
+  }
+  @keyframes mountainMove2 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(5%); }
+  }
+  @keyframes mountainMove3 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-3%); }
+  }
+`;
+document.head.appendChild(styleSheet);
 
 export default Hero;

@@ -1,55 +1,58 @@
-// src/components/Button.js
-import styled, { css } from 'styled-components';
+// src/components/Button.jsx
+import React from 'react';
 
-const baseButtonStyles = css`
-  font-family: ${({ theme }) => theme.typography.fontFamily.body};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  font-size: ${({ theme }) => theme.typography.fontSize.bodyRegular};
-  padding: 12px 24px;
-  border-radius: ${({ theme }) => theme.borderRadius.button};
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  &:active {
-    transform: translateY(1px);
-  }
-`;
+// Primary button (navy blue background, white text)
+export const PrimaryButton = ({ children, className = '', disabled = false, onClick, type = 'button', ...props }) => {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-6 py-3 rounded-md bg-[#1B365D] text-white font-semibold 
+                 hover:bg-[#152A4A] transition-colors duration-200 
+                 ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} 
+                 active:translate-y-0.5 ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 
-export const PrimaryButton = styled.button`
-  ${baseButtonStyles}
-  background-color: ${({ theme }) => theme.colors.navyBlue};
-  color: ${({ theme }) => theme.colors.alpineWhite};
-  
-  &:hover:not(:disabled) {
-    background-color: ${({ theme }) => theme.colors.deepNavy};
-  }
-`;
+// Secondary button (mountain blue background, white text)
+export const SecondaryButton = ({ children, className = '', disabled = false, onClick, type = 'button', ...props }) => {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-6 py-3 rounded-md bg-[#2B517A] text-white font-semibold 
+                 hover:bg-[#1B365D] transition-colors duration-200 
+                 ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} 
+                 active:translate-y-0.5 ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 
-export const SecondaryButton = styled.button`
-  ${baseButtonStyles}
-  background-color: ${({ theme }) => theme.colors.mountainBlue};
-  color: ${({ theme }) => theme.colors.alpineWhite};
-  
-  &:hover:not(:disabled) {
-    background-color: ${({ theme }) => theme.colors.navyBlue};
-  }
-`;
-
-export const TextButton = styled.button`
-  ${baseButtonStyles}
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.deepNavy};
-  padding: 8px 16px;
-  
-  &:hover:not(:disabled) {
-    background-color: ${({ theme }) => theme.colors.iceBlue};
-  }
-`;
+// Text button (transparent background, navy text)
+export const TextButton = ({ children, className = '', disabled = false, onClick, type = 'button', ...props }) => {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-4 py-2 rounded-md bg-transparent text-[#152A4A] font-semibold 
+                 hover:bg-[#F7FAFC] transition-colors duration-200 
+                 ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} 
+                 active:translate-y-0.5 ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 
 export default PrimaryButton;

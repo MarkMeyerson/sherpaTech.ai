@@ -1,23 +1,39 @@
-// src/components/Card.js
-import styled from 'styled-components';
+// src/components/Card.jsx
+import React from 'react';
 
-const Card = styled.div`
-  background-color: ${({ theme, variant }) => 
-    variant === 'ice' ? theme.colors.iceBlue : theme.colors.alpineWhite};
-  border: 1px solid rgba(43, 81, 122, 0.1); /* Mountain Blue with 10% opacity */
-  border-radius: ${({ theme }) => theme.borderRadius.card};
-  box-shadow: ${({ theme }) => theme.shadows.subtle};
-  padding: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
+const Card = ({ children, variant = 'default', className = '', ...props }) => {
+  const bgColor = variant === 'ice' ? 'bg-[#F7FAFC]' : 'bg-white';
+  
+  return (
+    <div 
+      className={`${bgColor} border border-[#2B517A]/10 rounded-lg shadow-sm p-6 mb-6 ${className}`}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
-export const CardTitle = styled.h3`
-  color: ${({ theme }) => theme.colors.navyBlue};
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
+export const CardTitle = ({ children, className = '', ...props }) => {
+  return (
+    <h3 
+      className={`text-[#1B365D] mb-2 text-xl font-semibold ${className}`}
+      {...props}
+    >
+      {children}
+    </h3>
+  );
+};
 
-export const CardContent = styled.div`
-  color: ${({ theme }) => theme.colors.deepNavy};
-`;
+export const CardContent = ({ children, className = '', ...props }) => {
+  return (
+    <div 
+      className={`text-[#152A4A] ${className}`}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 export default Card;
