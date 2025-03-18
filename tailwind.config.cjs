@@ -1,4 +1,3 @@
-// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -8,28 +7,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary Colors
+        // Primary colors
         'navy-blue': '#1B365D',
         'alpine-white': '#FFFFFF',
         
-        // Supporting Colors
+        // Supporting colors
         'mountain-blue': '#2B517A',
         'ice-blue': '#E8EEF4',
         
-        // Background Colors
+        // Background colors
         'pearl-white': '#F7FAFC',
         'deep-navy': '#152A4A',
       },
-      fontFamily: {
-        'heading': ['Inter', 'sans-serif'],
-        'body': ['Open Sans', 'sans-serif'],
+      container: {
+        center: true,
+        padding: '1rem',
       },
-      spacing: {
-        'xs': '0.5rem',   // 8px
-        'sm': '1rem',     // 16px
-        'md': '1.5rem',   // 24px
-        'lg': '2rem',     // 32px
-        'xl': '3rem',     // 48px
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'open-sans': ['Open Sans', 'sans-serif'],
       },
     },
   },
