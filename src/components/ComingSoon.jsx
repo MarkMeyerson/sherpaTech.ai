@@ -7,33 +7,32 @@ const ComingSoon = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow flex items-center justify-center py-16 relative">
-        {/* Background with logo at 50% transparency */}
-        <div className="absolute inset-0 flex items-center justify-center z-0">
+      <main className="flex-grow flex items-center justify-center bg-pearl-white">
+        <div className="text-center max-w-2xl mx-auto px-4 py-16">
+          <h1 className="text-4xl font-bold text-navy-blue mb-4">Coming Soon</h1>
+          <div className="w-20 h-1 bg-mountain-blue mx-auto mb-8"></div>
+          
+          <p className="text-xl text-deep-navy mb-8">
+            Our Sherpas are currently guiding this part of the journey to completion.
+            Check back soon for updates!
+          </p>
+          
           <img 
-            src="/ai-logo.png" 
-            alt="SherpaTech.ai Logo" 
-            className="max-w-md w-4/5 opacity-50"
+            src="/images/mountain-peak.svg" 
+            alt="Mountain Peak" 
+            className="w-48 mx-auto mb-8"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.style.display = 'none';
+            }}
           />
-        </div>
-        
-        <div className="container relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B365D]">
-              Coming Soon
-            </h1>
-            
-            <p className="text-xl mb-8 text-[#152A4A]">
-              We're working hard to bring you this content. Please check back soon!
-            </p>
-            
-            <a 
-              href="/" 
-              className="px-6 py-3 rounded-md bg-[#1B365D] text-white font-semibold hover:bg-[#2B517A] transition-colors inline-block"
-            >
-              Return to Home
-            </a>
-          </div>
+          
+          <a 
+            href="/"
+            className="inline-block bg-navy-blue text-alpine-white py-3 px-8 rounded-md hover:bg-mountain-blue transition duration-300 font-semibold"
+          >
+            Return to Base Camp
+          </a>
         </div>
       </main>
       <Footer />
