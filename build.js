@@ -1,7 +1,11 @@
 // Custom build script to bypass Rollup optional dependency issues
-const { execSync } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+import { execSync } from 'child_process';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 console.log('Starting custom build process...');
 
@@ -13,8 +17,11 @@ if (!fs.existsSync('dist')) {
 try {
   // Use Vite directly bypassing Rollup native dependencies
   console.log('Running Vite build with specific options...');
+  
+  // Set environment variable to disable Rollup native dependencies
+  process.env.ROLLUP_NATIVE_DISABLE = 'true';
+  
   execSync('npx vite build --force', { 
-    env: { ...process.env, ROLLUP_NATIVE_DISABLE: 'true' },
     stdio: 'inherit'
   });
   
