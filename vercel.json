@@ -4,10 +4,12 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npx --no-install vite build",
+        "buildCommand": "npm run build",
         "outputDirectory": "dist"
       }
     }
   ],
-  "buildCommand": "npx --no-install vite build"
+  "env": {
+    "ROLLUP_NATIVE_DISABLE": "true"
+  }
 }
