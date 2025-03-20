@@ -4,10 +4,10 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm install --no-optional && npm run build",
+        "buildCommand": "npx --no-install vite build",
         "outputDirectory": "dist"
       }
     }
   ],
-  "buildCommand": "npm install --no-optional && npm run build"
+  "buildCommand": "npx --no-install vite build"
 }
