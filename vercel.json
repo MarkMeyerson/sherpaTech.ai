@@ -1,0 +1,13 @@
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm install --no-optional && npm run build",
+        "outputDirectory": "dist"
+      }
+    }
+  ],
+  "buildCommand": "npm install --no-optional && npm run build"
+}
