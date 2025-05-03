@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="container">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-alpine-white text-xl mb-4">SherpaTech.Ai</h3>
+            <h3 className="text-alpine-white text-xl mb-4">SherpaTech.AI</h3>
             <p className="text-sm opacity-80 mb-4">
               Guiding small and medium businesses through their digital transformation journey.
             </p>
@@ -78,11 +79,32 @@ const Footer = () => {
           </div>
         </div>
         
+        {/* Sherpa Support Foundation */}
+        <div className="mt-8 pt-8 border-t border-alpine-white/20">
+          <div className="max-w-md mx-auto text-center">
+            <p className="text-sm opacity-80 mb-4">
+              A portion of all profits is donated to support Sherpa communities
+            </p>
+            <a 
+              href="https://www.sherpasupportfoundation.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center hover:opacity-80 transition-opacity"
+            >
+              <img 
+                src="/Sherpa-Foundation-Logo.png" 
+                alt="Sherpa Support Foundation Logo" 
+                className="h-12 w-auto"
+              />
+            </a>
+          </div>
+        </div>
+        
         <div className="border-t border-alpine-white/20 mt-8 pt-8 text-sm opacity-70 flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; {new Date().getFullYear()} SherpaTech.Ai. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} SherpaTech.AI. All rights reserved.</p>
           <div className="mt-4 md:mt-0">
-            <a href="#" className="text-alpine-white opacity-80 hover:opacity-100 mr-4">Privacy Policy</a>
-            <a href="#" className="text-alpine-white opacity-80 hover:opacity-100">Terms of Service</a>
+            <Link to="/privacy" className="text-alpine-white opacity-80 hover:opacity-100 mr-4">Privacy Policy</Link>
+            <Link to="/terms" className="text-alpine-white opacity-80 hover:opacity-100">Terms of Service</Link>
           </div>
         </div>
       </div>
