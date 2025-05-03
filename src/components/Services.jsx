@@ -1,5 +1,6 @@
 // src/components/Services.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   return (
@@ -36,9 +37,9 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Empower your team with the knowledge and skills to effectively use AI tools.
             </p>
-            <a href="#contact" className="text-navy-blue font-semibold hover:text-mountain-blue">
+            <Link to="/training" className="text-navy-blue font-semibold hover:text-mountain-blue">
               Learn more →
-            </a>
+            </Link>
           </div>
         </div>
       </div>
