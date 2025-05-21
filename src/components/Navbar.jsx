@@ -28,6 +28,8 @@ const NavLink = styled(Link)`
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   text-decoration: none;
   padding: ${({ theme }) => theme.spacing.xs};
+  white-space: normal; // Allow text to wrap
+  text-align: center; // Center the text when it wraps
   
   &:hover {
     text-decoration: none;
@@ -44,7 +46,7 @@ const Navbar = () => {
         <NavLink to="/services">Services</NavLink>
         <NavLink to="/about">About</NavLink>
         <NavLink to="/small-businesses">Small Businesses</NavLink>
-        <NavLink to="/training">Training Plan</NavLink>
+        <NavLink to="/training">Training Plan<br />for Individuals</NavLink>
         <NavLink to="/contact">Contact</NavLink>
       </NavLinks>
     </NavbarContainer>
