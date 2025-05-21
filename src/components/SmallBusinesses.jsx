@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import AIReadinessAssessment from './AIReadinessAssessment';
 import AIImplementationPlan from './AIImplementationPlan';
+import ContactForm from './ContactForm';
+import BookingButton from './BookingButton';
 
 const SmallBusinesses = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [submissionStatus, setSubmissionStatus] = useState('');
 
   // Content for the Overview tab
   const OverviewContent = () => (
@@ -125,6 +128,41 @@ const SmallBusinesses = () => {
     </div>
   );
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    
+    try {
+      const response = await fetch('YOUR_EXISTING_FLOW_ENDPOINT', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          company: formData.get('company'),
+          assessment: {
+            currentTech: formData.get('currentTech'),
+            challenges: formData.get('challenges'),
+            goals: formData.get('goals')
+          }
+        })
+      });
+
+      if (response.ok) {
+        // Show success message
+        setSubmissionStatus('success');
+      } else {
+        // Show error message
+        setSubmissionStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmissionStatus('error');
+    }
+  };
+
   return (
     <div className="bg-pearl-white text-deep-navy">
       {/* Hero Section */}
@@ -169,6 +207,22 @@ const SmallBusinesses = () => {
           {activeTab === 'implementation' && <AIImplementationPlan />}
         </div>
       </div>
+
+      {/* Add Booking Button Section */}
+      <div className="bg-deep-navy text-alpine-white rounded-lg p-8 text-center mb-16">
+        <h2 className="text-3xl font-bold mb-4">Ready to Take the First Step?</h2>
+        <p className="text-xl mb-8">
+          Schedule a free consultation to discuss your business's AI journey.
+        </p>
+        <BookingButton />
+      </div>
+
+      {/* Contact Form Section */}
+      <section className="py-16">
+        <div className="max-w-2xl mx-auto">
+          <ContactForm />
+        </div>
+      </section>
     </div>
   );
 };
