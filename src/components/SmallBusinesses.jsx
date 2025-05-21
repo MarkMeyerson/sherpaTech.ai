@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AIReadinessAssessment from './AIReadinessAssessment';
 import AIImplementationPlan from './AIImplementationPlan';
 import ContactForm from './ContactForm';
 import BookingButton from './BookingButton';
@@ -210,7 +209,6 @@ const SmallBusinesses = () => {
 
       {/* Add Booking Button Section */}
       <div className="bg-deep-navy text-alpine-white rounded-lg p-8 text-center mb-16">
-        <h2 className="text-3xl font-bold mb-4">Ready to Take the First Step?</h2>
         <p className="text-xl mb-8">
           Schedule a free consultation to discuss your business's AI journey.
         </p>
