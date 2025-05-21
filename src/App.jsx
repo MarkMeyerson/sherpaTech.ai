@@ -12,6 +12,7 @@ import TrainingPlan from './components/TrainingPlan'
 import Footer from './components/Footer'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsOfService from './components/TermsOfService'
+import SmallBusinesses from './components/SmallBusinesses'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/training" element={<TrainingPlan />} />
+            <Route path="/small-businesses" element={<SmallBusinesses />} />
           </Routes>
         </main>
         <Footer />

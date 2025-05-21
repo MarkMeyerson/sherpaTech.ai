@@ -1,6 +1,7 @@
 // src/components/Navbar.js
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const NavbarContainer = styled.nav`
   background-color: ${({ theme }) => theme.colors.navyBlue};
@@ -22,7 +23,7 @@ const NavLinks = styled.div`
   gap: ${({ theme }) => theme.spacing.md};
 `;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   color: ${({ theme }) => theme.colors.alpineWhite};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   text-decoration: none;
@@ -39,11 +40,11 @@ const Navbar = () => {
     <NavbarContainer>
       <Logo>SherpaTech.ai</Logo>
       <NavLinks>
-        <NavLink href="#features">Features</NavLink>
-        <NavLink href="#solutions">Solutions</NavLink>
-        <NavLink href="#pricing">Pricing</NavLink>
-        <NavLink href="#about">About</NavLink>
-        <NavLink href="#contact">Contact</NavLink>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/services">Services</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/small-businesses">Small Businesses</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
       </NavLinks>
     </NavbarContainer>
   );
