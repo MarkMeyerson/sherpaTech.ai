@@ -27,6 +27,9 @@ function App() {
               <About />
               <Contact />
             </>} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/training" element={<TrainingPlan />} />
