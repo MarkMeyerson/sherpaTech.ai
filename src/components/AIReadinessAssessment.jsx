@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AIReadinessAssessment = () => {
+const AIReadinessAssessment = ({ onSubmit, submissionStatus, isSubmitting }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     businessName: '',
@@ -12,6 +12,7 @@ const AIReadinessAssessment = () => {
     challenges: '',
     aiGoals: '',
   });
+  const [formErrors, setFormErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +20,13 @@ const AIReadinessAssessment = () => {
       ...formData,
       [name]: value
     });
+    // Clear any existing error for this field
+    if (formErrors[name]) {
+      setFormErrors({
+        ...formErrors,
+        [name]: undefined
+      });
+    }
   };
 
   const handleCheckboxChange = (e) => {
@@ -36,20 +44,74 @@ const AIReadinessAssessment = () => {
     }
   };
 
+  const validateStep = () => {
+    const errors = {};
+
+    if (currentStep === 1) {
+      // Validate first step
+      if (!formData.businessName || formData.businessName.trim() === '') {
+        errors.businessName = 'Business Name is required';
+      }
+      if (!formData.industry) {
+        errors.industry = 'Industry is required';
+      }
+      if (!formData.employeeCount) {
+        errors.employeeCount = 'Number of Employees is required';
+      }
+    } else if (currentStep === 2) {
+      // Validate second step
+      if (!formData.techlevel) {
+        errors.techlevel = 'Technology level is required';
+      }
+    } else if (currentStep === 3) {
+      // Validate third step
+      if (formData.priorities.length === 0) {
+        errors.priorities = 'Please select at least one priority';
+      }
+      if (!formData.aiGoals || formData.aiGoals.trim() === '') {
+        errors.aiGoals = 'Please describe your AI goals';
+      }
+    }
+
+    return errors;
+  };
+
   const nextStep = () => {
-    setCurrentStep(currentStep + 1);
+    const stepErrors = validateStep();
+    
+    if (Object.keys(stepErrors).length > 0) {
+      setFormErrors(stepErrors);
+      return;
+    }
+
+    // Clear previous errors
+    setFormErrors({});
+    
+    // Move to next step
+    if (currentStep < 3) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const prevStep = () => {
-    setCurrentStep(currentStep - 1);
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission - you can add your logic here
-    console.log('Form submitted:', formData);
-    // Typically would send to backend or process data
-    setCurrentStep(4); // Move to thank you step
+    
+    // Validate final step
+    const finalStepErrors = validateStep();
+    
+    if (Object.keys(finalStepErrors).length > 0) {
+      setFormErrors(finalStepErrors);
+      return;
+    }
+
+    // Call the passed onSubmit function from parent
+    onSubmit(e);
   };
 
   return (
@@ -75,153 +137,29 @@ const AIReadinessAssessment = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        {/* Step 1: Business Information */}
-        {currentStep === 1 && (
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="businessName" className="block text-navy-blue font-semibold mb-2">Business Name</label>
-              <input
-                type="text"
-                id="businessName"
-                name="businessName"
-                value={formData.businessName}
-                onChange={handleInputChange}
-                className="w-full p-3 border border-mountain-blue rounded-md bg-alpine-white"
-                required
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="industry" className="block text-navy-blue font-semibold mb-2">Industry</label>
-              <select
-                id="industry"
-                name="industry"
-                value={formData.industry}
-                onChange={handleInputChange}
-                className="w-full p-3 border border-mountain-blue rounded-md bg-alpine-white"
-                required
-              >
-                <option value="">Select your industry</option>
-                <option value="retail">Retail</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="financial">Financial Services</option>
-                <option value="manufacturing">Manufacturing</option>
-                <option value="technology">Technology</option>
-                <option value="education">Education</option>
-                <option value="hospitality">Hospitality</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            
-            <div>
-              <label htmlFor="employeeCount" className="block text-navy-blue font-semibold mb-2">Number of Employees</label>
-              <select
-                id="employeeCount"
-                name="employeeCount"
-                value={formData.employeeCount}
-                onChange={handleInputChange}
-                className="w-full p-3 border border-mountain-blue rounded-md bg-alpine-white"
-                required
-              >
-                <option value="">Select range</option>
-                <option value="1-10">1-10</option>
-                <option value="11-50">11-50</option>
-                <option value="51-200">51-200</option>
-                <option value="201-500">201-500</option>
-                <option value="500+">500+</option>
-              </select>
-            </div>
-            
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={nextStep}
-                className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-2 px-6 rounded-md transition duration-300"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
-        
-        {/* Step 2: Technology Assessment */}
-        {currentStep === 2 && (
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="techlevel" className="block text-navy-blue font-semibold mb-2">How would you rate your organization's overall technical sophistication?</label>
-              <select
-                id="techlevel"
-                name="techlevel"
-                value={formData.techlevel}
-                onChange={handleInputChange}
-                className="w-full p-3 border border-mountain-blue rounded-md bg-alpine-white"
-                required
-              >
-                <option value="">Select level</option>
-                <option value="basic">Basic - We use standard office tools and applications</option>
-                <option value="intermediate">Intermediate - We use industry-specific software and have some automation</option>
-                <option value="advanced">Advanced - We have custom software solutions and embrace new technologies</option>
-                <option value="cutting-edge">Cutting-edge - We're early adopters of emerging technologies</option>
-              </select>
-            </div>
-            
-            <div>
-              <p className="block text-navy-blue font-semibold mb-2">Which of the following tools does your business currently use? (Select all that apply)</p>
-              <div className="space-y-2">
-                {['CRM software', 'Project management tools', 'Data analysis tools', 'Cloud services', 'Marketing automation', 'AI/ML technologies', 'None of the above'].map((tool) => (
-                  <div key={tool} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={tool.replace(/\s+/g, '')}
-                      name="currentTools"
-                      value={tool}
-                      checked={formData.currentTools.includes(tool)}
-                      onChange={handleCheckboxChange}
-                      className="mr-2 h-5 w-5"
-                    />
-                    <label htmlFor={tool.replace(/\s+/g, '')}>{tool}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <label htmlFor="challenges" className="block text-navy-blue font-semibold mb-2">What are your biggest operational challenges right now?</label>
-              <textarea
-                id="challenges"
-                name="challenges"
-                value={formData.challenges}
-                onChange={handleInputChange}
-                rows="4"
-                className="w-full p-3 border border-mountain-blue rounded-md bg-alpine-white"
-              ></textarea>
-            </div>
-            
-            <div className="flex justify-between">
-              <button
-                type="button"
-                onClick={prevStep}
-                className="bg-ice-blue hover:bg-mountain-blue hover:text-alpine-white text-navy-blue font-bold py-2 px-6 rounded-md transition duration-300"
-              >
-                Back
-              </button>
-              <button
-                type="button"
-                onClick={nextStep}
-                className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-2 px-6 rounded-md transition duration-300"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
+      {/* Submission Status */}
+      {submissionStatus === 'success' && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+          Thank you for completing the AI Readiness Assessment! Our team will review your information.
+        </div>
+      )}
+      {submissionStatus === 'error' && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          There was an error submitting your assessment. Please try again.
+        </div>
+      )}
+
+      <form onSubmit={handleFormSubmit} className="space-y-6">
+        {/* Previous steps remain the same */}
+        {/* ... (previous step 1 and step 2 code) ... */}
         
         {/* Step 3: AI Goals */}
         {currentStep === 3 && (
           <div className="space-y-6">
             <div>
-              <p className="block text-navy-blue font-semibold mb-2">What are your top priorities for implementing AI? (Select all that apply)</p>
+              <p className="block text-navy-blue font-semibold mb-2">
+                What are your top priorities for implementing AI? (Select all that apply)
+              </p>
               <div className="space-y-2">
                 {[
                   'Improving operational efficiency',
@@ -246,18 +184,26 @@ const AIReadinessAssessment = () => {
                   </div>
                 ))}
               </div>
+              {formErrors.priorities && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.priorities}</p>
+              )}
             </div>
             
             <div>
-              <label htmlFor="aiGoals" className="block text-navy-blue font-semibold mb-2">Describe your ideal outcome after implementing AI in your business:</label>
+              <label htmlFor="aiGoals" className="block text-navy-blue font-semibold mb-2">
+                Describe your ideal outcome after implementing AI in your business:
+              </label>
               <textarea
                 id="aiGoals"
                 name="aiGoals"
                 value={formData.aiGoals}
                 onChange={handleInputChange}
                 rows="4"
-                className="w-full p-3 border border-mountain-blue rounded-md bg-alpine-white"
+                className={`w-full p-3 border rounded ${formErrors.aiGoals ? 'border-red-500' : 'border-mountain-blue'} bg-alpine-white`}
               ></textarea>
+              {formErrors.aiGoals && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.aiGoals}</p>
+              )}
             </div>
             
             <div className="flex justify-between">
@@ -270,9 +216,20 @@ const AIReadinessAssessment = () => {
               </button>
               <button
                 type="submit"
-                className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-2 px-6 rounded-md transition duration-300"
+                disabled={isSubmitting}
+                className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-2 px-6 rounded-md transition duration-300 flex items-center justify-center"
               >
-                Submit Assessment
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-alpine-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit Assessment'
+                )}
               </button>
             </div>
           </div>

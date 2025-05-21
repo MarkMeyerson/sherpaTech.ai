@@ -1,8 +1,17 @@
-// src/components/Services.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
+  const navigate = useNavigate();
+
+  const navigateToContact = (service) => {
+    navigate('/contact', { 
+      state: { 
+        preselectedService: service 
+      } 
+    });
+  };
+
   return (
     <section id="services" className="bg-ice-blue py-20">
       <div className="container mx-auto px-4">
@@ -15,18 +24,12 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Develop a customized AI roadmap aligned with your business goals and budget.
             </p>
-            <Link 
-              to="/contact" 
+            <button 
+              onClick={() => navigateToContact('AI Strategy Consultation')}
               className="text-mountain-blue hover:text-navy-blue transition-colors duration-300"
-              onClick={() => {
-                // Add service type to URL params for pre-filling contact form
-                const searchParams = new URLSearchParams();
-                searchParams.append('service', 'AI Strategy Consultation');
-                window.location.href = `/contact?${searchParams.toString()}`;
-              }}
             >
               Learn more →
-            </Link>
+            </button>
           </div>
           
           {/* Service Card 2 */}
@@ -35,18 +38,12 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Seamlessly integrate AI tools into your existing workflows and systems.
             </p>
-            <Link 
-              to="/contact" 
+            <button 
+              onClick={() => navigateToContact('AI Implementation')}
               className="text-mountain-blue hover:text-navy-blue transition-colors duration-300"
-              onClick={() => {
-                // Add service type to URL params for pre-filling contact form
-                const searchParams = new URLSearchParams();
-                searchParams.append('service', 'AI Implementation');
-                window.location.href = `/contact?${searchParams.toString()}`;
-              }}
             >
               Learn more →
-            </Link>
+            </button>
           </div>
           
           {/* Service Card 3 */}
@@ -55,18 +52,12 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Empower your team with the knowledge and skills to effectively use AI tools.
             </p>
-            <Link 
-              to="/contact" 
+            <button 
+              onClick={() => navigateToContact('AI Training & Support')}
               className="text-mountain-blue hover:text-navy-blue transition-colors duration-300"
-              onClick={() => {
-                // Add service type to URL params for pre-filling contact form
-                const searchParams = new URLSearchParams();
-                searchParams.append('service', 'AI Training & Support');
-                window.location.href = `/contact?${searchParams.toString()}`;
-              }}
             >
               Learn more →
-            </Link>
+            </button>
           </div>
         </div>
       </div>
