@@ -7,15 +7,15 @@ import './index.css'
 
 // Components
 import Header from './components/Header'
-import Home from './components/Home'  // Make sure this exists
+import Home from './components/Home'
 import Services from './components/Services'
 import About from './components/About'
 import Contact from './components/Contact'
 import TrainingPlan from './components/TrainingPlan'
-import Footer from './components/Footer'
+import SmallBusinesses from './components/SmallBusinesses'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsOfService from './components/TermsOfService'
-import SmallBusinesses from './components/SmallBusinesses'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -25,9 +25,7 @@ function App() {
           <Header />
           <main className="flex-grow">
             <Routes>
-              <Route path="/" element={
-                <Home />
-              } />
+              <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
