@@ -15,9 +15,18 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Develop a customized AI roadmap aligned with your business goals and budget.
             </p>
-            <a href="#contact" className="text-navy-blue font-semibold hover:text-mountain-blue">
+            <Link 
+              to="/contact" 
+              className="text-mountain-blue hover:text-navy-blue transition-colors duration-300"
+              onClick={() => {
+                // Add service type to URL params for pre-filling contact form
+                const searchParams = new URLSearchParams();
+                searchParams.append('service', 'AI Strategy Consultation');
+                window.location.href = `/contact?${searchParams.toString()}`;
+              }}
+            >
               Learn more →
-            </a>
+            </Link>
           </div>
           
           {/* Service Card 2 */}
@@ -26,9 +35,18 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Seamlessly integrate AI tools into your existing workflows and systems.
             </p>
-            <a href="#contact" className="text-navy-blue font-semibold hover:text-mountain-blue">
+            <Link 
+              to="/contact" 
+              className="text-mountain-blue hover:text-navy-blue transition-colors duration-300"
+              onClick={() => {
+                // Add service type to URL params for pre-filling contact form
+                const searchParams = new URLSearchParams();
+                searchParams.append('service', 'AI Implementation');
+                window.location.href = `/contact?${searchParams.toString()}`;
+              }}
+            >
               Learn more →
-            </a>
+            </Link>
           </div>
           
           {/* Service Card 3 */}
@@ -37,7 +55,16 @@ const Services = () => {
             <p className="text-mountain-blue mb-4">
               Empower your team with the knowledge and skills to effectively use AI tools.
             </p>
-            <Link to="/training" className="text-navy-blue font-semibold hover:text-mountain-blue">
+            <Link 
+              to="/contact" 
+              className="text-mountain-blue hover:text-navy-blue transition-colors duration-300"
+              onClick={() => {
+                // Add service type to URL params for pre-filling contact form
+                const searchParams = new URLSearchParams();
+                searchParams.append('service', 'AI Training & Support');
+                window.location.href = `/contact?${searchParams.toString()}`;
+              }}
+            >
               Learn more →
             </Link>
           </div>

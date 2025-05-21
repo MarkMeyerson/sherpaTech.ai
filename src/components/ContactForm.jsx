@@ -10,7 +10,7 @@ const ContactForm = () => {
     const formData = new FormData(event.target);
 
     try {
-      const response = await fetch('YOUR_MICROSOFT_FLOW_ENDPOINT', {
+      const response = await fetch('https://prod-142.westus.logic.azure.com:443/workflows/v1/ce8b36cb-ab68-ee9d-b3c5-9ea384bb1813/c8701795-a8b9-4fbf-88a5-41e65902e98d/triggers/manual/paths/invoke', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +19,8 @@ const ContactForm = () => {
           formType: 'contact',
           name: formData.get('name'),
           email: formData.get('email'),
-          message: formData.get('message')
+          message: formData.get('message'),
+          source: window.location.pathname // Track which page sent the form
         })
       });
 

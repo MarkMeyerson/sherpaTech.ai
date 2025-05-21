@@ -111,7 +111,10 @@ const SmallBusinesses = () => {
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button 
-            onClick={() => setActiveTab('assessment')} 
+            onClick={() => {
+              setActiveTab('assessment');
+              document.getElementById('assessment-form').scrollIntoView({ behavior: 'smooth' });
+            }} 
             className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300"
           >
             Take the Assessment
@@ -202,7 +205,11 @@ const SmallBusinesses = () => {
         {/* Tab Content */}
         <div className="py-8">
           {activeTab === 'overview' && <OverviewContent />}
-          {activeTab === 'assessment' && <AIReadinessAssessment />}
+          {activeTab === 'assessment' && 
+            <div id="assessment-form">
+              <AIReadinessAssessment />
+            </div>
+          }
           {activeTab === 'implementation' && <AIImplementationPlan />}
         </div>
       </div>
