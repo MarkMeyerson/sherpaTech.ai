@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { theme } from './theme'
 import './App.css'
 import './index.css'
+
+// Components
 import Header from './components/Header'
-import Hero from './components/Hero'
+import Home from './components/Home'  // Make sure this exists
 import Services from './components/Services'
 import About from './components/About'
 import Contact from './components/Contact'
-import Privacy from './components/Privacy'
 import TrainingPlan from './components/TrainingPlan'
 import Footer from './components/Footer'
 import PrivacyPolicy from './components/PrivacyPolicy'
@@ -24,7 +25,9 @@ function App() {
           <Header />
           <main className="flex-grow">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={
+                <Home />
+              } />
               <Route path="/services" element={<Services />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />

@@ -1,61 +1,63 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+  color: ${({ theme }) => theme.colors.alpineWhite};
+  padding: ${({ theme }) => theme.spacing.xl};
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: ${({ theme }) => theme.spacing.lg};
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const Card = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: ${({ theme }) => theme.spacing.lg};
+  backdrop-filter: blur(10px);
+`;
+
+const Title = styled.h1`
+  font-size: ${({ theme }) => theme.typography.fontSize.h1};
+  text-align: center;
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+`;
+
+const PlanTitle = styled.h2`
+  font-size: ${({ theme }) => theme.typography.fontSize.h3};
+  color: ${({ theme }) => theme.colors.skyBlue};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+`;
 
 const TrainingPlan = () => {
-  const navigate = useNavigate();
-
-  const handleScheduleConsultation = () => {
-    // You can replace this URL with your actual scheduling system
-    // For now, I'll open a new window to a generic scheduling page
-    // or redirect to a contact form with a specific subject
-    window.open('https://outlook.office.com/book/ScheduleYourAICoachingSessionatSherpaTechAI@awarehousedc.com/', '_blank');
-    
-    // Alternative: Navigate to contact form with pre-filled subject
-    // navigate('/contact', { state: { subject: 'Schedule Free Consultation' } });
-  };
-
-  const handleLearnAboutCoaching = () => {
-    // Navigate to a coaching information page
-    // Since this page doesn't exist yet, I'll navigate to the home page and scroll to about section
-    navigate('/', { replace: true });
-    setTimeout(() => {
-      const aboutSection = document.getElementById('about');
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  };
-
   return (
-    <div className="min-h-screen bg-pearl-white text-deep-navy">
-      {/* CTA Section */}
-      <section className="py-16 container mx-auto px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-navy-blue mb-6 font-inter">Ready to Begin Your AI Journey?</h2>
-          <p className="text-xl text-mountain-blue mb-8 font-open-sans">
-            Take the first step toward AI mastery with a personalized consultation to discuss your goals and how our 
-            5-Week AI Mastery Training can help you achieve them.
-          </p>
-          <div className="space-y-4">
-            <button 
-              onClick={handleScheduleConsultation}
-              className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300 font-inter"
-            >
-              Schedule Your Free Consultation
-            </button>
-            <p className="text-mountain-blue font-open-sans">
-              or
-            </p>
-            <button 
-              onClick={handleLearnAboutCoaching}
-              className="bg-mountain-blue hover:bg-deep-navy text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300 font-inter"
-            >
-              Learn About Our Coaching Approach
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
+    <Container>
+      <Title>AI Training Programs</Title>
+      <Grid>
+        <Card>
+          <PlanTitle>Fundamentals of AI</PlanTitle>
+          <p>Master the basics of artificial intelligence and machine learning. Perfect for beginners looking to understand core concepts.</p>
+        </Card>
+        <Card>
+          <PlanTitle>Advanced AI Implementation</PlanTitle>
+          <p>Deep dive into practical AI implementation strategies. Learn how to integrate AI solutions into existing business processes.</p>
+        </Card>
+        <Card>
+          <PlanTitle>AI Leadership Workshop</PlanTitle>
+          <p>Strategic training for executives and decision-makers. Understand how to lead AI transformation in your organization.</p>
+        </Card>
+        <Card>
+          <PlanTitle>Custom Training Solutions</PlanTitle>
+          <p>Tailored programs designed specifically for your team's needs and industry requirements.</p>
+        </Card>
+      </Grid>
+    </Container>
   );
 };
 
