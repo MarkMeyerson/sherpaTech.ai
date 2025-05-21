@@ -36,11 +36,6 @@ function App() {
           </main>
           <Footer />
         </div>
-              <Route path="/small-businesses" element={<SmallBusinesses />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
       </Router>
     </ThemeProvider>
   )
