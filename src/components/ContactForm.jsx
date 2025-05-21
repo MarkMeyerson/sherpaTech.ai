@@ -10,17 +10,16 @@ const ContactForm = () => {
     const formData = new FormData(event.target);
 
     try {
-      const response = await fetch('https://prod-142.westus.logic.azure.com:443/workflows/v1/ce8b36cb-ab68-ee9d-b3c5-9ea384bb1813/c8701795-a8b9-4fbf-88a5-41e65902e98d/triggers/manual/paths/invoke', {
+      const response = await fetch('https://prod-32.westus.logic.azure.com:443/workflows/de85654dcff04825bb9a39d632ec4a20/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=SRYK6PqnPhUfNeMMW8oZp705-GAHg07Fonj6hdMdkos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          formType: 'contact',
           name: formData.get('name'),
           email: formData.get('email'),
           message: formData.get('message'),
-          source: window.location.pathname // Track which page sent the form
+          source: window.location.pathname
         })
       });
 
