@@ -118,8 +118,25 @@ const SmallBusinesses = () => {
     }
   };
 
-  // Rest of the component remains the same as the previous version
-  // ... (previous OverviewContent and return statement)
+  // Overview content component
+  const OverviewContent = () => (
+    <div className="px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl font-bold mb-4">AI Solutions for Small Businesses</h2>
+      <p className="mb-4">
+        Discover how our AI solutions can help your small business grow and thrive in a competitive market.
+      </p>
+      <ul className="list-disc list-inside mb-4">
+        <li>AI-Powered Analytics</li>
+        <li>Automated Customer Support</li>
+        <li>Personalized Marketing Campaigns</li>
+        <li>Intelligent Inventory Management</li>
+      </ul>
+      <p className="mb-4">
+        Our team of experts will work with you to understand your business needs and develop a customized AI strategy.
+      </p>
+      <BookingButton />
+    </div>
+  );
 
   return (
     <div className="bg-pearl-white text-deep-navy">
