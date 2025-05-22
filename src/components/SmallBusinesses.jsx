@@ -226,7 +226,12 @@ const SmallBusinesses = () => {
         
         {/* Tab Content */}
         <div className="py-8">
-          {activeTab === 'overview' && <OverviewContent />}
+          {activeTab === 'overview' && (
+  // You can move the OverviewContent JSX directly here, or just show a message:
+  <div>
+    {/* Overview content here, or just remove this block if not needed */}
+  </div>
+)}
           {activeTab === 'assessment' && 
             <div id="assessment-form">
               <AIReadinessAssessment />
