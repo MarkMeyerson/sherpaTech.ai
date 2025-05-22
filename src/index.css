@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom component classes */
+.btn {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition-property: all;
+  transition-duration: 200ms;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: #1B365D;
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: #2B517A;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
