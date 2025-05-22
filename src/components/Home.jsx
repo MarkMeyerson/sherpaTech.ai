@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Hero from './Hero';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Home = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
