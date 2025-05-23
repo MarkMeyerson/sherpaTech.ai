@@ -2,124 +2,114 @@ import React from 'react';
 
 const AIImplementationPlan = () => {
   return (
-    <div className="min-h-screen bg-pearl-white text-deep-navy">
-      {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-b from-mountain-blue to-navy-blue">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-alpine-white mb-4 font-inter">
-            AI Implementation Plan
-          </h1>
-          <p className="text-2xl text-ice-blue mb-8 font-open-sans">
-            A structured approach to ensure successful AI integration for your small business.
+    <div className="bg-[#F7FAFC] py-12">
+      <div className="container mx-auto px-4">
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl font-bold text-[#1B365D] mb-4">Your AI Implementation Journey</h1>
+          <p className="text-xl text-[#2B517A] max-w-3xl mx-auto">
+            Our structured approach ensures your business implements AI strategically and effectively. Here's what your journey with SherpaTech.ai looks like:
           </p>
-          <div className="bg-ice-blue bg-opacity-10 border border-alpine-white border-opacity-20 p-6 rounded-lg inline-block">
-            <p className="text-alpine-white text-lg font-open-sans">
-              <strong>Focus:</strong> Practical solutions with measurable results<br />
-              <strong>Outcome:</strong> A tailored AI implementation roadmap aligned with your business objectives.
-            </p>
-          </div>
         </div>
-      </section>
 
-      {/* Overview Section */}
-      <section className="py-16 container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-navy-blue mb-6 font-inter">Our Phased Approach</h2>
-          <p className="text-lg mb-8 font-open-sans">
-            We guide small businesses through their AI journey like a sherpa - not carrying you up the mountain,
-            but walking alongside you with a map drawn from 30 years of navigating technology transformations.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-ice-blue rounded-lg p-6 border-l-4 border-navy-blue shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-navy-blue text-alpine-white flex items-center justify-center font-bold text-lg mr-4 font-inter">1</div>
-                <h3 className="text-xl font-semibold text-navy-blue font-inter">Discovery & Assessment</h3>
-              </div>
-              <p className="mb-4 font-open-sans">
-                We begin with a comprehensive evaluation of your business operations, challenges, and goals.
-              </p>
-            </div>
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-[#2B517A] opacity-30"></div>
 
-            <div className="bg-ice-blue rounded-lg p-6 border-l-4 border-navy-blue shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-navy-blue text-alpine-white flex items-center justify-center font-bold text-lg mr-4 font-inter">2</div>
-                <h3 className="text-xl font-semibold text-navy-blue font-inter">Strategy Development</h3>
-              </div>
-              <p className="mb-4 font-open-sans">
-                We create a tailored AI implementation roadmap aligned with your business objectives.
-              </p>
-            </div>
-
-            <div className="bg-ice-blue rounded-lg p-6 border-l-4 border-navy-blue shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-navy-blue text-alpine-white flex items-center justify-center font-bold text-lg mr-4 font-inter">3</div>
-                <h3 className="text-xl font-semibold text-navy-blue font-inter">Implementation & Integration</h3>
-              </div>
-              <p className="mb-4 font-open-sans">
-                We execute the plan with minimal disruption to your current operations.
-              </p>
+          {/* Business Owner AI Literacy */}
+          <div className="mb-16 relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-5 w-10 h-10 rounded-full bg-[#1B365D] text-white flex items-center justify-center font-bold text-lg">1</div>
+            <div className="bg-[#E8EEF4] rounded-lg p-6 max-w-md mx-auto">
+              <h3 className="text-xl font-semibold text-[#1B365D] mb-2">Business Owner AI Literacy</h3>
+              <p className="text-sm text-[#2B517A] mb-4">Building foundational knowledge for business leaders:</p>
+              <ul className="list-disc list-inside text-sm text-[#2B517A]">
+                <li>AI fundamentals workshop</li>
+                <li>Current capabilities assessment</li>
+                <li>Strategic applications planning</li>
+                <li>Leadership vision development</li>
+              </ul>
+              <div className="absolute top-2 right-2 bg-[#D0DCE6] text-[#2B517A] rounded-full px-3 py-1 text-xs">2 weeks</div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Outcomes Section */}
-      <section className="py-16 bg-gradient-to-b from-navy-blue to-mountain-blue text-alpine-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center font-inter">Key Benefits</h2>
-            <p className="text-xl mb-10 text-center font-open-sans">
-              What you'll gain from our AI Implementation Plan:
-            </p>
-            <div className="space-y-6">
-              <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2 font-inter">Improved Efficiency</h3>
-                <p className="font-open-sans">
-                  Automate repetitive tasks and streamline workflows to free up valuable time and resources.
-                </p>
-              </div>
-              <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2 font-inter">Data-Driven Decisions</h3>
-                <p className="font-open-sans">
-                  Leverage AI to analyze data and gain actionable insights for better decision-making.
-                </p>
-              </div>
-              <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2 font-inter">Enhanced Customer Experience</h3>
-                <p className="font-open-sans">
-                  Personalize customer interactions and improve satisfaction with AI-powered solutions.
-                </p>
-              </div>
-              <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2 font-inter">Competitive Advantage</h3>
-                <p className="font-open-sans">
-                  Stay ahead of the curve by adopting AI technologies and gaining a competitive edge in your industry.
-                </p>
-              </div>
+          {/* Senior Staff AI Literacy */}
+          <div className="mb-16 relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-5 w-10 h-10 rounded-full bg-[#1B365D] text-white flex items-center justify-center font-bold text-lg">2</div>
+            <div className="bg-[#E8EEF4] rounded-lg p-6 max-w-md mx-auto">
+              <h3 className="text-xl font-semibold text-[#1B365D] mb-2">Senior Staff AI Literacy</h3>
+              <p className="text-sm text-[#2B517A] mb-4">Preparing your team to lead AI initiatives:</p>
+              <ul className="list-disc list-inside text-sm text-[#2B517A]">
+                <li>Department-specific AI use cases</li>
+                <li>Change management principles</li>
+                <li>Ethical AI considerations</li>
+                <li>Implementation principles</li>
+              </ul>
+              <div className="absolute top-2 right-2 bg-[#D0DCE6] text-[#2B517A] rounded-full px-3 py-1 text-xs">3 weeks</div>
+            </div>
+          </div>
+
+          {/* Needs Assessment */}
+          <div className="mb-16 relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-5 w-10 h-10 rounded-full bg-[#1B365D] text-white flex items-center justify-center font-bold text-lg">3</div>
+            <div className="bg-[#E8EEF4] rounded-lg p-6 max-w-md mx-auto">
+              <h3 className="text-xl font-semibold text-[#1B365D] mb-2">Needs Assessment</h3>
+              <p className="text-sm text-[#2B517A] mb-4">Comprehensive evaluation of your business:</p>
+              <ul className="list-disc list-inside text-sm text-[#2B517A]">
+                <li>Security & governance audit</li>
+                <li>Operational workflow analysis</li>
+                <li>Data capability assessment</li>
+                <li>AI opportunity identification</li>
+              </ul>
+              <div className="absolute top-2 right-2 bg-[#D0DCE6] text-[#2B517A] rounded-full px-3 py-1 text-xs">2-3 weeks</div>
+            </div>
+          </div>
+
+          {/* AI Readiness Plan */}
+          <div className="mb-16 relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-5 w-10 h-10 rounded-full bg-[#1B365D] text-white flex items-center justify-center font-bold text-lg">4</div>
+            <div className="bg-[#E8EEF4] rounded-lg p-6 max-w-md mx-auto">
+              <h3 className="text-xl font-semibold text-[#1B365D] mb-2">AI Readiness Plan</h3>
+              <p className="text-sm text-[#2B517A] mb-4">Creating your roadmap to AI adoption:</p>
+              <ul className="list-disc list-inside text-sm text-[#2B517A]">
+                <li>Security framework development</li>
+                <li>Staff training curriculum</li>
+                <li>Implementation timeline</li>
+                <li>ROI projections & metrics</li>
+              </ul>
+              <div className="absolute top-2 right-2 bg-[#D0DCE6] text-[#2B517A] rounded-full px-3 py-1 text-xs">2 weeks</div>
+            </div>
+          </div>
+
+          {/* Implementation & Support */}
+          <div className="relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-5 w-10 h-10 rounded-full bg-[#1B365D] text-white flex items-center justify-center font-bold text-lg">5</div>
+            <div className="bg-[#E8EEF4] rounded-lg p-6 max-w-md mx-auto">
+              <h3 className="text-xl font-semibold text-[#1B365D] mb-2">Implementation & Support</h3>
+              <p className="text-sm text-[#2B517A] mb-4">Executing your AI transformation:</p>
+              <ul className="list-disc list-inside text-sm text-[#2B517A]">
+                <li>Phased deployment strategy</li>
+                <li>Staff training execution</li>
+                <li>Progress monitoring</li>
+                <li>Continuous optimization</li>
+              </ul>
+              <div className="absolute top-2 right-2 bg-[#D0DCE6] text-[#2B517A] rounded-full px-3 py-1 text-xs">Ongoing</div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-16 container mx-auto px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-navy-blue mb-6 font-inter">Ready to Transform Your Business with AI?</h2>
-          <p className="text-xl text-mountain-blue mb-8 font-open-sans">
-            Schedule a consultation to discuss your AI implementation goals and how we can help you achieve them.
-          </p>
-          <div className="space-y-4">
-            <a
-              href="https://outlook.office.com/owa/calendar/ScheduleYourAICoachingSessionatSherpaTechAI@awarehousedc.com/bookings/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300 font-inter"
-            >
-              Book Your Free Consultation
-            </a>
-          </div>
+        {/* Ready to Start Section */}
+        <div className="bg-[#1B365D] rounded-lg p-8 text-center mt-16">
+          <h2 className="text-2xl font-bold text-white mb-4">Ready to Start Your AI Journey?</h2>
+          <p className="text-lg text-[#D0DCE6] mb-6">The path to AI transformation begins with a single step. Schedule your initial consultation today.</p>
+          <a
+            href="https://outlook.office.com/owa/calendar/ScheduleYourAICoachingSessionatSherpaTechAI@awarehousedc.com/bookings/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#2B517A] hover:bg-[#D0DCE6] text-white hover:text-[#1B365D] font-bold py-3 px-8 rounded-lg transition duration-300 inline-block"
+          >
+            Book Your Free Consultation
+          </a>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
