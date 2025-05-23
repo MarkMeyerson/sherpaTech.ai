@@ -13,11 +13,8 @@ const Hero = () => {
             helping you reach new heights with practical AI solutions.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#services" className="btn btn-primary">
+            <a href="/services" className="btn btn-primary">
               Explore Services
-            </a>
-            <a href="#contact" className="btn btn-secondary">
-              Contact Us
             </a>
           </div>
         </div>

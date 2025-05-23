@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Hero from './Hero';
+import ContactForm from './ContactForm'; // Import ContactForm
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,13 +16,8 @@ const Home = () => {
         >
           Explore Services
         </button>
-        <button 
-          onClick={() => navigate('/contact')}
-          className="bg-alpine-white text-navy-blue hover:bg-ice-blue px-6 py-3 rounded-lg transition-all duration-300"
-        >
-          Contact Us
-        </button>
       </div>
+      <ContactForm /> {/* Add ContactForm here */}
     </div>
   );
 };
