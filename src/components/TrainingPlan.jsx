@@ -27,9 +27,9 @@ const TrainingPlan = () => {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-navy-blue mb-6 font-inter">The Journey Overview</h2>
           <p className="text-lg mb-8 font-open-sans">
-            At SherpaTech.ai, we believe small business owners deserve to conquer the digital 
-            mountain without getting lost in the tech wilderness. Our 5-Week AI Mastery Training 
-            is designed as your expedition map—providing clear guidance, practical tools, and 
+            At SherpaTech.ai, we believe small business owners deserve to conquer the digital
+            mountain without getting lost in the tech wilderness. Our 5-Week AI Mastery Training
+            is designed as your expedition map—providing clear guidance, practical tools, and
             expert support to navigate the AI landscape with confidence.
           </p>
           <div className="bg-ice-blue p-8 rounded-lg mb-8">
@@ -85,7 +85,7 @@ const TrainingPlan = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-navy-blue mb-12 text-center font-inter">Your 5-Week AI Mastery Journey</h2>
-            
+
             {/* Intake Session */}
             <div className="mb-16">
               <div className="bg-alpine-white rounded-lg p-8 shadow-md relative">
@@ -107,12 +107,12 @@ const TrainingPlan = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Weekly Sessions */}
             <div className="space-y-8">
               <div className="relative">
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-mountain-blue transform -translate-x-1/2 z-0"></div>
-                
+
                 {/* Week 1 */}
                 <div className="relative z-10 md:flex items-center mb-12">
                   <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-navy-blue text-alpine-white font-bold border-4 border-ice-blue absolute left-1/2 transform -translate-x-1/2 font-inter">1</div>
@@ -141,7 +141,7 @@ const TrainingPlan = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Week 2 */}
                 <div className="relative z-10 md:flex items-center mb-12">
                   <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-navy-blue text-alpine-white font-bold border-4 border-ice-blue absolute left-1/2 transform -translate-x-1/2 font-inter">2</div>
@@ -170,7 +170,7 @@ const TrainingPlan = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Week 3 */}
                 <div className="relative z-10 md:flex items-center mb-12">
                   <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-navy-blue text-alpine-white font-bold border-4 border-ice-blue absolute left-1/2 transform -translate-x-1/2 font-inter">3</div>
@@ -199,7 +199,7 @@ const TrainingPlan = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Week 4 */}
                 <div className="relative z-10 md:flex items-center mb-12">
                   <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-navy-blue text-alpine-white font-bold border-4 border-ice-blue absolute left-1/2 transform -translate-x-1/2 font-inter">4</div>
@@ -228,7 +228,7 @@ const TrainingPlan = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Week 5 */}
                 <div className="relative z-10 md:flex items-center">
                   <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-navy-blue text-alpine-white font-bold border-4 border-ice-blue absolute left-1/2 transform -translate-x-1/2 font-inter">5</div>
@@ -311,28 +311,28 @@ const TrainingPlan = () => {
               <div className="bg-white bg-opacity-10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-2 font-inter">Mastery of AI Prompting</h3>
                 <p className="font-open-sans">
-                  You'll craft precise, effective prompts that deliver exactly what you need—saving time and producing 
+                  You'll craft precise, effective prompts that deliver exactly what you need—saving time and producing
                   higher-quality results than 95% of AI users.
                 </p>
               </div>
               <div className="bg-white bg-opacity-10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-2 font-inter">Your Custom AI Agent</h3>
                 <p className="font-open-sans">
-                  You'll have built and deployed your own AI agent that addresses a specific business challenge—automating 
+                  You'll have built and deployed your own AI agent that addresses a specific business challenge—automating
                   tasks and enhancing productivity.
                 </p>
               </div>
               <div className="bg-white bg-opacity-10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-2 font-inter">AI Integration Strategy</h3>
                 <p className="font-open-sans">
-                  You'll possess a clear roadmap for further integrating AI into your business operations, with specific 
+                  You'll possess a clear roadmap for further integrating AI into your business operations, with specific
                   next steps and priority areas.
                 </p>
               </div>
               <div className="bg-white bg-opacity-10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-2 font-inter">AI Confidence</h3>
                 <p className="font-open-sans">
-                  You'll approach AI with confidence and clarity, knowing how to leverage these tools effectively and 
+                  You'll approach AI with confidence and clarity, knowing how to leverage these tools effectively and
                   continuing to evolve your skills independently.
                 </p>
               </div>
@@ -346,7 +346,7 @@ const TrainingPlan = () => {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-navy-blue mb-6 font-inter">Ready to Begin Your AI Journey?</h2>
           <p className="text-xl text-mountain-blue mb-8 font-open-sans">
-            Take the first step toward AI mastery with a personalized consultation to discuss your goals and how our 
+            Take the first step toward AI mastery with a personalized consultation to discuss your goals and how our
             5-Week AI Mastery Training can help you achieve them.
           </p>
           <div className="space-y-4">
@@ -358,6 +358,7 @@ const TrainingPlan = () => {
             >
               Schedule Your Free Consultation
             </a>
+          </div>
         </div>
       </section>
     </div>
