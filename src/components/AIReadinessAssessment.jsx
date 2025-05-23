@@ -112,6 +112,9 @@ const AIReadinessAssessment = ({ onSubmit, submissionStatus, isSubmitting }) => 
 
     // Call the passed onSubmit function from parent
     onSubmit(e);
+    
+    // Set success state to display thank you
+    setCurrentStep(4);
   };
 
   return (
@@ -138,7 +141,7 @@ const AIReadinessAssessment = ({ onSubmit, submissionStatus, isSubmitting }) => 
       </div>
 
       {/* Submission Status */}
-      {submissionStatus === 'success' && (
+      {submissionStatus === 'success' && currentStep !== 4 && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
           Thank you for completing the AI Readiness Assessment! Our team will review your information.
         </div>
@@ -150,8 +153,188 @@ const AIReadinessAssessment = ({ onSubmit, submissionStatus, isSubmitting }) => 
       )}
 
       <form onSubmit={handleFormSubmit} className="space-y-6">
-        {/* Previous steps remain the same */}
-        {/* ... (previous step 1 and step 2 code) ... */}
+        {/* Step 1: Business Information */}
+        {currentStep === 1 && (
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="businessName" className="block text-navy-blue font-semibold mb-2">
+                Business Name
+              </label>
+              <input
+                type="text"
+                id="businessName"
+                name="businessName"
+                value={formData.businessName}
+                onChange={handleInputChange}
+                className={`w-full p-3 border rounded ${formErrors.businessName ? 'border-red-500' : 'border-mountain-blue'} bg-alpine-white`}
+              />
+              {formErrors.businessName && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.businessName}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="industry" className="block text-navy-blue font-semibold mb-2">
+                Industry
+              </label>
+              <select
+                id="industry"
+                name="industry"
+                value={formData.industry}
+                onChange={handleInputChange}
+                className={`w-full p-3 border rounded ${formErrors.industry ? 'border-red-500' : 'border-mountain-blue'} bg-alpine-white`}
+              >
+                <option value="">Select your industry</option>
+                <option value="retail">Retail</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="finance">Finance & Banking</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="technology">Technology</option>
+                <option value="education">Education</option>
+                <option value="hospitality">Hospitality & Tourism</option>
+                <option value="realEstate">Real Estate</option>
+                <option value="construction">Construction</option>
+                <option value="professional">Professional Services</option>
+                <option value="other">Other</option>
+              </select>
+              {formErrors.industry && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.industry}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="employeeCount" className="block text-navy-blue font-semibold mb-2">
+                Number of Employees
+              </label>
+              <select
+                id="employeeCount"
+                name="employeeCount"
+                value={formData.employeeCount}
+                onChange={handleInputChange}
+                className={`w-full p-3 border rounded ${formErrors.employeeCount ? 'border-red-500' : 'border-mountain-blue'} bg-alpine-white`}
+              >
+                <option value="">Select employee count</option>
+                <option value="1-5">1-5</option>
+                <option value="6-20">6-20</option>
+                <option value="21-50">21-50</option>
+                <option value="51-100">51-100</option>
+                <option value="101-250">101-250</option>
+                <option value="250+">250+</option>
+              </select>
+              {formErrors.employeeCount && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.employeeCount}</p>
+              )}
+            </div>
+            
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={nextStep}
+                className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-2 px-6 rounded-md transition duration-300"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
+        
+        {/* Step 2: Technology Assessment */}
+        {currentStep === 2 && (
+          <div className="space-y-6">
+            <div>
+              <p className="block text-navy-blue font-semibold mb-2">
+                How would you describe your organization's current technology level?
+              </p>
+              <div className="space-y-2">
+                {[
+                  { value: 'basic', label: 'Basic - Using essential tools like email and office software' },
+                  { value: 'intermediate', label: 'Intermediate - Using some cloud services and specialized software' },
+                  { value: 'advanced', label: 'Advanced - Implemented various digital systems and automation' },
+                  { value: 'innovative', label: 'Innovative - Already using some AI tools or advanced analytics' }
+                ].map((option) => (
+                  <div key={option.value} className="flex items-center">
+                    <input
+                      type="radio"
+                      id={option.value}
+                      name="techlevel"
+                      value={option.value}
+                      checked={formData.techlevel === option.value}
+                      onChange={handleInputChange}
+                      className="mr-2 h-5 w-5"
+                    />
+                    <label htmlFor={option.value}>{option.label}</label>
+                  </div>
+                ))}
+              </div>
+              {formErrors.techlevel && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.techlevel}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="currentTools" className="block text-navy-blue font-semibold mb-2">
+                What technology tools is your business currently using? (Select all that apply)
+              </label>
+              <div className="space-y-2">
+                {[
+                  'CRM system',
+                  'Cloud storage/services',
+                  'Project management software',
+                  'Accounting software',
+                  'Marketing automation',
+                  'E-commerce platform',
+                  'Video conferencing',
+                  'Data analytics tools',
+                  'AI-powered tools'
+                ].map((tool) => (
+                  <div key={tool} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={tool.replace(/\s+/g, '')}
+                      name="currentTools"
+                      value={tool}
+                      checked={formData.currentTools.includes(tool)}
+                      onChange={handleCheckboxChange}
+                      className="mr-2 h-5 w-5"
+                    />
+                    <label htmlFor={tool.replace(/\s+/g, '')}>{tool}</label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <label htmlFor="challenges" className="block text-navy-blue font-semibold mb-2">
+                What are your biggest technology or operational challenges right now?
+              </label>
+              <textarea
+                id="challenges"
+                name="challenges"
+                value={formData.challenges}
+                onChange={handleInputChange}
+                rows="4"
+                className="w-full p-3 border rounded border-mountain-blue bg-alpine-white"
+              ></textarea>
+            </div>
+            
+            <div className="flex justify-between">
+              <button
+                type="button"
+                onClick={prevStep}
+                className="bg-ice-blue hover:bg-mountain-blue hover:text-alpine-white text-navy-blue font-bold py-2 px-6 rounded-md transition duration-300"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onClick={nextStep}
+                className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-2 px-6 rounded-md transition duration-300"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
         
         {/* Step 3: AI Goals */}
         {currentStep === 3 && (
