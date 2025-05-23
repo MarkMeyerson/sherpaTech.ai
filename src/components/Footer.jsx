@@ -50,7 +50,7 @@ const Footer = () => {
           <div>
             <h4 className="text-alpine-white mb-4">Services</h4>
             <ul className="space-y-2">
-              <li><a href="#services" className="text-sm text-alpine-white opacity-80 hover:opacity-100">Strategy Development</a></li>
+              <li><Link to="/services#strategy" className="text-sm text-alpine-white opacity-80 hover:opacity-100">Strategy Development</Link></li>
               <li><a href="#services" className="text-sm text-alpine-white opacity-80 hover:opacity-100">AI Integration</a></li>
               <li><a href="#services" className="text-sm text-alpine-white opacity-80 hover:opacity-100">Digital Infrastructure</a></li>
               <li><a href="#services" className="text-sm text-alpine-white opacity-80 hover:opacity-100">Process Optimization</a></li>

@@ -350,16 +350,14 @@ const TrainingPlan = () => {
             5-Week AI Mastery Training can help you achieve them.
           </p>
           <div className="space-y-4">
-            <button className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300 font-inter">
+            <a
+              href="https://outlook.office.com/owa/calendar/ScheduleYourAICoachingSessionatSherpaTechAI@awarehousedc.com/bookings/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-navy-blue hover:bg-mountain-blue text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300 font-inter"
+            >
               Schedule Your Free Consultation
-            </button>
-            <p className="text-mountain-blue font-open-sans">
-              or
-            </p>
-            <button className="bg-mountain-blue hover:bg-deep-navy text-alpine-white font-bold py-3 px-8 rounded-lg transition duration-300 font-inter">
-              Learn About Our Coaching Approach
-            </button>
-          </div>
+            </a>
         </div>
       </section>
     </div>
