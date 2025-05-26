@@ -27,23 +27,49 @@ export function Assessment() {
     }
   };
 
+  const handleRestart = () => {
+    setCurrentQuestion(0);
+    setAnswers({});
+    setIsComplete(false);
+  };
+
   if (isComplete) {
     return (
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-center mb-6">Assessment Complete!</h1>
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl mb-4">Results Summary</h2>
-          {Object.entries(answers).map(([questionId, answer]) => {
-            const questionData = INITIAL_QUESTIONS.find(q => q.id === questionId);
-            const selectedOption = questionData?.options.find(opt => opt.id === answer.id);
-            
-            return (
-              <div key={questionId} className="mb-4 p-4 bg-gray-50 rounded">
-                <p className="font-medium">{questionData?.text}</p>
-                <p className="text-gray-600">Selected: {selectedOption?.text}</p>
-              </div>
-            );
-          })}
+          <h2 className="text-xl mb-6">Results Summary</h2>
+          
+          <div className="space-y-4">
+            {Object.entries(answers).map(([questionId, answer]) => {
+              const questionData = INITIAL_QUESTIONS.find(q => q.id === questionId);
+              const selectedOption = questionData?.options.find(opt => opt.id === answer.id);
+              
+              return (
+                <div key={questionId} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <p className="font-medium text-gray-900 mb-2">{questionData?.text}</p>
+                  <p className="text-gray-600">
+                    Selected: <span className="text-blue-600">{selectedOption?.text}</span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 flex justify-center gap-4">
+            <button
+              onClick={handleRestart}
+              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Start Over
+            </button>
+            <button
+              onClick={() => window.print()}
+              className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            >
+              Print Results
+            </button>
+          </div>
         </div>
       </div>
     );
