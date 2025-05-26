@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const AIReadinessAssessment = ({ onSubmit, submissionStatus, isSubmitting }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -444,6 +445,15 @@ const AIReadinessAssessment = ({ onSubmit, submissionStatus, isSubmitting }) => 
       </form>
     </div>
   );
+};
+
+AIReadinessAssessment.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
+};
+
+AIReadinessAssessment.defaultProps = {
+  isLoading: false
 };
 
 export default AIReadinessAssessment;

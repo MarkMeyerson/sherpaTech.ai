@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { theme } from "./theme";
 // Remove App.css import since we're using index.css
 import './index.css';
@@ -34,10 +36,10 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <BrowserRouter>
         <ErrorBoundary>
           <div className="min-h-screen flex flex-col">
             <Header />
@@ -56,7 +58,7 @@ function App() {
             <Footer />
           </div>
         </ErrorBoundary>
-      </Router>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

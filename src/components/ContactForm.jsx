@@ -1,6 +1,13 @@
+/**
+ * ContactForm component for handling user inquiries
+ * @param {Object} props
+ * @param {function} props.onSubmit - Form submission handler
+ * @param {boolean} props.isLoading - Loading state of the form
+ */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const ContactForm = () => {
+const ContactForm = ({ onSubmit, isLoading }) => {
   const [submissionStatus, setSubmissionStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -170,6 +177,11 @@ const ContactForm = () => {
       </form>
     </div>
   );
+};
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 };
 
 export default ContactForm;
