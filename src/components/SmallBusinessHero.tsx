@@ -2,13 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const SmallBusinessHero: React.FC = () => {
-  const navigate = useNavigate();
-
   const handleStartAssessment = (e: React.MouseEvent) => {
     e.preventDefault();
     const assessmentElement = document.getElementById('ai-readiness-assessment');
     if (assessmentElement) {
-      assessmentElement.scrollIntoView({ behavior: 'smooth' });
+      assessmentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      console.error('Assessment element not found');
     }
   };
 
@@ -18,7 +18,7 @@ export const SmallBusinessHero: React.FC = () => {
         Small Business AI Solutions
       </h1>
       <p className="mt-4 text-xl text-gray-500">
-        Practical AI implementation strategies to help your small business thrive in the digital age.
+        Practical AI implementation strategies to help your small business thrive.
       </p>
       <div className="mt-8">
         <button 
