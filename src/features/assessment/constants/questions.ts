@@ -1,6 +1,6 @@
 import { AssessmentQuestion } from '../types/assessment.types';
 
-export const INITIAL_QUESTIONS: AssessmentQuestion[] = [
+export const INITIAL_QUESTIONS = [
   {
     id: 'familiarity',
     type: 'single',
@@ -9,51 +9,10 @@ export const INITIAL_QUESTIONS: AssessmentQuestion[] = [
       { id: 'f1', text: "I've never heard of it", value: '0' },
       { id: 'f2', text: "I've heard the term but don't know what it does", value: '1' },
       { id: 'f3', text: "I know a little (e.g. chatbots, image generators)", value: '2' },
-      { id: 'f4', text: "I use / experiment with AI tools already", value: '3' }
+      { id: 'f4', text: "I use / experiment with AI tools already", value: '3' },
     ],
-    required: true
+    required: true,
   },
-  {
-    id: 'impact',
-    type: 'scale',
-    text: 'How much do you believe AI could affect your business's day-to-day operations?',
-    options: [
-      { id: 'i1', text: 'Not at all', value: '1' },
-      { id: 'i2', text: 'Slightly', value: '2' },
-      { id: 'i3', text: 'Moderately', value: '3' },
-      { id: 'i4', text: 'Significantly', value: '4' },
-      { id: 'i5', text: 'Game-changing', value: '5' }
-    ],
-    required: true
-  },
-  {
-    id: 'concerns',
-    type: 'multiple',
-    text: 'Which of these concerns most resonates with you?',
-    maxSelections: 2,
-    options: [
-      { id: 'c1', text: "It's too complex for my skills", value: 'complexity' },
-      { id: 'c2', text: "It's expensive to implement", value: 'cost' },
-      { id: 'c3', text: "It might replace jobs on my team", value: 'jobs' },
-      { id: 'c4', text: "I don't trust its decisions", value: 'trust' },
-      { id: 'c5', text: "I'm afraid of data/privacy issues", value: 'privacy' }
-    ],
-    required: true
-  },
-  {
-    id: 'motivation',
-    type: 'multiple',
-    text: 'What would motivate you to invest time or budget into AI?',
-    maxSelections: 2,
-    options: [
-      { id: 'm1', text: 'Save time on routine tasks', value: 'time' },
-      { id: 'm2', text: 'Improve marketing or sales', value: 'marketing' },
-      { id: 'm3', text: 'Reduce costs', value: 'costs' },
-      { id: 'm4', text: 'Gain competitive edge', value: 'competitive' },
-      { id: 'm5', text: "I'm not sure / nothing motivates me yet", value: 'none' }
-    ],
-    required: true
-  }
 ];
 
 export const ZERO_KNOWLEDGE_QUESTIONS: AssessmentQuestion[] = [
