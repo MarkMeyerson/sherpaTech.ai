@@ -35,3 +35,19 @@
 .btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+@keyframes gentle-pulse {
+  0% {
+    box-shadow: 0 0 20px rgba(236,72,153,0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(236,72,153,0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(236,72,153,0.3);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s infinite;
+}
