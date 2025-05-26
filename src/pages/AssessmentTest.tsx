@@ -1,11 +1,22 @@
 import React from 'react';
-import { Assessment } from '../features/assessment/components/Assessment';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-export const AssessmentTest: React.FC = () => {
+const TestPage: React.FC = () => {
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-6">Assessment Test Page</h1>
-      <Assessment />
+    <div style={{ padding: '2rem', textAlign: 'center' }}>
+      <h1>Test Page Is Working!</h1>
     </div>
   );
 };
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/test" element={<TestPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
