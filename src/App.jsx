@@ -19,6 +19,8 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Footer from './components/Footer';
 import { Navigation } from './components/Navigation';
+import { TestPage } from './TestPage';
+import { Assessment } from './features/assessment/components/Assessment';
 
 // Optional: Simple error boundary for debugging
 class ErrorBoundary extends React.Component {
@@ -55,7 +57,8 @@ const App = () => {
                 <Route path="/training" element={<TrainingPlan />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
-                <Route path="/test" element={<h1>Test Page</h1>} />
+                <Route path="/test" element={<TestPage />} />
+                <Route path="/assessment" element={<Assessment />} />
               </Routes>
             </main>
             <Footer />
