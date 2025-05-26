@@ -7,7 +7,6 @@ describe('FormStatus', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
     jest.useRealTimers();
   });
 
@@ -21,8 +20,17 @@ describe('FormStatus', () => {
     expect(screen.getByRole('alert')).toBeInTheDocument();
   });
 
-  it('auto hides success message after delay', () => {
+  test('renders success message with correct attributes', () => {
+    render(<FormStatus status="success" />);
+    const status = screen.getByRole('status');
+
+    expect(status).toHaveAttribute('aria-live', 'polite');
+    expect(status).toHaveTextContent('Message sent successfully');
+  });
+
+  test('auto-hides after specified delay', () => {
     render(<FormStatus status="success" autoHideDelay={1000} />);
+
     expect(screen.getByRole('status')).toBeInTheDocument();
 
     act(() => {
