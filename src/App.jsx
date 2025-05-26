@@ -17,7 +17,6 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Footer from './components/Footer';
 import { Assessment } from './features/assessment/components/Assessment';
-import AITrainingApp from './AITrainingApp';  // Add this import
 
 // Optional: Simple error boundary for debugging
 class ErrorBoundary extends React.Component {
@@ -51,7 +50,6 @@ const App = () => {
                 <Route path="/contact" element={<ContactForm />} />
                 <Route path="/small-businesses" element={<SmallBusinesses />} />
                 <Route path="/training" element={<TrainingPlan />} />
-                <Route path="/training/ai-course" element={<AITrainingApp />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/assessment" element={<Assessment />} />

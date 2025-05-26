@@ -1,6 +1,120 @@
 import { useState } from 'react';
 import ContactForm from './ContactForm'; // Import ContactForm
 import BookingButton from './BookingButton';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
+
+// Add animation keyframes
+const pulse = keyframes`
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(236,72,153,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0); }
+`;
+
+const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+`;
+
+const AssessmentButton = styled(Link)`
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+  padding: 1.25rem 2.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.25rem;
+  display: inline-block;
+  position: relative;
+  margin: 1rem;
+  transition: all 0.3s ease-in-out;
+  animation: ${float} 3s ease-in-out infinite;
+  
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+    animation: ${pulse} 2s infinite;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(60deg, #4F46E5, #EC4899, #7C3AED);
+    border-radius: 14px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &:hover:before {
+    opacity: 1;
+  }
+`;
+
+// Add a container for better positioning
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 2rem 0;
+`;
+
+const AssessmentContent = styled.div`
+  max-width: 4xl;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1B365D;
+  margin-bottom: 1rem;
+`;
+
+const SectionText = styled.p`
+  font-size: 1.125rem;
+  color: #2B517A;
+  margin-bottom: 1.5rem;
+`;
+
+const ListContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+`;
+
+const ListItem = styled.div`
+  background: #E8EEF4;
+  border-left: 4px solid #1B365D;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const ListItemTitle = styled.h3`
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1B365D;
+  margin-bottom: 0.5rem;
+`;
+
+const ListItemText = styled.p`
+  color: #2B517A;
+`;
+
+const ButtonContainerAssessment = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+`;
 
 export default function SmallBusinesses() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -10,7 +124,19 @@ export default function SmallBusinesses() {
   };
 
   return (
-    <div className="bg-[#F7FAFC] py-12">
+    <div className="min-h-screen bg-pearl-white">
+      {/* Hero Section with prominent assessment button */}
+      <section className="py-16 bg-gradient-to-b from-navy-blue to-mountain-blue">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-alpine-white mb-6">
+            AI Solutions for Small Businesses
+          </h1>
+          <p className="text-xl text-ice-blue mb-8 max-w-2xl mx-auto">
+            Discover how AI can transform your business operations and drive growth
+          </p>
+        </div>
+      </section>
+
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold text-[#1B365D] mb-4">Small Business AI Solutions</h1>
@@ -119,27 +245,29 @@ export default function SmallBusinesses() {
         )}
 
         {activeTab === 'assessment' && (
-          <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
-            <h2 className="text-3xl font-bold text-[#1B365D] mb-6">AI Readiness Assessment</h2>
-            <p className="text-lg mb-8">
+          <AssessmentContent>
+            <div className="text-center mb-8">
+              <SectionTitle>AI Readiness Assessment</SectionTitle>
+              <ButtonContainerAssessment>
+                <AssessmentButton to="/assessment">
+                  Start Your Assessment
+                </AssessmentButton>
+              </ButtonContainerAssessment>
+            </div>
+
+            <SectionText>
               Our AI Readiness Assessment helps you understand where your business stands in terms of AI adoption potential
               and identifies key opportunities for implementation.
-            </p>
+            </SectionText>
 
-            <div className="bg-[#E8EEF4] p-6 rounded-lg mb-8">
+            <div className="bg-[#E8EEF4] p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-[#1B365D] mb-4">What You Will Learn</h3>
-              <p>
+              <p className="mb-6">
                 The assessment provides insights into your organization's AI readiness, key opportunity areas,
                 potential roadblocks, and recommended next steps tailored to your business.
               </p>
             </div>
-
-            <div className="text-center">
-              <button className="bg-[#1B365D] hover:bg-[#2B517A] text-[#FFFFFF] font-bold py-3 px-8 rounded-md transition duration-300">
-                Start Your Assessment
-              </button>
-            </div>
-          </div>
+          </AssessmentContent>
         )}
 
         {activeTab === 'implementation' && (
