@@ -16,28 +16,32 @@ export function Assessment() {
         value: optionValue
       }
     }));
-    
+
     if (currentQuestion < INITIAL_QUESTIONS.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      // TODO: Handle assessment completion
-      console.log('Assessment complete!', answers);
+      handleAssessmentComplete();
     }
+  };
+
+  const handleAssessmentComplete = () => {
+    // TODO: Implement assessment completion logic
+    console.log('Assessment complete:', answers);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">AI Readiness Assessment</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">AI Readiness Assessment</h1>
       
-      {/* Progress Bar */}
+      {/* Progress bar */}
       <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
         <div 
           className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>
-      
-      {/* Question Counter */}
+
+      {/* Question counter */}
       <div className="text-sm text-gray-600 mb-4">
         Question {currentQuestion + 1} of {INITIAL_QUESTIONS.length}
       </div>
@@ -49,11 +53,8 @@ export function Assessment() {
             {question.options.map((option) => (
               <button
                 key={option.id}
-                className={`w-full text-left p-3 border rounded 
-                  ${answers[question.id]?.id === option.id 
-                    ? 'bg-blue-50 border-blue-500' 
-                    : 'hover:bg-gray-50'
-                  }`}
+                className={`w-full text-left p-3 border rounded hover:bg-gray-50
+                  ${answers[question.id]?.id === option.id ? 'bg-blue-50 border-blue-500' : ''}`}
                 onClick={() => handleAnswer(option.id, option.value)}
               >
                 {option.text}
