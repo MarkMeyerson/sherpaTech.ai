@@ -166,7 +166,7 @@ export const KNOWLEDGEABLE_QUESTIONS: AssessmentQuestion[] = [
     options: [
       { id: 'tr1', text: 'Yes, dedicated team', value: 'dedicated' },
       { id: 'tr2', text: 'Yes, but shared responsibilities', value: 'shared' },
-      { id: 'tr3', text: 'No, it's ad-hoc', value: 'adhoc' },
+      { id: 'tr3', text: "No, it's ad-hoc", value: 'adhoc' },
       { id: 'tr4', text: 'No, not yet considered', value: 'none' }
     ],
     required: true
