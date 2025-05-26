@@ -1,34 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { INITIAL_QUESTIONS } from '../constants/questions';
 
 export function Assessment() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
-  const question = INITIAL_QUESTIONS[currentQuestion];
+  const [isComplete, setIsComplete] = useState(false);
   
+  const question = INITIAL_QUESTIONS[currentQuestion];
   const progress = ((currentQuestion + 1) / INITIAL_QUESTIONS.length) * 100;
 
   const handleAnswer = (optionId, optionValue) => {
-    setAnswers(prev => ({
-      ...prev,
+    // Store the answer
+    const newAnswers = {
+      ...answers,
       [question.id]: {
         id: optionId,
         value: optionValue
       }
-    }));
+    };
+    setAnswers(newAnswers);
 
-    if (currentQuestion < INITIAL_QUESTIONS.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+    // Check if we're at the last question
+    if (currentQuestion >= INITIAL_QUESTIONS.length - 1) {
+      setIsComplete(true);
     } else {
-      handleAssessmentComplete();
+      // Move to next question
+      setCurrentQuestion(prev => prev + 1);
     }
   };
 
-  const handleAssessmentComplete = () => {
-    // TODO: Implement assessment completion logic
-    console.log('Assessment complete:', answers);
-  };
+  // Show completion screen if done
+  if (isComplete) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-center mb-6">Assessment Complete!</h1>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl mb-4">Thank you for completing the assessment.</h2>
+          <pre className="bg-gray-100 p-4 rounded">
+            {JSON.stringify(answers, null, 2)}
+          </pre>
+        </div>
+      </div>
+    );
+  }
 
+  // Show the current question
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-center mb-6">AI Readiness Assessment</h1>
@@ -42,7 +58,7 @@ export function Assessment() {
       </div>
 
       {/* Question counter */}
-      <div className="text-sm text-gray-600 mb-4">
+      <div className="text-sm text-gray-600 mb-4 text-center">
         Question {currentQuestion + 1} of {INITIAL_QUESTIONS.length}
       </div>
 
@@ -53,8 +69,10 @@ export function Assessment() {
             {question.options.map((option) => (
               <button
                 key={option.id}
-                className={`w-full text-left p-3 border rounded hover:bg-gray-50
-                  ${answers[question.id]?.id === option.id ? 'bg-blue-50 border-blue-500' : ''}`}
+                className={`w-full text-left p-3 border rounded transition-colors
+                  ${answers[question.id]?.id === option.id 
+                    ? 'bg-blue-50 border-blue-500' 
+                    : 'hover:bg-gray-50'}`}
                 onClick={() => handleAnswer(option.id, option.value)}
               >
                 {option.text}
