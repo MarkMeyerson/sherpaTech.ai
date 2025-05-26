@@ -18,6 +18,7 @@ import SmallBusinesses from './components/SmallBusinesses';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Footer from './components/Footer';
+import { Navigation } from './components/Navigation';
 
 // Optional: Simple error boundary for debugging
 class ErrorBoundary extends React.Component {
@@ -44,6 +45,7 @@ const App = () => {
           <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-grow">
+              <Navigation />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
@@ -53,6 +55,7 @@ const App = () => {
                 <Route path="/training" element={<TrainingPlan />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
+                <Route path="/test" element={<h1>Test Page</h1>} />
               </Routes>
             </main>
             <Footer />
