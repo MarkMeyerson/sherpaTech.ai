@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { INITIAL_QUESTIONS } from '../constants/questions';
 
 export function Assessment() {
@@ -10,7 +10,6 @@ export function Assessment() {
   const progress = ((currentQuestion + 1) / INITIAL_QUESTIONS.length) * 100;
 
   const handleAnswer = (optionId, optionValue) => {
-    // Store the answer
     const newAnswers = {
       ...answers,
       [question.id]: {
@@ -18,38 +17,42 @@ export function Assessment() {
         value: optionValue
       }
     };
+    
     setAnswers(newAnswers);
 
-    // Check if we're at the last question
-    if (currentQuestion >= INITIAL_QUESTIONS.length - 1) {
-      setIsComplete(true);
-    } else {
-      // Move to next question
+    if (currentQuestion < INITIAL_QUESTIONS.length - 1) {
       setCurrentQuestion(prev => prev + 1);
+    } else {
+      setIsComplete(true);
     }
   };
 
-  // Show completion screen if done
   if (isComplete) {
     return (
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-center mb-6">Assessment Complete!</h1>
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl mb-4">Thank you for completing the assessment.</h2>
-          <pre className="bg-gray-100 p-4 rounded">
-            {JSON.stringify(answers, null, 2)}
-          </pre>
+          <h2 className="text-xl mb-4">Results Summary</h2>
+          {Object.entries(answers).map(([questionId, answer]) => {
+            const questionData = INITIAL_QUESTIONS.find(q => q.id === questionId);
+            const selectedOption = questionData?.options.find(opt => opt.id === answer.id);
+            
+            return (
+              <div key={questionId} className="mb-4 p-4 bg-gray-50 rounded">
+                <p className="font-medium">{questionData?.text}</p>
+                <p className="text-gray-600">Selected: {selectedOption?.text}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
   }
 
-  // Show the current question
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-center mb-6">AI Readiness Assessment</h1>
       
-      {/* Progress bar */}
       <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
         <div 
           className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
@@ -57,7 +60,6 @@ export function Assessment() {
         />
       </div>
 
-      {/* Question counter */}
       <div className="text-sm text-gray-600 mb-4 text-center">
         Question {currentQuestion + 1} of {INITIAL_QUESTIONS.length}
       </div>
@@ -71,7 +73,7 @@ export function Assessment() {
                 key={option.id}
                 className={`w-full text-left p-3 border rounded transition-colors
                   ${answers[question.id]?.id === option.id 
-                    ? 'bg-blue-50 border-blue-500' 
+                    ? 'bg-blue-50 border-blue-500 font-medium' 
                     : 'hover:bg-gray-50'}`}
                 onClick={() => handleAnswer(option.id, option.value)}
               >
