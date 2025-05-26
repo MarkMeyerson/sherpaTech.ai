@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
 import { theme } from "./theme";
-// Remove App.css import since we're using index.css
 import './index.css';
 
 // Components
-import Header from './components/Header';
+import Navbar from './components/Navbar';  // Using your styled Navbar instead
 import Home from './components/Home';
 import Services from './components/Services';
 import About from './components/About';
@@ -18,9 +16,8 @@ import SmallBusinesses from './components/SmallBusinesses';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Footer from './components/Footer';
-import { Navigation } from './components/Navigation';
-import { TestPage } from './TestPage';
 import { Assessment } from './features/assessment/components/Assessment';
+import AITrainingApp from './AITrainingApp';  // Add this import
 
 // Optional: Simple error boundary for debugging
 class ErrorBoundary extends React.Component {
@@ -45,9 +42,8 @@ const App = () => {
       <BrowserRouter>
         <ErrorBoundary>
           <div className="min-h-screen flex flex-col">
-            <Header />
+            <Navbar />
             <main className="flex-grow">
-              <Navigation />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
@@ -55,9 +51,9 @@ const App = () => {
                 <Route path="/contact" element={<ContactForm />} />
                 <Route path="/small-businesses" element={<SmallBusinesses />} />
                 <Route path="/training" element={<TrainingPlan />} />
+                <Route path="/training/ai-course" element={<AITrainingApp />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
-                <Route path="/test" element={<TestPage />} />
                 <Route path="/assessment" element={<Assessment />} />
               </Routes>
             </main>
