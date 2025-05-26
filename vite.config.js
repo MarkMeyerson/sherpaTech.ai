@@ -5,7 +5,10 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    open: true
+    open: true,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+    },
   },
   build: {
     outDir: 'dist',

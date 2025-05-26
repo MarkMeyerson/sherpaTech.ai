@@ -1,13 +1,10 @@
 import React from 'react';
-import { INITIAL_QUESTIONS } from '../constants/questions';
 
 export const Assessment: React.FC = () => {
-  console.log('INITIAL_QUESTIONS:', INITIAL_QUESTIONS);
-
+  console.log('Assessment Component Loaded');
   return (
-    <div>
+    <div style={{ textSizeAdjust: '100%' }}>
       <h2>Assessment Component Loaded</h2>
-      <p>Check the console for INITIAL_QUESTIONS.</p>
     </div>
   );
 };
