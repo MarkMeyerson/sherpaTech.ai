@@ -5,10 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    open: true,
-    headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-    },
+    open: true
   },
   build: {
     outDir: 'dist',
