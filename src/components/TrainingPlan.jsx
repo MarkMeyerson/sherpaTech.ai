@@ -251,6 +251,13 @@ const TrainingPlan = () => {
           </div>
         </div>
       </section>
+
+      {/* Add a call-to-action button to start the training */}
+      <section className="py-8 text-center">
+        <CTAButton to="/training-app">
+          Start Training
+        </CTAButton>
+      </section>
     </div>
   );
 };

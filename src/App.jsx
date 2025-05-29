@@ -17,6 +17,8 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Footer from './components/Footer';
 import { Assessment } from './features/assessment/components/Assessment';
+import TrainingApp from './components/TrainingApp';
+import MobileTestShowcase from './components/MobileTestShowcase';
 
 // Optional: Simple error boundary for debugging
 class ErrorBoundary extends React.Component {
@@ -36,6 +38,11 @@ class ErrorBoundary extends React.Component {
 }
 
 const App = () => {
+  // Add a placeholder onSubmit handler for ContactForm
+  const handleContactFormSubmit = (formData) => {
+    console.log('Contact form submitted:', formData);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -47,12 +54,13 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<ContactForm />} />
+                <Route path="/contact" element={<ContactForm onSubmit={handleContactFormSubmit} />} />
                 <Route path="/small-businesses" element={<SmallBusinesses />} />
                 <Route path="/training" element={<TrainingPlan />} />
-                <Route path="/privacy" element={<PrivacyPolicy />} />
-                <Route path="/terms" element={<TermsOfService />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />                <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/assessment" element={<Assessment />} />
+                <Route path="/training-app" element={<TrainingApp />} />
+                <Route path="/mobile-test" element={<MobileTestShowcase />} />
               </Routes>
             </main>
             <Footer />
