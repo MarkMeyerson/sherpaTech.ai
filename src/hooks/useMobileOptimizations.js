@@ -43,8 +43,12 @@ export const useMobileOptimizations = (options = {}) => {
   useEffect(() => {
     const updateDeviceInfo = () => {
       const newDeviceInfo = detectMobileCapabilities();
-      setDeviceInfo(newDeviceInfo);
-      setIsMobile(newDeviceInfo.isMobile);
+      if (newDeviceInfo) {
+        setDeviceInfo(newDeviceInfo);
+        setIsMobile(newDeviceInfo.isMobile);
+      } else {
+        console.error('Failed to detect mobile capabilities');
+      }
     };
     
     const handleOnline = () => setConnectionStatus('online');

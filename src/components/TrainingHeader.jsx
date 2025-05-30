@@ -1,6 +1,17 @@
 import React from 'react';
 
-const TrainingHeader = ({ currentWeek, handlePreviousWeek, handleNextWeek, trainingData, deviceInfo, navigate, setShowMobileView, showMobileView }) => {
+const TrainingHeader = ({ 
+  currentWeek, 
+  handlePreviousWeek, 
+  handleNextWeek, 
+  totalWeeks, 
+  deviceInfo, 
+  navigate, 
+  setShowMobileView, 
+  showMobileView,
+  isQuizActive,
+  exitQuiz
+}) => {
   return (
     <header className={`bg-white shadow-sm border-b border-ice-blue ${
       deviceInfo.isMobile ? 'mobile-header safe-area-inset-top' : ''
@@ -14,21 +25,32 @@ const TrainingHeader = ({ currentWeek, handlePreviousWeek, handleNextWeek, train
             <span className="hidden sm:inline">← Home</span>
             <span className="sm:hidden">←</span>
           </button>
-          {process.env.NODE_ENV === 'development' && (
-            <button 
-              onClick={() => setShowMobileView(!showMobileView)}
-              className="bg-gray-600 text-white font-medium py-1 px-2 rounded text-xs hover:bg-gray-700 transition-colors duration-200"
-              title="Toggle mobile view for testing"
+          
+          {isQuizActive && typeof exitQuiz === 'function' ? (
+            <button
+              onClick={exitQuiz}
+              className="bg-red-500 text-white font-medium py-2 px-3 sm:px-4 rounded-lg shadow hover:bg-red-600 transition-colors duration-200 text-sm"
             >
-              📱 {showMobileView ? 'Desktop' : 'Mobile'}
+              Exit Quiz
             </button>
+          ) : (
+            process.env.NODE_ENV === 'development' && (
+              <button 
+                onClick={() => setShowMobileView(!showMobileView)}
+                className="bg-gray-600 text-white font-medium py-1 px-2 rounded text-xs hover:bg-gray-700 transition-colors duration-200"
+                title="Toggle mobile view for testing"
+              >
+                📱 {showMobileView ? 'Desktop' : 'Mobile'}
+              </button>
+            )
           )}
+
           <div className="flex items-center gap-1 sm:gap-4">
             <button 
               onClick={handlePreviousWeek} 
-              disabled={currentWeek === 1} 
+              disabled={currentWeek === 1 || isQuizActive} 
               className={`p-2 rounded-lg transition-colors duration-200 ${
-                currentWeek === 1 
+                currentWeek === 1 || isQuizActive
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                   : 'bg-navy-blue text-alpine-white hover:bg-mountain-blue'
               }`}
@@ -43,9 +65,9 @@ const TrainingHeader = ({ currentWeek, handlePreviousWeek, handleNextWeek, train
             </span>
             <button 
               onClick={handleNextWeek} 
-              disabled={currentWeek === trainingData.length} 
+              disabled={currentWeek === totalWeeks || isQuizActive} 
               className={`p-2 rounded-lg transition-colors duration-200 ${
-                currentWeek === trainingData.length 
+                currentWeek === totalWeeks || isQuizActive
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                   : 'bg-navy-blue text-alpine-white hover:bg-mountain-blue'
               }`}

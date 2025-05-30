@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
-import { theme } from "./theme";
+import { theme } from "./utils/theme";
 import './index.css';
 
 // Components
@@ -59,7 +59,7 @@ const App = () => {
                 <Route path="/training" element={<TrainingPlan />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />                <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/assessment" element={<Assessment />} />
-                <Route path="/training-app" element={<TrainingApp />} />
+                <Route path="/training-app/*" element={<TrainingApp />} />
                 <Route path="/mobile-test" element={<MobileTestShowcase />} />
               </Routes>
             </main>

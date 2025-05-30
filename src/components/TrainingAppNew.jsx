@@ -7,7 +7,7 @@ import UserRegistration from './UserRegistration';
 import trainingService from '../services/trainingService';
 import EnvDebug from './EnvDebug';
 
-const TrainingApp = () => {
+const TrainingAppNew = () => {
   const navigate = useNavigate();
   
   // Load saved data from localStorage
@@ -25,7 +25,6 @@ const TrainingApp = () => {
     }
     return defaultValue;
   };
-  
   // State with localStorage persistence and backend sync
   const [currentWeek, setCurrentWeek] = useState(() => loadFromStorage('currentWeek', 1));
   const [completedItems, setCompletedItems] = useState(() => loadFromStorage('completedItems', new Set()));
@@ -42,7 +41,6 @@ const TrainingApp = () => {
   const [activeTab, setActiveTab] = useState('videos');
   const [answerFeedback, setAnswerFeedback] = useState(null);
   const [isQuizActive, setIsQuizActive] = useState(false);
-
   // Save to localStorage when state changes
   useEffect(() => {
     localStorage.setItem('sherpa-training-currentWeek', JSON.stringify(currentWeek));
@@ -77,7 +75,6 @@ const TrainingApp = () => {
       localStorage.setItem('sherpa-training-userId', JSON.stringify(userId));
     }
   }, [userId]);
-
   // Get weeks data from contentRepository
   const getWeeksData = () => {
     return Object.keys(contentRepository)
@@ -189,7 +186,6 @@ const TrainingApp = () => {
 
     return totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
   };
-
   // Toggle item completion
   const toggleItemCompletion = async (itemId) => {
     setCompletedItems(prev => {
@@ -254,7 +250,6 @@ const TrainingApp = () => {
       }
     }, 3000);
   };
-
   const submitQuiz = async () => {
     const currentQuiz = contentRepository.quizzes?.[`week${currentWeek}`];
     if (!currentQuiz) return;
@@ -374,7 +369,6 @@ const TrainingApp = () => {
       </div>
     );
   };
-
   // Welcome screen
   if (showWelcome) {
     return (
@@ -404,8 +398,7 @@ const TrainingApp = () => {
                 <Target className="w-5 h-5 text-white" />
               </div>
               <h1 className="text-xl font-bold text-gray-900">SherpaTech.AI Training</h1>
-            </div>
-            <div className="flex items-center space-x-4">
+            </div>            <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <User className="w-5 h-5 text-gray-600" />
                 <span className="text-gray-700">{userData.name}</span>
@@ -677,12 +670,11 @@ const TrainingApp = () => {
                 {activeTab === 'tools' && renderContentSection('Tools', currentWeekData.tools, '🛠️', 'tools')}
               </div>
             </div>
-          </div>
-        </div>
+          </div>        </div>
       </div>
       <EnvDebug />
     </div>
   );
 };
 
-export default TrainingApp;
+export default TrainingAppNew;
