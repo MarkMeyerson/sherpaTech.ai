@@ -43,40 +43,21 @@ const TrainingApp = () => {
   const [answerFeedback, setAnswerFeedback] = useState(null);
   const [isQuizActive, setIsQuizActive] = useState(false);
 
-  // Save to localStorage when state changes
+  // Combined useEffect for localStorage updates and backend sync
   useEffect(() => {
     localStorage.setItem('sherpa-training-currentWeek', JSON.stringify(currentWeek));
-    // Also sync to backend if available
-    if (userId && !isOfflineMode) {
-      syncProgressToBackend();
-    }
-  }, [currentWeek]);
-
-  useEffect(() => {
     localStorage.setItem('sherpa-training-completedItems', JSON.stringify([...completedItems]));
-    // Also sync to backend if available
-    if (userId && !isOfflineMode) {
-      syncProgressToBackend();
-    }
-  }, [completedItems]);
-
-  useEffect(() => {
     localStorage.setItem('sherpa-training-quizScores', JSON.stringify(quizScores));
-    // Also sync to backend if available
-    if (userId && !isOfflineMode) {
-      syncProgressToBackend();
-    }
-  }, [quizScores]);
-
-  useEffect(() => {
     localStorage.setItem('sherpa-training-userData', JSON.stringify(userData));
-  }, [userData]);
-
-  useEffect(() => {
     if (userId) {
       localStorage.setItem('sherpa-training-userId', JSON.stringify(userId));
     }
-  }, [userId]);
+
+    if (userId && !isOfflineMode) {
+      // Consider debouncing this call if frequent updates are an issue
+      syncProgressToBackend();
+    }
+  }, [currentWeek, completedItems, quizScores, userData, userId, isOfflineMode]);
 
   // Get weeks data from contentRepository
   const getWeeksData = () => {
@@ -293,6 +274,12 @@ const TrainingApp = () => {
   };
 
   const sendSummaryReport = async (score, correct, total) => {
+    const summaryReportUrl = import.meta.env.VITE_SUMMARY_REPORT_URL;
+    if (!summaryReportUrl) {
+      console.warn('Summary report URL not configured. Skipping email report.');
+      return;
+    }
+
     const emailContent = {
       name: userData.name,
       email: userData.email,
@@ -304,7 +291,7 @@ const TrainingApp = () => {
     };
 
     try {
-      const response = await fetch('https://prod-32.westus.logic.azure.com:443/workflows/de85654dcff04825bb9a39d632ec4a20/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=SRYK6PqnPhUfNeMMW8oZp705-GAHg07Fonj6hdMdkos', {
+      const response = await fetch(summaryReportUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(emailContent),
@@ -680,7 +667,7 @@ const TrainingApp = () => {
           </div>
         </div>
       </div>
-      <EnvDebug />
+      {import.meta.env.DEV && <EnvDebug />}
     </div>
   );
 };
