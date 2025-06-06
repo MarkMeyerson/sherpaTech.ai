@@ -45,6 +45,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/services">Services</NavLink>
         <NavLink to="/about">About</NavLink>
+        <NavLink to="/our-why">Our Why</NavLink> {/* Added link */}
         <NavLink to="/small-businesses">Small Businesses</NavLink>
         <NavLink to="/training">Training Plan<br />for Individuals</NavLink>
         <NavLink to="/contact">Contact</NavLink>

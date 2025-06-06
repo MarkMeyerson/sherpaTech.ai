@@ -8,8 +8,8 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.RE
 
 // Only create supabase client if we have valid configuration
 let supabase = null;
-const isConfigured = supabaseUrl && supabaseKey && 
-                     supabaseUrl !== 'YOUR_SUPABASE_URL' && 
+const isConfigured = supabaseUrl && supabaseKey &&
+                     supabaseUrl !== 'YOUR_SUPABASE_URL' &&
                      supabaseKey !== 'YOUR_SUPABASE_ANON_KEY' &&
                      supabaseUrl.startsWith('http');
 
@@ -22,11 +22,26 @@ if (isConfigured) {
   }
 } else {
   console.log('⚠️ Supabase not configured - running in offline mode');
-  console.log('Environment check:', {
+  console.log('Environment check (local):', { // Keep existing log for local comparison
     hasUrl: !!supabaseUrl,
     hasKey: !!supabaseKey,
     urlValue: supabaseUrl ? supabaseUrl.substring(0, 20) + '...' : 'undefined',
     keyValue: supabaseKey ? supabaseKey.substring(0, 20) + '...' : 'undefined'
+  });
+  // Detailed Vercel diagnostic log
+  console.log('Vercel Env Check for Supabase Config:', {
+    viteUrlReceived: import.meta.env.VITE_SUPABASE_URL,
+    viteKeyReceived: import.meta.env.VITE_SUPABASE_ANON_KEY,
+    reactAppUrlReceived: import.meta.env.REACT_APP_SUPABASE_URL,
+    reactAppKeyReceived: import.meta.env.REACT_APP_SUPABASE_ANON_KEY,
+    finalSupabaseUrl: supabaseUrl,
+    finalSupabaseKey: supabaseKey,
+    isUrlValid: !!supabaseUrl,
+    isKeyValid: !!supabaseKey,
+    isUrlNotPlaceholder: supabaseUrl !== 'YOUR_SUPABASE_URL',
+    isKeyNotPlaceholder: supabaseKey !== 'YOUR_SUPABASE_ANON_KEY',
+    doesUrlStartWithHttp: supabaseUrl ? supabaseUrl.startsWith('http') : false,
+    isUltimatelyConfigured: isConfigured
   });
 }
 

@@ -19,6 +19,7 @@ import Footer from './components/Footer';
 import { Assessment } from './features/assessment/components/Assessment';
 import TrainingApp from './components/TrainingApp';
 import MobileTestShowcase from './components/MobileTestShowcase';
+import OurWhyStatement from './components/OurWhyStatement'; // Added import
 
 // Optional: Simple error boundary for debugging
 class ErrorBoundary extends React.Component {
@@ -61,6 +62,7 @@ const App = () => {
                 <Route path="/assessment" element={<Assessment />} />
                 <Route path="/training-app/*" element={<TrainingApp />} />
                 <Route path="/mobile-test" element={<MobileTestShowcase />} />
+                <Route path="/our-why" element={<OurWhyStatement />} /> {/* Added route */}
               </Routes>
             </main>
             <Footer />

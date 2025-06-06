@@ -42,22 +42,85 @@ const TrainingApp = () => {
   const [activeTab, setActiveTab] = useState('videos');
   const [answerFeedback, setAnswerFeedback] = useState(null);
   const [isQuizActive, setIsQuizActive] = useState(false);
+  const [sendEmailReportChecked, setSendEmailReportChecked] = useState(true); // Added for email report checkbox
 
-  // Combined useEffect for localStorage updates and backend sync
+  // Function to render content sections
+  const renderContentSection = (title, items, icon, categoryKey) => {
+    if (!items || items.length === 0) {
+      return (
+        <div className="text-center py-10">
+          <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900">No {title.toLowerCase()} available for this week.</h3>
+          <p className="text-gray-500">Check back later or move to another section.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+          <span role="img" aria-label={title} className="mr-3 text-2xl">{icon}</span>
+          {title}
+        </h3>
+        <div className="space-y-6">
+          {items.map((item, index) => (
+            <div 
+              key={item.id || index} 
+              className={`p-6 border rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md ${
+                completedItems.has(item.id) ? 'bg-green-50 border-green-200' : 'bg-white border-gray-200'
+              }`}
+            >
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                <div className="flex-grow mb-4 sm:mb-0">
+                  <h4 className="text-lg font-medium text-gray-800 mb-1">{item.title}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{item.description}</p>
+                  {item.duration && (
+                    <div className="flex items-center text-xs text-gray-500 mb-3">
+                      <Clock className="w-3 h-3 mr-1.5" />
+                      <span>{item.duration}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-shrink-0 flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      {categoryKey === 'videos' ? 'Watch' : categoryKey === 'readings' ? 'Read' : categoryKey === 'podcasts' ? 'Listen' : 'Open'}
+                    </a>
+                  )}
+                  <button
+                    onClick={() => toggleItemCompletion(item.id)}
+                    className={`flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 shadow-sm ${
+                      completedItems.has(item.id)
+                        ? 'bg-green-600 text-white hover:bg-green-700'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    }`}
+                  >
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    {completedItems.has(item.id) ? 'Completed' : 'Mark as Complete'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Effect to reset quiz state when currentWeek changes
   useEffect(() => {
-    localStorage.setItem('sherpa-training-currentWeek', JSON.stringify(currentWeek));
-    localStorage.setItem('sherpa-training-completedItems', JSON.stringify([...completedItems]));
-    localStorage.setItem('sherpa-training-quizScores', JSON.stringify(quizScores));
-    localStorage.setItem('sherpa-training-userData', JSON.stringify(userData));
-    if (userId) {
-      localStorage.setItem('sherpa-training-userId', JSON.stringify(userId));
-    }
-
-    if (userId && !isOfflineMode) {
-      // Consider debouncing this call if frequent updates are an issue
-      syncProgressToBackend();
-    }
-  }, [currentWeek, completedItems, quizScores, userData, userId, isOfflineMode]);
+    setIsQuizActive(false);
+    setQuizSubmitted(false);
+    setCurrentQuestionIndex(0);
+    setQuizAnswers({});
+    setAnswerFeedback(null);
+  }, [currentWeek]);
 
   // Get weeks data from contentRepository
   const getWeeksData = () => {
@@ -71,64 +134,7 @@ const TrainingApp = () => {
       }))
       .sort((a, b) => a.week - b.week);
   };
-
-  // Sync progress to backend
-  const syncProgressToBackend = async () => {
-    if (!userId || isOfflineMode) return;
-
-    try {
-      await trainingService.saveProgress(userId, {
-        currentWeek,
-        completedItems,
-        quizScores
-      });
-    } catch (error) {
-      console.error('Failed to sync progress to backend:', error);
-    }
-  };
-
-  // Handle user registration/login
-  const handleUserLogin = async (loginResult) => {
-    if (loginResult.isOffline) {
-      // Offline mode - use local data only
-      setUserData(loginResult.user);
-      setIsOfflineMode(true);
-      setShowWelcome(false);
-    } else {
-      // Backend mode - merge server data with local data
-      setUserData(loginResult.user);
-      setUserId(loginResult.user.id);
-      setIsOfflineMode(false);
-
-      if (loginResult.progress) {
-        // Merge server progress with local progress
-        const mergedProgress = trainingService.mergeProgressData({
-          currentWeek,
-          completedItems,
-          quizScores
-        }, loginResult.progress);
-
-        setCurrentWeek(mergedProgress.currentWeek);
-        setCompletedItems(mergedProgress.completedItems);
-        setQuizScores(mergedProgress.quizScores);
-      }
-
-      setShowWelcome(false);
-
-      // Log login activity
-      await trainingService.logActivity(loginResult.user.id, 'login', {
-        timestamp: new Date().toISOString()
-      });
-    }
-  };
-
-  const weeksData = getWeeksData();
-  const totalWeeks = weeksData.length;
-
-  // Get current week data
-  const getCurrentWeekData = () => {
-    return weeksData.find(w => w.week === currentWeek)?.data || {};
-  };
+  const weeksData = getWeeksData(); // Define weeksData here to be used by calculateOverallProgress
 
   // Calculate overall progress
   const calculateOverallProgress = () => {
@@ -150,6 +156,96 @@ const TrainingApp = () => {
 
     return totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
   };
+
+  // Combined useEffect for localStorage updates and backend sync
+  useEffect(() => {
+    localStorage.setItem('sherpa-training-currentWeek', JSON.stringify(currentWeek));
+    localStorage.setItem('sherpa-training-completedItems', JSON.stringify([...completedItems]));
+    localStorage.setItem('sherpa-training-quizScores', JSON.stringify(quizScores));
+    localStorage.setItem('sherpa-training-userData', JSON.stringify(userData));
+    if (userId) {
+      localStorage.setItem('sherpa-training-userId', JSON.stringify(userId));
+    }
+
+    if (userId && !isOfflineMode) {
+      // Consider debouncing this call if frequent updates are an issue
+      syncProgressToBackend();
+    }
+  }, [currentWeek, completedItems, quizScores, userData, userId, isOfflineMode]);
+
+  // Sync progress to backend
+  const syncProgressToBackend = async () => {
+    if (!userId || isOfflineMode) return;
+    // Log a deep clone to avoid console mutation issues when inspecting objects
+    console.log('[TrainingApp] syncProgressToBackend called. Data to save (cloned):', JSON.parse(JSON.stringify({ currentWeek, completedItems: Array.from(completedItems), quizScores })));
+
+    try {
+      await trainingService.saveProgress(userId, {
+        currentWeek,
+        completedItems: Array.from(completedItems), // Ensure completedItems is an array
+        quizScores
+      });
+      console.log('[TrainingApp] Progress synced to backend successfully.');
+    } catch (error) {
+      console.error('Failed to sync progress to backend:', error);
+    }
+  };
+
+  // Handle user registration/login
+  const handleUserLogin = async (loginResult) => {
+    console.log('[TrainingApp] handleUserLogin triggered. Login Result:', loginResult);
+    if (loginResult.isOffline) {
+      // Offline mode - use local data only
+      setUserData(loginResult.user);
+      setIsOfflineMode(true);
+      setShowWelcome(false);
+      console.log('[TrainingApp] Offline mode activated for user:', loginResult.user.name);
+    } else {
+      // Backend mode - merge server data with local data
+      console.log('[TrainingApp] Backend mode. User:', loginResult.user);
+      console.log('[TrainingApp] Backend progress received:', loginResult.progress);
+      
+      setUserData(loginResult.user);
+      setUserId(loginResult.user.id);
+      setIsOfflineMode(false);
+
+      if (loginResult.progress) {
+        console.log('[TrainingApp] Merging progress. Current local states before merge:', { currentWeek, completedItems: [...completedItems], quizScores });
+        const mergedProgress = trainingService.mergeProgressData({
+          currentWeek,
+          completedItems, // Pass the Set directly
+          quizScores
+        }, loginResult.progress);
+        console.log('[TrainingApp] Merged progress:', { currentWeek: mergedProgress.currentWeek, completedItems: [...mergedProgress.completedItems], quizScores: mergedProgress.quizScores });
+
+        setCurrentWeek(mergedProgress.currentWeek);
+        setCompletedItems(mergedProgress.completedItems); // Expecting a Set from mergeProgressData if server had items
+        setQuizScores(mergedProgress.quizScores);
+        console.log('[TrainingApp] States after setting from merged progress (will log actual state in next render cycle).');
+      } else {
+        console.log('[TrainingApp] No progress found on backend for this user. Using local/default states.');
+      }
+
+      setShowWelcome(false);
+
+      // Log login activity
+      await trainingService.logActivity(loginResult.user.id, 'login', {
+        timestamp: new Date().toISOString()
+      });
+    }
+  };
+
+  const totalWeeks = weeksData.length;
+
+  // Get current week data
+  const getCurrentWeekData = () => {
+    return weeksData.find(w => w.week === currentWeek)?.data || {};
+  };
+  
+  const currentWeekData = getCurrentWeekData();
+  const weekKeyForQuiz = `week${currentWeek}`;
+  const currentWeekQuizContent = contentRepository.quizzes?.[weekKeyForQuiz];
+  const PASSING_GRADE = 50; // Define passing grade
 
   // Calculate week progress
   const calculateWeekProgress = (weekNum) => {
@@ -194,10 +290,13 @@ const TrainingApp = () => {
   };
 
   // Quiz functionality
-  const startQuiz = () => {
-    const currentQuiz = contentRepository.quizzes?.[`week${currentWeek}`];
-    if (!currentQuiz || currentQuiz.length === 0) {
-      alert("No quiz available for this week.");
+  const startQuiz = () => { // Will only start the 'shortQuiz' for now
+    const weekKey = `week${currentWeek}`;
+    const currentQuizData = contentRepository.quizzes?.[weekKey];
+    const shortQuizQuestions = currentQuizData?.shortQuizQuestions;
+
+    if (!shortQuizQuestions || shortQuizQuestions.length === 0) {
+      alert("No short quiz available for this week.");
       return;
     }
     setIsQuizActive(true);
@@ -208,10 +307,12 @@ const TrainingApp = () => {
   };
 
   const handleQuizAnswer = (selectedOptionIndex) => {
-    const currentQuiz = contentRepository.quizzes?.[`week${currentWeek}`];
-    if (!currentQuiz || !currentQuiz[currentQuestionIndex]) return;
+    const weekKey = `week${currentWeek}`;
+    const shortQuizQuestions = contentRepository.quizzes?.[weekKey]?.shortQuizQuestions;
 
-    const currentQuestion = currentQuiz[currentQuestionIndex];
+    if (!shortQuizQuestions || !shortQuizQuestions[currentQuestionIndex]) return;
+
+    const currentQuestion = shortQuizQuestions[currentQuestionIndex];
     const isCorrect = selectedOptionIndex === currentQuestion.correct;
 
     setQuizAnswers(prev => ({
@@ -225,141 +326,175 @@ const TrainingApp = () => {
       reviewLink: currentQuestion.reviewLink
     });
 
-    // Move to next question after delay
-    setTimeout(() => {
-      if (currentQuestionIndex < currentQuiz.length - 1) {
-        setCurrentQuestionIndex(prev => prev + 1);
-        setAnswerFeedback(null);
-      } else {
-        submitQuiz();
-      }
-    }, 3000);
+    // User will now click a button to proceed
+  };
+
+  const handleNextQuestion = () => {
+    const weekKey = `week${currentWeek}`;
+    const shortQuizQuestions = contentRepository.quizzes?.[weekKey]?.shortQuizQuestions;
+    if (!shortQuizQuestions) return;
+
+    if (currentQuestionIndex < shortQuizQuestions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setAnswerFeedback(null); // Clear feedback for the next question
+    } else {
+      submitQuiz(); // If it's the last question, submit the quiz
+    }
   };
 
   const submitQuiz = async () => {
-    const currentQuiz = contentRepository.quizzes?.[`week${currentWeek}`];
-    if (!currentQuiz) return;
+    const weekKey = `week${currentWeek}`;
+    const score = Object.values(quizAnswers).filter((answer, index) => {
+      const question = contentRepository.quizzes?.[weekKey]?.shortQuizQuestions?.[index];
+      return question ? answer === question.correct : false;
+    }).length;
 
-    let correctCount = 0;
-    Object.entries(quizAnswers).forEach(([index, answer]) => {
-      if (currentQuiz[parseInt(index)]?.correct === answer) {
-        correctCount++;
-      }
-    });
-
-    const score = Math.round((correctCount / currentQuiz.length) * 100);
-    setQuizScores(prev => ({
-      ...prev,
-      [`week${currentWeek}`]: score
-    }));
+    const currentQuizQuestions = contentRepository.quizzes?.[weekKey]?.shortQuizQuestions;
+    const totalQuestions = currentQuizQuestions ? currentQuizQuestions.length : 0;
+    const finalScorePercentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
 
     setQuizSubmitted(true);
     setIsQuizActive(false);
+
+    // Save quiz score
+    setQuizScores(prevScores => ({
+      ...prevScores,
+      [weekKey]: finalScorePercentage
+    }));
 
     // Log quiz activity to backend
     if (userId && !isOfflineMode) {
       await trainingService.logActivity(userId, 'quiz_submitted', {
         week: currentWeek,
-        score,
-        correct: correctCount,
-        total: currentQuiz.length,
+        score: finalScorePercentage, // Log percentage score
+        totalCorrect: score,
+        totalQuestions: totalQuestions,
         timestamp: new Date().toISOString()
       });
     }
 
-    // Send email report if user data available
-    if (userData.name && userData.email) {
-      sendSummaryReport(score, correctCount, currentQuiz.length);
+    // Auto-save progress on quiz completion
+    if (userId && !isOfflineMode) {
+      syncProgressToBackend(); // This will save the latest quizScores and currentWeek
+    }
+
+    // Conditionally send email report
+    if (sendEmailReportChecked) {
+      sendSummaryReport();
     }
   };
 
-  const sendSummaryReport = async (score, correct, total) => {
-    const summaryReportUrl = import.meta.env.VITE_SUMMARY_REPORT_URL;
-    if (!summaryReportUrl) {
-      console.warn('Summary report URL not configured. Skipping email report.');
+  const sendSummaryReport = async () => {
+    const reportUrl = import.meta.env.VITE_SUMMARY_REPORT_URL;
+    if (!reportUrl) {
+      console.warn("VITE_SUMMARY_REPORT_URL is not set. Cannot send summary report.");
+      alert("Email reporting is not configured. Please contact support.");
       return;
     }
 
-    const emailContent = {
-      name: userData.name,
-      email: userData.email,
-      week: currentWeek,
-      score: score,
-      correct: correct,
-      total: total,
-      source: 'Training App Enhanced'
-    };
+    const weekKey = `week${currentWeek}`;
+    const currentWeekContent = weeksData.find(w => w.week === currentWeek);
+    const nextWeekContent = weeksData.find(w => w.week === currentWeek + 1);
+    const currentQuizData = contentRepository.quizzes?.[weekKey];
+    const shortQuizQuestions = currentQuizData?.shortQuizQuestions || [];
+
+    const completedItemsForWeek = [];
+    Object.keys(currentWeekContent?.data || {}).forEach(categoryKey => {
+      if (Array.isArray(currentWeekContent.data[categoryKey])) {
+        currentWeekContent.data[categoryKey].forEach(item => {
+          if (completedItems.has(item.id)) {
+            completedItemsForWeek.push({ title: item.title, type: categoryKey });
+          }
+        });
+      }
+    });
+
+    const incorrectAnswers = [];
+    if (quizSubmitted && shortQuizQuestions.length > 0) {
+      shortQuizQuestions.forEach((question, index) => {
+        const userAnswerIndex = quizAnswers[index];
+        if (userAnswerIndex !== question.correct) {
+          incorrectAnswers.push({
+            question: question.question,
+            userAnswer: question.options[userAnswerIndex] || "Not answered",
+            correctAnswer: question.options[question.correct],
+            explanation: question.explanation,
+            reviewLink: question.reviewLink
+          });
+        }
+      });
+    }
+
+    // build simple flat payload
+    const subject = `Weekly Summary – Week ${currentWeek}: ${currentWeekContent?.title || ''}`;
+    let bodyHtml = `<h1>Week ${currentWeek}: ${currentWeekContent?.title || 'N/A'}</h1>`;
+    bodyHtml += `<p><strong>Quiz Score:</strong> ${quizScores[weekKey] !== undefined ? `${quizScores[weekKey]}%` : 'Not taken'}</p>`;
+    bodyHtml += `<h2>Completed Items This Week</h2><ul>`;
+    completedItemsForWeek.forEach(item => {
+      bodyHtml += `<li>${item.title} (${item.type})</li>`;
+    });
+    bodyHtml += `</ul>`;
+    if (incorrectAnswers.length) {
+      bodyHtml += `<h2>Incorrectly Answered Questions</h2><ul>`;
+      incorrectAnswers.forEach(q => {
+        bodyHtml += `<li><strong>${q.question}</strong><br/>Your answer: ${q.userAnswer}<br/>Correct: ${q.correctAnswer}</li>`;
+      });
+      bodyHtml += `</ul>`;
+    }
+    if (nextWeekPreview) {
+      bodyHtml += `<h2>Next Week Preview</h2><p><strong>${nextWeekPreview.title}</strong>: ${nextWeekPreview.description}</p>`;
+    }
+    bodyHtml += `<p>Report Date: ${new Date().toLocaleDateString()}</p>`;
+    const payload = { to: userData.email, subject, bodyHtml };
+
+    console.log("Preparing to send email report:", payload);
 
     try {
-      const response = await fetch(summaryReportUrl, {
+      const response = await fetch(reportUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(emailContent),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
       });
 
       if (response.ok) {
-        console.log('Summary report sent successfully');
+        console.log('Summary report sent successfully.');
+        alert('Summary report sent to your email!');
+      } else {
+        const errorData = await response.text();
+        console.error('Failed to send summary report:', response.status, errorData);
+        alert(`Failed to send summary report. Status: ${response.status}. Please try again or contact support.`);
       }
     } catch (error) {
       console.error('Error sending summary report:', error);
+      alert('An error occurred while sending the summary report. Please check your connection or contact support.');
     }
   };
-
-  const renderContentSection = (title, items, icon, type) => {
-    if (!items || items.length === 0) return null;
-
-    return (
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <span className="mr-2">{icon}</span>
-          {title}
-        </h3>
-        <div className="space-y-4">
-          {items.map((item) => (
-            <div key={item.id} className="border rounded-lg p-4 hover:bg-gray-50">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h4 className="font-medium text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-gray-600 text-sm mb-3">{item.description}</p>
-                  {item.duration && (
-                    <span className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded">
-                      {item.duration}
-                    </span>
-                  )}
-                  {item.estimatedTime && (
-                    <span className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded">
-                      {item.estimatedTime}
-                    </span>
-                  )}
-                  {item.url && item.url !== '#' && (
-                    <div className="mt-3">
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      >
-                        {type === 'videos' ? 'Watch Video' : type === 'readings' ? 'Read Article' : 'Access Resource'} →
-                      </a>
-                    </div>
-                  )}
-                </div>
-                <button
-                  onClick={() => toggleItemCompletion(item.id)}
-                  className={`ml-4 p-2 rounded-full ${
-                    completedItems.has(item.id)
-                      ? 'bg-green-100 text-green-600'
-                      : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
-                  }`}
-                >
-                  <CheckCircle className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  
+  const handleSkipQuizAndEmailResults = () => {
+    const weekKey = `week${currentWeek}`;
+    // Mark quiz as "skipped" or assign a specific score if needed
+    setQuizScores(prevScores => ({
+      ...prevScores,
+      [weekKey]: "Skipped" // Or 0, or a specific indicator
+    }));
+    setQuizSubmitted(true); // Mark as submitted to show results/options view
+    setIsQuizActive(false);
+    
+    if (sendEmailReportChecked) { // Ensure checkbox is still respected
+        sendSummaryReport(); // Send report with "Skipped" status
+    } else {
+        alert("Quiz skipped. To receive an email report, please check the 'Send me a summary report' option.");
+    }
+    // Potentially log this action
+    if (userId && !isOfflineMode) {
+      trainingService.logActivity(userId, 'quiz_skipped', {
+        week: currentWeek,
+        timestamp: new Date().toISOString()
+      });
+      syncProgressToBackend(); // Save the "Skipped" status
+    }
   };
 
   // Welcome screen
@@ -370,8 +505,6 @@ const TrainingApp = () => {
       />
     );
   }
-
-  const currentWeekData = getCurrentWeekData();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -441,7 +574,8 @@ const TrainingApp = () => {
               <div className="space-y-4">
                 {weeksData.map(week => {
                   const weekProgress = calculateWeekProgress(week.week);
-                  const hasQuiz = contentRepository.quizzes?.[`week${week.week}`]?.length > 0;
+                  // Check for shortQuizQuestions specifically
+                  const hasQuiz = contentRepository.quizzes?.[`week${week.week}`]?.shortQuizQuestions?.length > 0;
                   const quizScore = quizScores[`week${week.week}`];
                   
                   return (
@@ -462,7 +596,7 @@ const TrainingApp = () => {
                         <div className="flex justify-between text-xs text-gray-500">
                           <span>{weekProgress}% Complete</span>
                           {hasQuiz && quizScore !== undefined && (
-                            <span className={quizScore >= 70 ? 'text-green-600' : 'text-yellow-600'}>
+                            <span className={quizScore >= PASSING_GRADE ? 'text-green-600' : 'text-yellow-600'}>
                               Quiz: {quizScore}%
                             </span>
                           )}
@@ -558,104 +692,223 @@ const TrainingApp = () => {
               {/* Content Area */}
               <div className="p-6">
                 {/* Quiz Section */}
-                {activeTab === 'quiz' && (
-                  <div>
-                    {isQuizActive ? (
-                      <div>
-                        {/* Quiz in progress */}
-                        <div className="mb-6">
-                          <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-lg font-semibold">Week {currentWeek} Quiz</h3>
-                            <span className="text-sm text-gray-500">
-                              Question {currentQuestionIndex + 1} of {contentRepository.quizzes[`week${currentWeek}`]?.length || 0}
-                            </span>
-                          </div>
-                          
-                          {contentRepository.quizzes[`week${currentWeek}`] && (
-                            <div className="border rounded-lg p-6">
-                              <h4 className="font-medium mb-4">
-                                {contentRepository.quizzes[`week${currentWeek}`][currentQuestionIndex]?.question}
-                              </h4>
-                              
-                              {answerFeedback ? (
-                                <div className={`p-4 rounded-lg mb-4 ${
-                                  answerFeedback.isCorrect ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-                                }`}>
-                                  <p className="font-medium mb-2">
-                                    {answerFeedback.isCorrect ? 'Correct!' : 'Incorrect'}
-                                  </p>
-                                  <p className="text-sm">{answerFeedback.explanation}</p>
-                                  {answerFeedback.reviewLink && (
-                                    <a 
-                                      href={answerFeedback.reviewLink} 
-                                      target="_blank" 
-                                      rel="noopener noreferrer"
-                                      className="text-sm underline mt-2 block"
-                                    >
-                                      Review this topic →
-                                    </a>
-                                  )}
-                                </div>
-                              ) : (
-                                <div className="space-y-3">
-                                  {contentRepository.quizzes[`week${currentWeek}`][currentQuestionIndex]?.options.map((option, index) => (
-                                    <button
-                                      key={index}
-                                      onClick={() => handleQuizAnswer(index)}
-                                      className="w-full text-left p-3 border rounded-lg hover:bg-gray-50"
-                                    >
-                                      {option}
-                                    </button>
-                                  ))}
-                                </div>
-                              )}
+                {activeTab === 'quiz' && (() => {
+                  const weekKey = `week${currentWeek}`;
+                  const quizContentForTab = contentRepository.quizzes?.[weekKey];
+                  const shortQuizQuestionsForTab = quizContentForTab?.shortQuizQuestions;
+
+                  return (
+                    <div>
+                      {isQuizActive ? (
+                        <div>
+                          {/* Quiz in progress */}
+                          <div className="mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                              <h3 className="text-lg font-semibold">{quizContentForTab?.shortQuizLabel || `Week ${currentWeek} Quiz`}</h3>
+                              <span className="text-sm text-gray-500">
+                                Question {currentQuestionIndex + 1} of {shortQuizQuestionsForTab?.length || 0}
+                              </span>
                             </div>
-                          )}
+                            
+                            {shortQuizQuestionsForTab && shortQuizQuestionsForTab.length > 0 && currentQuestionIndex < shortQuizQuestionsForTab.length && (
+                              <div className="border rounded-lg p-6">
+                                <h4 className="font-medium mb-4">
+                                  {shortQuizQuestionsForTab[currentQuestionIndex]?.question}
+                                </h4>
+                                
+                                {answerFeedback ? (
+                                  <div className={`p-4 rounded-lg mb-4 ${
+                                    answerFeedback.isCorrect ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
+                                  }`}>
+                                    <p className="font-medium mb-2">
+                                      {answerFeedback.isCorrect ? 'Correct!' : 'Incorrect'}
+                                    </p>
+                                    <p className="text-sm">{answerFeedback.explanation}</p>
+                                    {answerFeedback.reviewLink && (
+                                      <a 
+                                        href={answerFeedback.reviewLink} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="text-sm underline mt-2 block hover:text-blue-700"
+                                      >
+                                        Review this topic →
+                                      </a>
+                                    )}
+                                    <button
+                                      onClick={handleNextQuestion}
+                                      className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm"
+                                    >
+                                      {currentQuestionIndex < (shortQuizQuestionsForTab?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz'}
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="space-y-3">
+                                    {shortQuizQuestionsForTab[currentQuestionIndex]?.options.map((option, index) => (
+                                      <button
+                                        key={index}
+                                        onClick={() => handleQuizAnswer(index)}
+                                        className="w-full text-left p-3 border rounded-lg hover:bg-gray-50"
+                                      >
+                                        {option}
+                                      </button>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ) : quizSubmitted ? (
-                      <div className="text-center py-8">
-                        <Award className={`w-12 h-12 mx-auto mb-4 ${
-                          quizScores[`week${currentWeek}`] >= 70 ? 'text-green-500' : 'text-yellow-500'
-                        }`} />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">Quiz Completed!</h3>
-                        <p className="text-gray-600 mb-4">
-                          Your Score: {quizScores[`week${currentWeek}`]}%
-                        </p>
-                        {quizScores[`week${currentWeek}`] >= 70 ? (
-                          <p className="text-green-600 font-medium">Great job! You've mastered this week's content.</p>
-                        ) : (
-                          <div>
+                      ) : quizSubmitted ? (
+                        <div className="text-center py-8">
+                          <Award className={`w-12 h-12 mx-auto mb-4 ${
+                            quizScores[weekKey] >= PASSING_GRADE ? 'text-green-500' : 'text-yellow-500'
+                          }`} />
+                          <h3 className="text-lg font-medium text-gray-900 mb-2">Quiz Completed!</h3>
+                          <p className="text-gray-600 mb-4">
+                            Your Score: {quizScores[weekKey]}%
+                          </p>
+                          
+                          {quizScores[weekKey] >= PASSING_GRADE ? (
+                            <p className="text-green-600 font-medium mb-4">Good effort! You've met the passing grade.</p>
+                          ) : (
                             <p className="text-yellow-600 font-medium mb-4">
                               Review the material and try again to improve your score!
                             </p>
-                            <button
-                              onClick={startQuiz}
-                              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                            >
-                              Retake Quiz
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="text-center py-8">
-                        <CheckCircle className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">Ready for the Quiz?</h3>
-                        <p className="text-gray-600 mb-6">
-                          Test your knowledge of Week {currentWeek} content.
-                        </p>
-                        <button
-                          onClick={startQuiz}
-                          className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 font-medium"
-                        >
-                          Start Week {currentWeek} Quiz
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
+                          )}
 
+                          <div className="space-y-2 mt-4">
+                            {quizScores[weekKey] >= PASSING_GRADE && currentWeek < totalWeeks && (
+                                <button
+                                  onClick={() => {
+                                    const nextWeek = currentWeek + 1;
+                                    if (nextWeek <= totalWeeks) {
+                                      setCurrentWeek(nextWeek);
+                                    }
+                                    setActiveTab('videos'); 
+                                    // Quiz states are reset by useEffect on currentWeek change
+                                  }}
+                                  className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 mr-2"
+                                >
+                                  Proceed to Next Week
+                                </button>
+                              )}
+                            <button
+                                onClick={startQuiz} // Retake current week's short quiz
+                                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mr-2"
+                              >
+                                Retake Quiz
+                              </button>
+                            <button
+                                onClick={() => {
+                                  setActiveTab('videos');
+                                  // Optionally reset quiz states if leaving the quiz results view
+                                  // setQuizSubmitted(false);
+                                  // setCurrentQuestionIndex(0);
+                                  // setQuizAnswers({});
+                                  // setAnswerFeedback(null);
+                                  // setIsQuizActive(false);
+                                }}
+                                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+                              >
+                                Review Content
+                              </button>
+                            {quizContentForTab?.shortFormLink && (
+                              <a
+                                href={quizContentForTab.shortFormLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 ml-2"
+                              >
+                                {quizContentForTab.shortFormLabel || 'Short Feedback Form'}
+                              </a>
+                            )}
+                          </div>
+
+                          {/* Email Report Checkbox */}
+                          <div className="mt-6 text-sm text-gray-600">
+                            <label htmlFor="sendEmailReport" className="flex items-center justify-center">
+                              <input
+                                type="checkbox"
+                                id="sendEmailReport"
+                                checked={sendEmailReportChecked}
+                                onChange={(e) => setSendEmailReportChecked(e.target.checked)}
+                                className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                              />
+                              Send me a summary report email for this week.
+                            </label>
+                          </div>
+                        </div>
+                      ) : ( // Initial Quiz Tab View: !isQuizActive && !quizSubmitted
+                        <div className="text-center py-8 space-y-4"> {/* Reduced space-y-6 to space-y-4 for tighter layout */}
+                          <div>
+                            <CheckCircle className="w-12 h-12 text-blue-600 mx-auto mb-2" />
+                            <h3 className="text-lg font-medium text-gray-900 mb-1">Ready for your Weekly Check-in?</h3>
+                            <p className="text-gray-600 mb-6"> {/* Added mb-6 for spacing */}
+                              Assess your understanding and provide feedback for Week {currentWeek}.
+                            </p>
+                          </div>
+
+                          {/* New Button: Skip Quiz and Email Results */}
+                          <button
+                            onClick={handleSkipQuizAndEmailResults}
+                            className="w-full max-w-md mx-auto bg-yellow-500 text-white px-6 py-3 rounded-md hover:bg-yellow-600 font-medium text-base"
+                          >
+                            Skip Quick Check & Email Weekly Summary
+                          </button>
+                          
+                          {/* Existing Button: Start Short Quiz */}
+                          {quizContentForTab?.shortQuizQuestions && quizContentForTab.shortQuizQuestions.length > 0 ? (
+                            <button
+                              onClick={startQuiz} // This will start the shortQuiz
+                              className="w-full max-w-md mx-auto bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 font-medium text-base"
+                            >
+                              {quizContentForTab.shortQuizLabel || `Start Week ${currentWeek} Quick Check`}
+                            </button>
+                          ) : (
+                            <p className="text-gray-500">No quick check quiz available for this week.</p>
+                          )}
+
+                          {/* Existing Button: Short Feedback Form (External) */}
+                          {quizContentForTab?.shortFormLink && (
+                            <a
+                              href={quizContentForTab.shortFormLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block w-full max-w-md mx-auto bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 font-medium text-base"
+                            >
+                              {quizContentForTab.shortFormLabel || `Provide Short Feedback (Form)`}
+                            </a>
+                          )}
+
+                          {/* Existing Button: Long Review Form (External) */}
+                          {quizContentForTab?.longFormLink && (
+                            <a
+                              href={quizContentForTab.longFormLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block w-full max-w-md mx-auto bg-teal-600 text-white px-6 py-3 rounded-md hover:bg-teal-700 font-medium text-base"
+                            >
+                              {quizContentForTab.longFormLabel || `Comprehensive Review (Form)`}
+                            </a>
+                          )}
+                           {/* Email Report Checkbox - Moved here to be always visible on this initial screen */}
+                           <div className="mt-6 text-sm text-gray-600">
+                            <label htmlFor="sendEmailReport" className="flex items-center justify-center">
+                              <input
+                                type="checkbox"
+                                id="sendEmailReport"
+                                checked={sendEmailReportChecked}
+                                onChange={(e) => setSendEmailReportChecked(e.target.checked)}
+                                className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                              />
+                              Send me a summary report email for this week.
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
                 {/* Content Sections */}
                 {activeTab === 'videos' && renderContentSection('Videos', currentWeekData.videos, '📹', 'videos')}
                 {activeTab === 'readings' && renderContentSection('Readings', currentWeekData.readings, '📖', 'readings')}
