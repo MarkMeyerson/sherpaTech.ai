@@ -54,6 +54,7 @@ const ContactForm = ({ onSubmit }) => {
           name="name"
           value={values.name}
           onChange={handleChange}
+          autoComplete="name"
         />
         {errors.name && <span>{errors.name}</span>}
       </div>
@@ -65,6 +66,7 @@ const ContactForm = ({ onSubmit }) => {
           name="email"
           value={values.email}
           onChange={handleChange}
+          autoComplete="email"
         />
         {errors.email && <span>{errors.email}</span>}
       </div>

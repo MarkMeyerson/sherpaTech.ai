@@ -112,6 +112,7 @@ const UserRegistration = ({ onRegister }) => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy-blue focus:border-transparent transition-colors duration-200 text-gray-900 placeholder-gray-500"
                   placeholder="Enter your full name"
                   required
@@ -128,6 +129,7 @@ const UserRegistration = ({ onRegister }) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy-blue focus:border-transparent transition-colors duration-200 text-gray-900 placeholder-gray-500"
                   placeholder="Enter your email address"
                   required
@@ -154,6 +156,7 @@ const UserRegistration = ({ onRegister }) => {
                   type="text"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
+                  autoComplete="username"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy-blue focus:border-transparent transition-colors duration-200 text-gray-900 placeholder-gray-500"
                   placeholder="Enter your email or full name"
                   required

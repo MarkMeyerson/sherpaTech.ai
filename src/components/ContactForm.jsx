@@ -121,6 +121,7 @@ const ContactForm = ({ onSubmit, isLoading }) => {
             type="text"
             id="name"
             name="name"
+            autoComplete="name"
             className={`w-full p-2 border rounded ${formErrors.name ? 'border-red-500' : 'border-gray-300'}`}
           />
           {formErrors.name && (
@@ -135,6 +136,7 @@ const ContactForm = ({ onSubmit, isLoading }) => {
             type="email"
             id="email"
             name="email"
+            autoComplete="email"
             className={`w-full p-2 border rounded ${formErrors.email ? 'border-red-500' : 'border-gray-300'}`}
           />
           {formErrors.email && (
