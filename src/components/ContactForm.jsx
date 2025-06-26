@@ -116,10 +116,10 @@ const ContactForm = ({ onSubmit, isLoading }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name Input */}
         <div>
-          <label htmlFor="name" className="block text-navy-blue mb-2">Name</label>
+          <label htmlFor="contact-name" className="block text-navy-blue mb-2">Name</label>
           <input
             type="text"
-            id="name"
+            id="contact-name"
             name="name"
             autoComplete="name"
             className={`w-full p-2 border rounded ${formErrors.name ? 'border-red-500' : 'border-gray-300'}`}
@@ -131,10 +131,10 @@ const ContactForm = ({ onSubmit, isLoading }) => {
 
         {/* Email Input */}
         <div>
-          <label htmlFor="email" className="block text-navy-blue mb-2">Email</label>
+          <label htmlFor="contact-email" className="block text-navy-blue mb-2">Email</label>
           <input
             type="email"
-            id="email"
+            id="contact-email"
             name="email"
             autoComplete="email"
             className={`w-full p-2 border rounded ${formErrors.email ? 'border-red-500' : 'border-gray-300'}`}

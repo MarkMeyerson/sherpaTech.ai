@@ -104,11 +104,11 @@ const UserRegistration = ({ onRegister }) => {
           {mode === 'new' ? (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-navy-blue mb-2">
+                <label htmlFor="registration-name" className="block text-sm font-medium text-navy-blue mb-2">
                   Full Name
                 </label>
                 <input
-                  id="name"
+                  id="registration-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -121,11 +121,11 @@ const UserRegistration = ({ onRegister }) => {
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-navy-blue mb-2">
+                <label htmlFor="registration-email" className="block text-sm font-medium text-navy-blue mb-2">
                   Email Address
                 </label>
                 <input
-                  id="email"
+                  id="registration-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

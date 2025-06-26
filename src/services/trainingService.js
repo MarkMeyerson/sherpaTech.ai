@@ -21,13 +21,14 @@ if (isConfigured) {
     console.error('❌ Failed to initialize Supabase client:', error);
   }
 } else {
-  console.log('⚠️ Supabase not configured - running in offline mode');
-  console.log('Environment check (local):', { // Keep existing log for local comparison
-    hasUrl: !!supabaseUrl,
-    hasKey: !!supabaseKey,
-    urlValue: supabaseUrl ? supabaseUrl.substring(0, 20) + '...' : 'undefined',
-    keyValue: supabaseKey ? supabaseKey.substring(0, 20) + '...' : 'undefined'
-  });
+  // console.log('⚠️ Supabase not configured - running in offline mode');
+  // Commenting out environment check to reduce console clutter in development
+  // console.log('Environment check (local):', { // Keep existing log for local comparison
+  //   hasUrl: !!supabaseUrl,
+  //   hasKey: !!supabaseKey,
+  //   urlValue: supabaseUrl ? supabaseUrl.substring(0, 20) + '...' : 'undefined',
+  //   keyValue: supabaseKey ? supabaseKey.substring(0, 20) + '...' : 'undefined'
+  // });
   // Detailed Vercel diagnostic log
   console.log('Vercel Env Check for Supabase Config:', {
     viteUrlReceived: import.meta.env.VITE_SUPABASE_URL,

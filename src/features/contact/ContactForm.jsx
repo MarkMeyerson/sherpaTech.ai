@@ -47,10 +47,10 @@ const ContactForm = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="feature-contact-name">Name</label>
         <input
           type="text"
-          id="name"
+          id="feature-contact-name"
           name="name"
           value={values.name}
           onChange={handleChange}
@@ -59,10 +59,10 @@ const ContactForm = ({ onSubmit }) => {
         {errors.name && <span>{errors.name}</span>}
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="feature-contact-email">Email</label>
         <input
           type="email"
-          id="email"
+          id="feature-contact-email"
           name="email"
           value={values.email}
           onChange={handleChange}

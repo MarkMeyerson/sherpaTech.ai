@@ -19,10 +19,10 @@ export const ContactCollection: React.FC<ContactCollectionProps> = ({ onSubmit }
       <p>Please provide your contact information to see your results.</p>
       
       <div>
-        <label htmlFor="email" className="block mb-1">Email (required)</label>
+        <label htmlFor="assessment-contact-email" className="block mb-1">Email (required)</label>
         <input
           type="email"
-          id="email"
+          id="assessment-contact-email"
           required
           className="w-full p-2 border rounded"
           value={contact.email}
@@ -31,10 +31,10 @@ export const ContactCollection: React.FC<ContactCollectionProps> = ({ onSubmit }
       </div>
 
       <div>
-        <label htmlFor="phone" className="block mb-1">Phone (optional)</label>
+        <label htmlFor="assessment-contact-phone" className="block mb-1">Phone (optional)</label>
         <input
           type="tel"
-          id="phone"
+          id="assessment-contact-phone"
           className="w-full p-2 border rounded"
           value={contact.phone || ''}
           onChange={e => setContact(prev => ({ ...prev, phone: e.target.value }))}

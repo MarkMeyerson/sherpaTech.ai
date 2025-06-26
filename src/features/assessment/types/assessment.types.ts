@@ -29,6 +29,11 @@ export interface AssessmentScore {
 
 export type AssessmentPath = 'zero-knowledge' | 'some-awareness' | 'knowledgeable';
 
+export interface UserContact {
+  email: string;
+  phone?: string;
+}
+
 export interface AssessmentState {
   currentSection: 'initial' | 'tailored' | 'contact';
   scores: AssessmentScore;
