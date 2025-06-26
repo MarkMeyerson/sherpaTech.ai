@@ -5,12 +5,23 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
-    strictPort: true
+    strictPort: true,
+    headers: {
+      'Cache-Control': 'no-store'
+    }
   },
   build: {
     manifest: true,
     commonjsOptions: {
       cache: false
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          utils: ['prop-types']
+        }
+      }
     }
   },
   optimizeDeps: {

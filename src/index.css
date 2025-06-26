@@ -660,8 +660,11 @@ html {
 /* High-resolution displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .high-res-optimized {
+    -webkit-image-rendering: -webkit-optimize-contrast;
+    -webkit-image-rendering: crisp-edges;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    image-rendering: pixelated; /* Fallback for browsers that don't support crisp-edges */
   }
 }
 

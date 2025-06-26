@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { generateUniqueId } from '../utils/idGenerator';
 import trainingService from '../services/trainingService';
 
 const UserRegistration = ({ onRegister }) => {
@@ -8,6 +9,11 @@ const UserRegistration = ({ onRegister }) => {
   const [identifier, setIdentifier] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  
+  // Generate unique IDs for form fields
+  const nameFieldId = generateUniqueId('registration-name');
+  const emailFieldId = generateUniqueId('registration-email');
+  const identifierFieldId = generateUniqueId('registration-identifier');
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -104,11 +110,11 @@ const UserRegistration = ({ onRegister }) => {
           {mode === 'new' ? (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="registration-name" className="block text-sm font-medium text-navy-blue mb-2">
+                <label htmlFor={nameFieldId} className="block text-sm font-medium text-navy-blue mb-2">
                   Full Name
                 </label>
                 <input
-                  id="registration-name"
+                  id={nameFieldId}
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -121,11 +127,11 @@ const UserRegistration = ({ onRegister }) => {
               </div>
               
               <div>
-                <label htmlFor="registration-email" className="block text-sm font-medium text-navy-blue mb-2">
+                <label htmlFor={emailFieldId} className="block text-sm font-medium text-navy-blue mb-2">
                   Email Address
                 </label>
                 <input
-                  id="registration-email"
+                  id={emailFieldId}
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -148,11 +154,11 @@ const UserRegistration = ({ onRegister }) => {
           ) : (
             <form onSubmit={handleReturningUser} className="space-y-6">
               <div>
-                <label htmlFor="identifier" className="block text-sm font-medium text-navy-blue mb-2">
+                <label htmlFor={identifierFieldId} className="block text-sm font-medium text-navy-blue mb-2">
                   Email Address or Full Name
                 </label>
                 <input
-                  id="identifier"
+                  id={identifierFieldId}
                   type="text"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
