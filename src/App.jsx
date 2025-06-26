@@ -22,23 +22,6 @@ import TrainingApp from './components/TrainingApp';
 import MobileTestShowcase from './components/MobileTestShowcase';
 import OurWhyStatement from './components/OurWhyStatement'; // Added import
 
-// Optional: Simple error boundary for debugging
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-  render() {
-    if (this.state.hasError) {
-      return <div style={{ color: 'red' }}>Error: {this.state.error?.message}</div>;
-    }
-    return this.props.children;
-  }
-}
-
 const App = () => {
   // Add a placeholder onSubmit handler for ContactForm
   const handleContactFormSubmit = (formData) => {
