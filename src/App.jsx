@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
 import { theme } from "./utils/theme";
 import './index.css';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Components
 import Navbar from './components/Navbar';  // Using your styled Navbar instead

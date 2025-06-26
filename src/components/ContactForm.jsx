@@ -6,11 +6,17 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { generateUniqueId } from '../utils/idGenerator';
 
 const ContactForm = ({ onSubmit, isLoading }) => {
   const [submissionStatus, setSubmissionStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+
+  // Generate unique IDs for form fields to prevent conflicts
+  const nameFieldId = generateUniqueId('contact-name');
+  const emailFieldId = generateUniqueId('contact-email');
+  const messageFieldId = generateUniqueId('contact-message');
 
   // Validation function
   const validateForm = (formData) => {
@@ -116,10 +122,10 @@ const ContactForm = ({ onSubmit, isLoading }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name Input */}
         <div>
-          <label htmlFor="contact-name" className="block text-navy-blue mb-2">Name</label>
+          <label htmlFor={nameFieldId} className="block text-navy-blue mb-2">Name</label>
           <input
             type="text"
-            id="contact-name"
+            id={nameFieldId}
             name="name"
             autoComplete="name"
             className={`w-full p-2 border rounded ${formErrors.name ? 'border-red-500' : 'border-gray-300'}`}
@@ -131,10 +137,10 @@ const ContactForm = ({ onSubmit, isLoading }) => {
 
         {/* Email Input */}
         <div>
-          <label htmlFor="contact-email" className="block text-navy-blue mb-2">Email</label>
+          <label htmlFor={emailFieldId} className="block text-navy-blue mb-2">Email</label>
           <input
             type="email"
-            id="contact-email"
+            id={emailFieldId}
             name="email"
             autoComplete="email"
             className={`w-full p-2 border rounded ${formErrors.email ? 'border-red-500' : 'border-gray-300'}`}
@@ -146,9 +152,9 @@ const ContactForm = ({ onSubmit, isLoading }) => {
 
         {/* Message Input */}
         <div>
-          <label htmlFor="message" className="block text-navy-blue mb-2">Message</label>
+          <label htmlFor={messageFieldId} className="block text-navy-blue mb-2">Message</label>
           <textarea
-            id="message"
+            id={messageFieldId}
             name="message"
             rows="4"
             className={`w-full p-2 border rounded ${formErrors.message ? 'border-red-500' : 'border-gray-300'}`}
