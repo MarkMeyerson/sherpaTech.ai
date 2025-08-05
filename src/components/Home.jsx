@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Hero from './Hero';
-import ContactForm from './ContactForm'; // Import ContactForm
+import HubSpotContactForm from './HubSpotContactForm';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -17,7 +17,13 @@ const Home = () => {
           Explore Services
         </button>
       </div>
-      <ContactForm onSubmit={() => { /* Dummy handler */ }} /> {/* Add ContactForm here */}
+      
+      {/* HubSpot Contact Form Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <HubSpotContactForm />
+        </div>
+      </section>
     </div>
   );
 };
