@@ -23,6 +23,10 @@ import DirectHubSpotForm from './components/DirectHubSpotForm';
 import RobustHubSpotForm from './components/RobustHubSpotForm';
 import FallbackContactForm from './components/FallbackContactForm';
 import HybridContactForm from './components/HybridContactForm';
+import NewHubSpotForm from './components/NewHubSpotForm';
+import FinalHubSpotForm from './components/FinalHubSpotForm';
+import RobustContactForm from './components/RobustContactForm';
+import HubSpotDiagnostic from './components/HubSpotDiagnostic';
 import { Assessment } from './features/assessment/components/Assessment';
 import TrainingApp from './components/TrainingApp';
 import MobileTestShowcase from './components/MobileTestShowcase';
@@ -46,6 +50,10 @@ const App = () => {
                 <Route path="/contact-robust" element={<RobustHubSpotForm />} />
                 <Route path="/contact-fallback" element={<FallbackContactForm />} />
                 <Route path="/contact-hybrid" element={<HybridContactForm />} />
+                <Route path="/contact-new" element={<NewHubSpotForm />} />
+                <Route path="/contact-final" element={<FinalHubSpotForm />} />
+                <Route path="/contact-robust" element={<RobustContactForm />} />
+                <Route path="/diagnostic" element={<HubSpotDiagnostic />} />
                 <Route path="/small-businesses" element={<SmallBusinesses />} />
                 <Route path="/training" element={<TrainingPlan />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />                <Route path="/terms" element={<TermsOfService />} />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import BookingButton from './BookingButton';
-import HybridContactForm from './HybridContactForm';
+import FinalHubSpotForm from './FinalHubSpotForm';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
@@ -320,7 +320,7 @@ export default function SmallBusinesses() {
 
         {activeTab === 'contact' && (
           <div>
-            <HybridContactForm className="mb-6" />
+            <FinalHubSpotForm className="mb-6" />
             <div className="mt-4 text-center">
               <p className="text-gray-600 mb-4">Prefer to book a consultation directly?</p>
               <BookingButton />

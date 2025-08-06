@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Hero from './Hero';
-import HybridContactForm from './HybridContactForm';
+import FinalHubSpotForm from './FinalHubSpotForm';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Home = () => {
       {/* HubSpot Contact Form Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <HybridContactForm />
+          <FinalHubSpotForm />
         </div>
       </section>
     </div>
