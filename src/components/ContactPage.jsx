@@ -1,5 +1,5 @@
 import React from 'react';
-import HubSpotContactForm from './HubSpotContactForm';
+import HybridContactForm from './HybridContactForm';
 
 const ContactPage = () => {
   return (
@@ -20,7 +20,7 @@ const ContactPage = () => {
       {/* Contact Form Section */}
       <div className="pb-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <HubSpotContactForm />
+          <HybridContactForm />
         </div>
       </div>
 
