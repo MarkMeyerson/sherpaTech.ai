@@ -52,7 +52,7 @@ const App = () => {
                 <Route path="/contact-hybrid" element={<HybridContactForm />} />
                 <Route path="/contact-new" element={<NewHubSpotForm />} />
                 <Route path="/contact-final" element={<FinalHubSpotForm />} />
-                <Route path="/contact-robust" element={<RobustContactForm />} />
+                <Route path="/contact-robust-alt" element={<RobustContactForm />} />
                 <Route path="/diagnostic" element={<HubSpotDiagnostic />} />
                 <Route path="/small-businesses" element={<SmallBusinesses />} />
                 <Route path="/training" element={<TrainingPlan />} />

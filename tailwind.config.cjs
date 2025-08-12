@@ -26,4 +26,12 @@ module.exports = {
     },
   },
   plugins: [],
+  // Ensure proper purging of unused styles
+  purge: {
+    enabled: true,
+    content: [
+      "./index.html",
+      "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+  },
 }

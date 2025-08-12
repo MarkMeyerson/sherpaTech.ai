@@ -243,8 +243,8 @@ const TrainingApp = () => {
   };
   
   const currentWeekData = getCurrentWeekData();
-  const weekKeyForQuiz = `week${currentWeek}`;
-  const currentWeekQuizContent = contentRepository.quizzes?.[weekKeyForQuiz];
+  const _weekKeyForQuiz = `week${currentWeek}`; // Prefixed with underscore to indicate intentionally unused
+  // const currentWeekQuizContent = contentRepository.quizzes?.[weekKeyForQuiz]; // Commented out unused variable
   const PASSING_GRADE = 50; // Define passing grade
 
   // Calculate week progress
@@ -441,8 +441,8 @@ const TrainingApp = () => {
       });
       bodyHtml += `</ul>`;
     }
-    if (nextWeekPreview) {
-      bodyHtml += `<h2>Next Week Preview</h2><p><strong>${nextWeekPreview.title}</strong>: ${nextWeekPreview.description}</p>`;
+    if (nextWeekContent) {
+      bodyHtml += `<h2>Next Week Preview</h2><p><strong>${nextWeekContent.title}</strong>: ${nextWeekContent.description}</p>`;
     }
     bodyHtml += `<p>Report Date: ${new Date().toLocaleDateString()}</p>`;
     const payload = { to: userData.email, subject, bodyHtml };
