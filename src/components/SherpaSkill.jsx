@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import HubSpotForm from './HubSpotForm';
+import SignatureOutcomes from './SignatureOutcomes';
 
 // Brand Colors
 const colors = {
@@ -196,37 +197,6 @@ const CardDescription = styled.p`
   opacity: 0.8;
 `;
 
-const OutcomesList = styled.ul`
-  list-style: none;
-  padding: 0;
-  max-width: 800px;
-  margin: 0 auto;
-`;
-
-const OutcomeItem = styled.li`
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-  padding: 24px;
-  background: ${colors.iceBlue};
-  border-radius: 8px;
-  
-  &::before {
-    content: '✓';
-    background: ${colors.accentOrange};
-    color: ${colors.alpineWhite};
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 24px;
-    font-weight: bold;
-    flex-shrink: 0;
-  }
-`;
-
 const CurriculumWeek = styled.div`
   margin-bottom: 32px;
   padding: 24px;
@@ -375,22 +345,7 @@ const SherpaSkill = () => {
       </Section>
 
       {/* Signature Outcomes */}
-      <Section>
-        <Container>
-          <SectionTitle>Signature Outcomes</SectionTitle>
-          <OutcomesList>
-            <OutcomeItem>
-              <strong>Copilot Workflow Playbook</strong> – Documented before/after workflows showing measurable productivity gains
-            </OutcomeItem>
-            <OutcomeItem>
-              <strong>Your First Agent</strong> – Working Copilot Studio agent with custom connector deployed to your environment
-            </OutcomeItem>
-            <OutcomeItem>
-              <strong>AI Skills Portfolio</strong> – Collection of prompts, workflows, and agent documentation exportable as PDF
-            </OutcomeItem>
-          </OutcomesList>
-        </Container>
-      </Section>
+      <SignatureOutcomes />
 
       {/* 5-Week Curriculum */}
       <Section id="curriculum">
