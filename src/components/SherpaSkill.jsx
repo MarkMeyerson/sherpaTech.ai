@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import HubSpotForm from './HubSpotForm';
 
 // Brand Colors
 const colors = {
@@ -247,29 +248,6 @@ const WeekDescription = styled.p`
   opacity: 0.8;
 `;
 
-const HubSpotFormContainer = styled.div`
-  background: ${colors.iceBlue};
-  padding: 48px;
-  border-radius: 8px;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-`;
-
-const FormTitle = styled.h3`
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-  color: ${colors.navyBlue};
-`;
-
-const FormDescription = styled.p`
-  margin-bottom: 32px;
-  color: ${colors.navyBlue};
-  opacity: 0.8;
-`;
-
 const FAQContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -325,29 +303,6 @@ const SherpaSkill = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  useEffect(() => {
-    // Load HubSpot form script
-    const script = document.createElement('script');
-    script.src = '//js.hsforms.net/forms/embed/v2.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      if (window.hbspt) {
-        window.hbspt.forms.create({
-          region: "na1",
-          portalId: "YOUR_PORTAL_ID", // Replace with actual portal ID
-          formId: "YOUR_FORM_ID", // Replace with actual form ID
-          target: "#hs-form"
-        });
-      }
-    };
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
 
   const faqData = [
     {
@@ -511,13 +466,7 @@ const SherpaSkill = () => {
       <Section id="apply">
         <Container>
           <SectionTitle>Ready to Transform Your Productivity?</SectionTitle>
-          <HubSpotFormContainer>
-            <FormTitle>Enrollment is open for the September cohort</FormTitle>
-            <FormDescription>
-              Seats are limited. Reserve your spot today and start your AI transformation journey.
-            </FormDescription>
-            <div id="hs-form"></div>
-          </HubSpotFormContainer>
+          <HubSpotForm />
         </Container>
       </Section>
 
