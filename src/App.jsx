@@ -31,6 +31,7 @@ import { Assessment } from './features/assessment/components/Assessment';
 import TrainingApp from './components/TrainingApp';
 import MobileTestShowcase from './components/MobileTestShowcase';
 import OurWhyStatement from './components/OurWhyStatement'; // Added import
+import SherpaSkill from './components/SherpaSkill'; // Added import
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
                 <Route path="/contact-robust-alt" element={<RobustContactForm />} />
                 <Route path="/diagnostic" element={<HubSpotDiagnostic />} />
                 <Route path="/small-businesses" element={<SmallBusinesses />} />
+                <Route path="/sherpaskill" element={<SherpaSkill />} />
                 <Route path="/training" element={<TrainingPlan />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />                <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/assessment" element={<Assessment />} />

@@ -1,7 +1,7 @@
 // src/components/Navbar.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const NavbarContainer = styled.nav`
   background-color: ${({ theme }) => theme.colors.navyBlue};
@@ -40,8 +40,8 @@ const NavLinks = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.alpineWhite};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  color: ${({ theme, $isActive }) => $isActive ? theme.colors.accentOrange || '#FF6A3D' : theme.colors.alpineWhite};
+  font-weight: ${({ theme, $isActive }) => $isActive ? theme.typography.fontWeight.bold : theme.typography.fontWeight.medium};
   text-decoration: none;
   padding: ${({ theme }) => theme.spacing.xs};
   white-space: normal;
@@ -50,10 +50,11 @@ const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
   
   &:hover {
     text-decoration: none;
-    opacity: 0.8;
+    color: ${({ theme }) => theme.colors.accentOrange || '#FF6A3D'};
   }
   
   @media (max-width: 768px) {
@@ -84,6 +85,7 @@ const MobileMenuButton = styled.button`
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -93,6 +95,8 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <NavbarContainer>
       <Logo>SherpaTech.ai</Logo>
@@ -100,13 +104,13 @@ const Navbar = () => {
         {isOpen ? '✕' : '☰'}
       </MobileMenuButton>
       <NavLinks isOpen={isOpen}>
-        <NavLink to="/" onClick={closeMenu}>Home</NavLink>
-        <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
-        <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-        <NavLink to="/our-why" onClick={closeMenu}>Our Why</NavLink>
-        <NavLink to="/small-businesses" onClick={closeMenu}>Small Businesses</NavLink>
-        <NavLink to="/training" onClick={closeMenu}>Training Plan<br />for Individuals</NavLink>
-        <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
+        <NavLink to="/" onClick={closeMenu} $isActive={isActive('/')}>Home</NavLink>
+        <NavLink to="/services" onClick={closeMenu} $isActive={isActive('/services')}>Services</NavLink>
+        <NavLink to="/about" onClick={closeMenu} $isActive={isActive('/about')}>About</NavLink>
+        <NavLink to="/our-why" onClick={closeMenu} $isActive={isActive('/our-why')}>Our Why</NavLink>
+        <NavLink to="/small-businesses" onClick={closeMenu} $isActive={isActive('/small-businesses')}>Small Businesses</NavLink>
+        <NavLink to="/sherpaskill" onClick={closeMenu} $isActive={isActive('/sherpaskill')}>SherpaSkill™</NavLink>
+        <NavLink to="/contact" onClick={closeMenu} $isActive={isActive('/contact')}>Contact</NavLink>
       </NavLinks>
     </NavbarContainer>
   );
