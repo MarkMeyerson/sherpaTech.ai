@@ -119,192 +119,114 @@ const CarouselContainer = styled.div`
 const CarouselTrack = styled.div`
   display: flex;
   gap: 24px;
-  padding: 24px 0;
+  padding: 24px 12px;
   overflow-x: auto;
+  overflow-y: visible;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: ${colors.mountainBlue} ${colors.iceBlue};
   z-index: 2;
   position: relative;
+  -webkit-overflow-scrolling: touch;
   
   &::-webkit-scrollbar {
-    display: none;
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: ${colors.iceBlue};
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.mountainBlue};
+    border-radius: 4px;
+    
+    &:hover {
+      background: ${colors.navyBlue};
+    }
   }
   
   @media (max-width: 768px) {
     gap: 16px;
-    padding: 16px 0;
+    padding: 16px 8px;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
 const RoleCard = styled.div`
-  flex: 0 0 ${props => props.isExpanded ? '400px' : '280px'};
-  background: ${props => props.isExpanded ? 
-    `linear-gradient(135deg, ${colors.accentOrange} 0%, #e55a35 100%)` : 
-    colors.alpineWhite};
-  color: ${props => props.isExpanded ? colors.alpineWhite : colors.navyBlue};
-  border-radius: 20px;
-  padding: ${props => props.isExpanded ? '32px' : '24px'};
-  box-shadow: ${props => props.isExpanded ? 
-    '0 20px 60px rgba(255, 106, 61, 0.3)' : 
-    '0 8px 32px rgba(27, 54, 93, 0.1)'};
-  cursor: ${props => props.isExpanded ? 'default' : 'pointer'};
+  flex: 0 0 240px;
+  background: ${colors.alpineWhite};
+  color: ${colors.navyBlue};
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(27, 54, 93, 0.1);
+  cursor: pointer;
   transition: all 0.4s ease;
   scroll-snap-align: start;
   position: relative;
-  border: ${props => props.isExpanded ? 
-    `3px solid ${colors.alpineWhite}` : 
-    '2px solid transparent'};
-  min-height: ${props => props.isExpanded ? '500px' : '180px'};
+  border: 2px solid transparent;
+  min-height: 180px;
   
   &:hover {
-    transform: ${props => props.isExpanded ? 'translateY(-4px)' : 'translateY(-8px)'};
-    box-shadow: ${props => props.isExpanded ? 
-      '0 24px 80px rgba(255, 106, 61, 0.4)' : 
-      '0 16px 48px rgba(27, 54, 93, 0.15)'};
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(27, 54, 93, 0.15);
+    border-color: ${colors.accentOrange};
   }
   
   @media (max-width: 768px) {
-    flex: 0 0 ${props => props.isExpanded ? '320px' : '240px'};
-    padding: ${props => props.isExpanded ? '24px' : '20px'};
-    min-height: ${props => props.isExpanded ? '420px' : '160px'};
+    flex: 0 0 200px;
+    padding: 20px;
+    min-height: 160px;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
 `;
 
 const RoleIcon = styled.div`
-  font-size: ${props => props.isExpanded ? '3.5rem' : '2.5rem'};
+  font-size: 2.5rem;
   margin-bottom: 16px;
   text-align: center;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   transition: all 0.3s ease;
   
   @media (max-width: 768px) {
-    font-size: ${props => props.isExpanded ? '3rem' : '2rem'};
+    font-size: 2rem;
   }
 `;
 
 const RoleTitle = styled.h3`
   font-family: 'Inter', sans-serif;
-  font-weight: ${props => props.isExpanded ? '700' : '600'};
-  font-size: ${props => props.isExpanded ? '1.6rem' : '1.3rem'};
-  margin: 0 0 12px 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0 0 8px 0;
   text-align: center;
   line-height: 1.3;
   transition: all 0.3s ease;
   
   @media (max-width: 768px) {
-    font-size: ${props => props.isExpanded ? '1.4rem' : '1.1rem'};
+    font-size: 1.1rem;
   }
 `;
 
 const RoleTagline = styled.p`
   font-family: 'Open Sans', sans-serif;
-  font-size: ${props => props.isExpanded ? '1.1rem' : '1rem'};
+  font-size: 0.9rem;
   margin: 0;
   text-align: center;
   font-style: italic;
-  opacity: ${props => props.isExpanded ? '1' : '0.8'};
-  transition: all 0.3s ease;
-  
-  @media (max-width: 768px) {
-    font-size: ${props => props.isExpanded ? '1rem' : '0.9rem'};
-  }
-`;
-
-const ExpandedContent = styled.div`
-  margin-top: 24px;
-  opacity: ${props => props.show ? '1' : '0'};
-  transform: ${props => props.show ? 'translateY(0)' : 'translateY(20px)'};
-  transition: all 0.4s ease;
-  
-  @media (max-width: 768px) {
-    margin-top: 20px;
-  }
-`;
-
-const BenefitList = styled.div`
-  margin-bottom: 24px;
-`;
-
-const BenefitItem = styled.div`
-  margin-bottom: 16px;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const BenefitTitle = styled.h4`
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-  margin: 0 0 4px 0;
-  color: ${colors.alpineWhite};
-`;
-
-const BenefitDescription = styled.p`
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  margin: 0;
-  opacity: 0.9;
-  line-height: 1.4;
-`;
-
-const SherpaNote = styled.div`
-  background: rgba(255, 255, 255, 0.15);
-  padding: 16px;
-  border-radius: 12px;
-  margin-top: 20px;
-  border-left: 4px solid ${colors.alpineWhite};
-`;
-
-const SherpaLabel = styled.div`
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-  color: ${colors.alpineWhite};
   opacity: 0.8;
-`;
-
-const SherpaText = styled.p`
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.95rem;
-  margin: 0;
-  font-style: italic;
-  line-height: 1.4;
-  color: ${colors.alpineWhite};
-`;
-
-const CTAButton = styled.a`
-  display: inline-block;
-  background: ${colors.alpineWhite};
-  color: ${colors.accentOrange};
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 0.95rem;
   transition: all 0.3s ease;
-  margin-top: 20px;
-  cursor: pointer;
-  
-  &:hover {
-    background: ${colors.iceBlue};
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-    text-decoration: none;
-    color: ${colors.accentOrange};
-  }
   
   @media (max-width: 768px) {
-    width: 100%;
-    text-align: center;
-    padding: 12px 20px;
+    font-size: 0.85rem;
   }
 `;
 
@@ -468,6 +390,35 @@ const ModalSherpaText = styled.p`
   color: ${colors.navyBlue};
 `;
 
+const CTAButton = styled.a`
+  display: inline-block;
+  background: ${colors.accentOrange};
+  color: ${colors.alpineWhite};
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  
+  &:hover {
+    background: #e55a35;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 106, 61, 0.3);
+    text-decoration: none;
+    color: ${colors.alpineWhite};
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+    padding: 14px 24px;
+  }
+`;
+
 // Role data
 const roles = [
   {
@@ -478,19 +429,18 @@ const roles = [
     benefits: [
       {
         title: 'Strategize Smarter',
-        description: 'Use Copilot to scan industry trends and draft clear strategy updates.'
+        description: 'Use Copilot to scan industry trends, competitive analysis, and draft clear quarterly strategy updates for your team.'
       },
       {
         title: 'Analyze with Confidence',
-        description: 'Excel Copilot transforms raw numbers into dashboards and highlights patterns.'
+        description: 'Excel Copilot transforms raw sales numbers, expenses, and customer data into executive dashboards and highlights growth patterns.'
       },
       {
         title: 'Plan for the Future',
-        description: 'Generate 3–5 year scenarios for hiring, growth, and cash flow.'
+        description: 'Generate 3–5 year scenarios for hiring plans, market expansion, cash flow projections, and investment decisions.'
       }
     ],
-    sherpaNote: 'Owners don\'t need to be masters in every domain — Copilot provides enough mastery in each area to make confident, well-rounded decisions.',
-    isDefault: true
+    sherpaNote: 'Owners don\'t need to be masters in every domain — Copilot provides enough mastery in each area to make confident, well-rounded decisions without hiring specialists for every task.'
   },
   {
     id: 'sales',
@@ -499,19 +449,19 @@ const roles = [
     tagline: 'Spend less time chasing, more time closing.',
     benefits: [
       {
-        title: 'Prep for Success',
-        description: 'Prep for calls with Teams + Outlook recaps.'
+        title: 'Perfect Call Preparation',
+        description: 'Use Teams + Outlook to automatically recap previous conversations, research prospects, and generate talking points before every call.'
       },
       {
-        title: 'Perfect Follow-ups',
-        description: 'Draft follow-ups instantly, matched to client tone.'
+        title: 'Instant Follow-ups',
+        description: 'Draft personalized follow-up emails instantly, matched to client tone and conversation context, with meeting summaries and next steps.'
       },
       {
-        title: 'Spot Trends',
-        description: 'Use Excel Copilot to spot sales trends.'
+        title: 'Revenue Insights',
+        description: 'Use Excel Copilot to spot sales trends, identify top-performing activities, and forecast pipeline conversion rates automatically.'
       }
     ],
-    sherpaNote: 'Sales leaders gain back hours each week to focus on relationships, not paperwork.'
+    sherpaNote: 'Sales leaders gain back 8-12 hours each week to focus on building relationships and closing deals, instead of drowning in CRM updates and follow-up paperwork.'
   },
   {
     id: 'operations',
@@ -520,19 +470,19 @@ const roles = [
     tagline: 'Clarity in every project update.',
     benefits: [
       {
-        title: 'Automate Reports',
-        description: 'Automate weekly project status reports.'
+        title: 'Automated Status Reports',
+        description: 'Generate weekly project status reports that pull from Teams conversations, task lists, and timeline updates automatically.'
       },
       {
-        title: 'Capture Action Items',
-        description: 'Capture action items from Teams meetings.'
+        title: 'Meeting Action Items',
+        description: 'Capture and organize action items from Teams meetings, assign owners, set deadlines, and track completion without manual note-taking.'
       },
       {
-        title: 'Build Workflows',
-        description: 'Build repeatable workflows for recurring tasks.'
+        title: 'Workflow Templates',
+        description: 'Build repeatable workflow templates for onboarding, project kickoffs, vendor management, and recurring operational tasks.'
       }
     ],
-    sherpaNote: 'Copilot helps ops leaders keep projects on track without drowning in admin.'
+    sherpaNote: 'Copilot helps ops leaders keep complex projects on track and stakeholders informed without drowning in status meetings and administrative busywork.'
   },
   {
     id: 'finance',
@@ -542,18 +492,18 @@ const roles = [
     benefits: [
       {
         title: 'Board-Ready Reports',
-        description: 'Draft board-ready reports in Excel.'
+        description: 'Draft executive financial summaries in Excel with charts, variance analysis, and key metric explanations ready for board presentations.'
       },
       {
-        title: 'Spot Anomalies',
-        description: 'Spot anomalies in data automatically.'
+        title: 'Anomaly Detection',
+        description: 'Spot unusual expenses, revenue patterns, and budget variances automatically with Excel Copilot flagging items for review.'
       },
       {
-        title: 'Recurring Updates',
-        description: 'Generate recurring monthly updates with less effort.'
+        title: 'Automated Reporting',
+        description: 'Generate recurring monthly financial updates, budget vs. actual reports, and cash flow projections with minimal manual effort.'
       }
     ],
-    sherpaNote: 'Copilot gives finance leaders clean, reliable numbers without hours of manual work.'
+    sherpaNote: 'Copilot gives finance leaders clean, reliable numbers and insights without spending weekends building reports manually — more time for strategic analysis.'
   },
   {
     id: 'hr',
@@ -562,19 +512,19 @@ const roles = [
     tagline: 'More time for people, less on paperwork.',
     benefits: [
       {
-        title: 'Draft Documentation',
-        description: 'Draft job descriptions and onboarding docs.'
+        title: 'Job Descriptions & Onboarding',
+        description: 'Draft compelling job descriptions, onboarding checklists, and training materials tailored to specific roles and company culture.'
       },
       {
-        title: 'Summarize Surveys',
-        description: 'Summarize employee survey results.'
+        title: 'Survey Analysis',
+        description: 'Summarize employee engagement surveys, exit interviews, and feedback themes into actionable insights for leadership.'
       },
       {
-        title: 'Create Policies',
-        description: 'Draft a starter AI usage policy.'
+        title: 'Policy Development',
+        description: 'Draft AI usage policies, remote work guidelines, and employee handbook updates based on current best practices.'
       }
     ],
-    sherpaNote: 'HR can focus on culture and growth, while Copilot lightens the admin load.'
+    sherpaNote: 'HR can focus on building culture, developing talent, and supporting employees while Copilot lightens the administrative and documentation load.'
   },
   {
     id: 'marketing',
@@ -583,19 +533,19 @@ const roles = [
     tagline: 'Fresh ideas, faster execution.',
     benefits: [
       {
-        title: 'Campaign Outlines',
-        description: 'Generate campaign outlines in PowerPoint.'
+        title: 'Campaign Development',
+        description: 'Generate campaign outlines in PowerPoint with messaging frameworks, audience targeting, and content calendars for multi-channel campaigns.'
       },
       {
-        title: 'Multiple Tones',
-        description: 'Rewrite messaging in multiple tones.'
+        title: 'Content Variations',
+        description: 'Rewrite marketing copy in multiple tones, lengths, and formats — from LinkedIn posts to email campaigns to website copy.'
       },
       {
-        title: 'Clear Reports',
-        description: 'Summarize social metrics into clear slides.'
+        title: 'Performance Reporting',
+        description: 'Summarize social media metrics, campaign performance, and customer feedback into executive-ready slides and actionable insights.'
       }
     ],
-    sherpaNote: 'Copilot doesn\'t replace creativity — it clears the runway for it.'
+    sherpaNote: 'Copilot doesn\'t replace creativity — it clears the runway for it by handling repetitive tasks and providing fresh perspectives when you\'re stuck.'
   },
   {
     id: 'it',
@@ -604,19 +554,19 @@ const roles = [
     tagline: 'Support the team without burning out.',
     benefits: [
       {
-        title: 'Fast Documentation',
-        description: 'Draft documentation in half the time.'
+        title: 'Documentation at Speed',
+        description: 'Draft technical documentation, process guides, and troubleshooting wikis in half the time with consistent formatting and clear explanations.'
       },
       {
         title: 'Ticket Automation',
-        description: 'Explore Copilot Studio agents for ticket automation.'
+        description: 'Explore Copilot Studio agents for common support tickets, password resets, and IT request routing to reduce manual workload.'
       },
       {
-        title: 'Clear Governance',
-        description: 'Ensure governance guardrails are clearly communicated.'
+        title: 'Governance Communication',
+        description: 'Ensure AI governance, security policies, and compliance guidelines are clearly communicated across the organization.'
       }
     ],
-    sherpaNote: 'IT leaders can focus on architecture and innovation instead of endless tickets.'
+    sherpaNote: 'IT leaders can focus on architecture, innovation, and strategic technology decisions instead of endless support tickets and documentation backlogs.'
   }
 ];
 
@@ -625,7 +575,6 @@ const WhoIsThisFor = () => {
   const carouselRef = useRef(null);
 
   const openModal = (role) => {
-    if (role.isDefault) return; // Don't open modal for expanded card
     setSelectedRole(role);
     document.body.style.overflow = 'hidden';
   };
@@ -649,16 +598,6 @@ const WhoIsThisFor = () => {
     };
   }, []);
 
-  // Auto-scroll to show expanded card on load
-  useEffect(() => {
-    if (carouselRef.current) {
-      const expandedCard = carouselRef.current.querySelector('[data-expanded="true"]');
-      if (expandedCard) {
-        expandedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-    }
-  }, []);
-
   return (
     <>
       <SectionContainer id="who-is-this-for">
@@ -673,43 +612,19 @@ const WhoIsThisFor = () => {
               {roles.map((role) => (
                 <RoleCard
                   key={role.id}
-                  isExpanded={role.isDefault}
                   onClick={() => openModal(role)}
-                  data-expanded={role.isDefault}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if ((e.key === 'Enter' || e.key === ' ') && !role.isDefault) {
+                    if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       openModal(role);
                     }
                   }}
                 >
-                  <RoleIcon isExpanded={role.isDefault}>{role.icon}</RoleIcon>
-                  <RoleTitle isExpanded={role.isDefault}>{role.title}</RoleTitle>
-                  <RoleTagline isExpanded={role.isDefault}>{role.tagline}</RoleTagline>
-                  
-                  {role.isDefault && (
-                    <ExpandedContent show={true}>
-                      <BenefitList>
-                        {role.benefits.map((benefit, index) => (
-                          <BenefitItem key={index}>
-                            <BenefitTitle>{benefit.title}:</BenefitTitle>
-                            <BenefitDescription>{benefit.description}</BenefitDescription>
-                          </BenefitItem>
-                        ))}
-                      </BenefitList>
-                      
-                      <SherpaNote>
-                        <SherpaLabel>Sherpa Note</SherpaLabel>
-                        <SherpaText>{role.sherpaNote}</SherpaText>
-                      </SherpaNote>
-                      
-                      <CTAButton href="#apply">
-                        Join the Cohort →
-                      </CTAButton>
-                    </ExpandedContent>
-                  )}
+                  <RoleIcon>{role.icon}</RoleIcon>
+                  <RoleTitle>{role.title}</RoleTitle>
+                  <RoleTagline>{role.tagline}</RoleTagline>
                 </RoleCard>
               ))}
             </CarouselTrack>
