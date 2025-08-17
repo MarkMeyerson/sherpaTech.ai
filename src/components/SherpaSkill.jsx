@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import HubSpotForm from './HubSpotForm';
 import SignatureOutcomes from './SignatureOutcomes';
 import FiveWeekJourney from './FiveWeekJourney';
+import WhoIsThisFor from './WhoIsThisFor';
 
 // Brand Colors
 const colors = {
@@ -330,38 +331,8 @@ const SherpaSkill = () => {
       {/* 5-Week Journey */}
       <FiveWeekJourney />
 
-      {/* Who It's For */}
-      <Section>
-        <Container>
-          <SectionTitle>Who It's For</SectionTitle>
-          <CardsGrid>
-            <Card>
-              <CardIcon>👥</CardIcon>
-              <CardTitle>Operations & Project Management</CardTitle>
-              <CardDescription>
-                Streamline processes, automate reporting, and improve team coordination
-              </CardDescription>
-            </Card>
-            <Card>
-              <CardIcon>📈</CardIcon>
-              <CardTitle>Sales & Marketing</CardTitle>
-              <CardDescription>
-                Create compelling content, analyze customer data, and accelerate lead qualification
-              </CardDescription>
-            </Card>
-            <Card>
-              <CardIcon>💼</CardIcon>
-              <CardTitle>Administrative Roles</CardTitle>
-              <CardDescription>
-                Automate routine tasks, improve documentation, and enhance communication workflows
-              </CardDescription>
-            </Card>
-          </CardsGrid>
-          <div style={{ textAlign: 'center', marginTop: '32px', fontSize: '1.2rem', fontWeight: '600' }}>
-            No coding required – designed for business professionals
-          </div>
-        </Container>
-      </Section>
+      {/* Who Is This For */}
+      <WhoIsThisFor />
 
       {/* CTA + HubSpot Form */}
       <Section id="apply">
