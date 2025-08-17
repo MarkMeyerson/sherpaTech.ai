@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import HubSpotForm from './HubSpotForm';
 import SignatureOutcomes from './SignatureOutcomes';
+import FiveWeekJourney from './FiveWeekJourney';
 
 // Brand Colors
 const colors = {
@@ -197,27 +198,6 @@ const CardDescription = styled.p`
   opacity: 0.8;
 `;
 
-const CurriculumWeek = styled.div`
-  margin-bottom: 32px;
-  padding: 24px;
-  background: ${colors.iceBlue};
-  border-radius: 8px;
-  border-left: 4px solid ${colors.accentOrange};
-`;
-
-const WeekTitle = styled.h4`
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1.25rem;
-  margin-bottom: 8px;
-  color: ${colors.navyBlue};
-`;
-
-const WeekDescription = styled.p`
-  color: ${colors.navyBlue};
-  opacity: 0.8;
-`;
-
 const FAQContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -347,42 +327,8 @@ const SherpaSkill = () => {
       {/* Signature Outcomes */}
       <SignatureOutcomes />
 
-      {/* 5-Week Curriculum */}
-      <Section id="curriculum">
-        <Container>
-          <SectionTitle>5-Week Curriculum</SectionTitle>
-          <CurriculumWeek>
-            <WeekTitle>Week 0 – Day Zero Orientation</WeekTitle>
-            <WeekDescription>
-              Pre-course setup, AI fundamentals, and Copilot environment preparation
-            </WeekDescription>
-          </CurriculumWeek>
-          <CurriculumWeek>
-            <WeekTitle>Weeks 1–2 – Foundations</WeekTitle>
-            <WeekDescription>
-              Core Copilot features, prompt engineering, and productivity workflows
-            </WeekDescription>
-          </CurriculumWeek>
-          <CurriculumWeek>
-            <WeekTitle>Week 3 – Labs & Workflow</WeekTitle>
-            <WeekDescription>
-              Hands-on practice building real workflows for your specific role and industry
-            </WeekDescription>
-          </CurriculumWeek>
-          <CurriculumWeek>
-            <WeekTitle>Week 4 – Connectors</WeekTitle>
-            <WeekDescription>
-              Integrating Copilot with your existing tools and data sources
-            </WeekDescription>
-          </CurriculumWeek>
-          <CurriculumWeek>
-            <WeekTitle>Week 5 – Capstone: Agent Build & Peer Test</WeekTitle>
-            <WeekDescription>
-              Design, build, and test your custom Copilot Studio agent with peer feedback
-            </WeekDescription>
-          </CurriculumWeek>
-        </Container>
-      </Section>
+      {/* 5-Week Journey */}
+      <FiveWeekJourney />
 
       {/* Who It's For */}
       <Section>
