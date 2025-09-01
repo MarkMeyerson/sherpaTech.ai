@@ -24,6 +24,7 @@ const HubSpotForm = lazy(() => import('./components/HubSpotForm'));
 const Assessment = lazy(() => import('./features/assessment/components/Assessment'));
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
+const STAIAnnouncementModal = lazy(() => import('./components/STAIAnnouncementModal'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -58,6 +59,17 @@ const App = () => {
               </Suspense>
             </main>
             <Footer />
+            
+            {/* Two-CTA Announcement Modal */}
+            <Suspense fallback={null}>
+              <STAIAnnouncementModal 
+                isOpenByDefault={true}
+                surveyHref="https://forms.office.com/r/Na6S9bCTgP"
+                cohortHref="/sherpaskill"
+                suppressDays={30}
+                localStorageKey="stai_2cta_modal_last_dismissed_at"
+              />
+            </Suspense>
           </div>
         </ErrorBoundary>
       </BrowserRouter>
