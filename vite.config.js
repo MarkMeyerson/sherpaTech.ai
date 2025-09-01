@@ -12,29 +12,33 @@ export default defineConfig({
   },
   build: {
     manifest: true,
-    sourcemap: false, // Disable sourcemaps in production for smaller bundles
-    commonjsOptions: {
-      cache: false
-    },
+    sourcemap: false,
+    target: 'esnext',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          styled: ['styled-components'],
-          utils: ['prop-types']
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'vendor';
+            if (id.includes('styled-components')) return 'styled';
+            if (id.includes('react-router')) return 'router';
+            return 'vendor';
+          }
+          // Split large components
+          if (id.includes('SherpaSkill') || id.includes('FiveWeekJourney') || 
+              id.includes('WhoIsThisFor') || id.includes('SignatureOutcomes')) {
+            return 'components';
+          }
         }
       }
     },
-    // Optimize chunk size warnings
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 500 // Stricter limit
   },
   optimizeDeps: {
     force: true,
     include: ['react', 'react-dom', 'react-router-dom', 'styled-components']
   },
-  // Add performance optimizations
   esbuild: {
-    drop: ['console', 'debugger'] // Remove console logs in production
+    drop: ['console', 'debugger'],
+    legalComments: 'none'
   }
 });
