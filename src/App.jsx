@@ -60,11 +60,10 @@ const App = () => {
             </main>
             <Footer />
             
-            {/* Two-CTA Announcement Modal */}
+            {/* SherpaSkill Cohort Announcement Modal */}
             <Suspense fallback={null}>
               <STAIAnnouncementModal 
                 isOpenByDefault={true}
-                surveyHref="https://forms.office.com/r/Na6S9bCTgP"
                 cohortHref="/sherpaskill"
                 suppressDays={30}
                 localStorageKey="stai_2cta_modal_last_dismissed_at"

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 interface STAIAnnouncementModalProps {
   isOpenByDefault?: boolean;
-  surveyHref?: string;
   cohortHref?: string;
   suppressDays?: number;
   localStorageKey?: string;
@@ -11,7 +10,6 @@ interface STAIAnnouncementModalProps {
 
 const STAIAnnouncementModal: React.FC<STAIAnnouncementModalProps> = ({
   isOpenByDefault = false,
-  surveyHref = 'https://forms.office.com/r/Na6S9bCTgP',
   cohortHref = '/sherpaskill',
   suppressDays = 30,
   localStorageKey = 'stai_2cta_modal_last_dismissed_at'
@@ -116,8 +114,8 @@ const STAIAnnouncementModal: React.FC<STAIAnnouncementModalProps> = ({
     }
   }, [handleDismiss]);
 
-  // Handle CTA clicks (analytics could be added here)
-  const handleCTAClick = useCallback((href: string, ctaType: 'survey' | 'cohort') => {
+  // Handle CTA click (analytics could be added here)
+  const handleCTAClick = useCallback((href: string, ctaType: 'cohort') => {
     // Optional: Add analytics tracking here
     console.log(`CTA clicked: ${ctaType} -> ${href}`);
     
@@ -155,73 +153,43 @@ const STAIAnnouncementModal: React.FC<STAIAnnouncementModalProps> = ({
             </span>
           </div>
           <h2 id="modal-title" className="text-xl font-bold text-gray-900 mb-2">
-            Take the next step with us
+            Ready to Master Microsoft Copilot?
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed">
-            A simple survey and a way to join the cohort.
+            Join our 5-week hands-on training program and transform your productivity.
           </p>
         </div>
 
-        {/* CTA Cards */}
-        <div className="p-6 space-y-4">
-          {/* Survey CTA Card */}
+        {/* CTA Card */}
+        <div className="p-6">
+          {/* Cohort CTA Card - Now the primary and only action */}
           <div 
-            className="group relative p-4 border-2 border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 cursor-pointer"
-            onClick={() => handleCTAClick(surveyHref, 'survey')}
-          >
-            {/* Brand colors: replace border-blue-300 with border-[#2B517A] and hover:bg-blue-50 with hover:bg-[#E8EEF4] */}
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                {/* Brand color: replace bg-blue-100 with bg-[#E8EEF4] and group-hover:bg-blue-200 with group-hover:bg-[#2B517A]/20 */}
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {/* Brand color: replace text-blue-600 with text-[#1B365D] */}
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  AI Policy Plan — Post-Survey
-                </h3>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Your input helps us improve (1–2 minutes).
-                </p>
-              </div>
-              <div className="flex-shrink-0">
-                <svg className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {/* Brand color: replace group-hover:text-blue-600 with group-hover:text-[#1B365D] */}
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Cohort CTA Card */}
-          <div 
-            className="group relative p-4 border-2 border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 cursor-pointer"
+            className="group relative p-6 border-2 border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 cursor-pointer"
             onClick={() => handleCTAClick(cohortHref, 'cohort')}
           >
             {/* Brand colors: replace border-blue-300 with border-[#2B517A] and hover:bg-blue-50 with hover:bg-[#E8EEF4] */}
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+            <div className="flex items-center space-x-4">
+              <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                 {/* Brand color: replace bg-blue-100 with bg-[#E8EEF4] and group-hover:bg-blue-200 with group-hover:bg-[#2B517A]/20 */}
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {/* Brand color: replace text-blue-600 with text-[#1B365D] */}
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  SherpaSkill™ — Cohort Sign-Up
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  SherpaSkill™ Cohort Sign-Up
                 </h3>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Join our 5-week Microsoft Copilot mastery program
+                <p className="text-sm text-gray-600 leading-relaxed mb-3">
+                  Master Microsoft Copilot in 5 weeks with hands-on training, real workflows, and expert guidance.
                 </p>
-              </div>
-              <div className="flex-shrink-0">
-                <svg className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {/* Brand color: replace group-hover:text-blue-600 with group-hover:text-[#1B365D] */}
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                <div className="flex items-center text-xs text-blue-600 font-medium">
+                  {/* Brand color: replace text-blue-600 with text-[#1B365D] */}
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                  Reserve Your Spot Now
+                </div>
               </div>
             </div>
           </div>
@@ -289,14 +257,14 @@ Background Tints:
 
 QA CHECKLIST:
 ✓ Keyboard Navigation:
-  - Tab cycles through: dismiss button → checkbox → (modal traps focus)
+  - Tab cycles through: cohort CTA → checkbox → dismiss button
   - Shift+Tab works in reverse
   - ESC closes modal
   - Enter/Space activates buttons and links
 
 ✓ Mobile (320px+):
-  - Cards stack vertically and remain readable
-  - Touch targets are ≥44px (cards and buttons)
+  - Single CTA card remains readable and prominent
+  - Touch targets are ≥44px (card and buttons)
   - Text doesn't overflow at narrow widths
   - Modal centers properly on small screens
 
@@ -314,8 +282,9 @@ QA CHECKLIST:
   - SSR safe (no window access on server)
 
 ✓ Functionality:
-  - Both CTAs open links in new tabs
+  - SherpaSkill CTA navigates to /sherpaskill page
   - Backdrop click closes modal
   - Animation respects prefers-reduced-motion
   - Props work as expected with defaults
+  - Single-action design is clear and focused
 */

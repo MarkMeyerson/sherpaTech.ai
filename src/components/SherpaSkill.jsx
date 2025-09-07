@@ -4,6 +4,7 @@ import HubSpotForm from './HubSpotForm';
 import SignatureOutcomes from './SignatureOutcomes';
 import FiveWeekJourney from './FiveWeekJourney';
 import WhoIsThisFor from './WhoIsThisFor';
+// import { useMobileOptimizations } from '../hooks/useMobileOptimizations';
 
 // Brand Colors
 const colors = {
@@ -20,6 +21,23 @@ const PageContainer = styled.div`
   font-family: 'Open Sans', sans-serif;
   color: ${colors.navyBlue};
   line-height: 1.6;
+  
+  /* Performance optimizations */
+  contain: layout style paint;
+  will-change: auto;
+  
+  /* Smooth scrolling behavior */
+  scroll-behavior: ${props => props.$reducedMotion ? 'auto' : 'smooth'};
+  
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+    
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 `;
 
 const HeroSection = styled.section`
@@ -225,10 +243,21 @@ const FAQQuestion = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.3s ease;
   
   &:hover {
     background: ${colors.mountainBlue};
     color: ${colors.alpineWhite};
+  }
+  
+  &:focus {
+    outline: 2px solid ${colors.accentOrange};
+    outline-offset: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+    font-size: 1rem;
   }
 `;
 
@@ -243,15 +272,35 @@ const FAQAnswer = styled.div`
 
 const SherpaSkill = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
+  
+  // Temporarily disabled mobile optimizations for debugging
+  // const { isMobile, deviceInfo, accessibilityHelpers } = useMobileOptimizations({
+  //   enableGestures: true,
+  //   enableHaptics: true,
+  //   enablePerformanceMonitoring: true
+  // });
 
   const toggleFAQ = (index) => {
     setOpenFAQ(openFAQ === index ? null : index);
+    
+    // Add haptic feedback on mobile (temporarily disabled)
+    // if (isMobile && window.navigator?.vibrate) {
+    //   window.navigator.vibrate(50);
+    // }
   };
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ 
+        behavior: 'smooth', // deviceInfo?.reducedMotion ? 'auto' : 'smooth',
+        block: 'start'
+      });
+      
+      // Add haptic feedback on mobile (temporarily disabled)
+      // if (isMobile && window.navigator?.vibrate) {
+      //   window.navigator.vibrate(30);
+      // }
     }
   };
 
@@ -275,7 +324,7 @@ const SherpaSkill = () => {
   ];
 
   return (
-    <PageContainer>
+    <PageContainer> {/* $reducedMotion={deviceInfo?.reducedMotion} */}
       {/* Hero Section */}
       <HeroSection>
         <Container>
@@ -285,10 +334,16 @@ const SherpaSkill = () => {
             and create your first Copilot Studio agent.
           </HeroSubtitle>
           <CTAContainer>
-            <PrimaryButton onClick={() => scrollToSection('apply')}>
+            <PrimaryButton 
+              onClick={() => scrollToSection('apply')}
+              aria-label="Reserve your spot in the SherpaSkill cohort"
+            >
               Reserve My Spot
             </PrimaryButton>
-            <SecondaryButton onClick={() => scrollToSection('curriculum')}>
+            <SecondaryButton 
+              onClick={() => scrollToSection('curriculum')}
+              aria-label="View the SherpaSkill curriculum details"
+            >
               View Curriculum
             </SecondaryButton>
           </CTAContainer>
@@ -296,26 +351,26 @@ const SherpaSkill = () => {
       </HeroSection>
 
       {/* What You'll Learn */}
-      <Section>
+      <Section id="curriculum" aria-label="What you'll learn section">
         <Container>
           <SectionTitle>What You'll Learn</SectionTitle>
-          <CardsGrid>
-            <Card>
-              <CardIcon>🎯</CardIcon>
+          <CardsGrid role="list" aria-label="Learning outcomes">
+            <Card role="listitem">
+              <CardIcon aria-hidden="true">🎯</CardIcon>
               <CardTitle>Foundations</CardTitle>
               <CardDescription>
                 AI literacy, Copilot overview, and Day Zero orientation to get you started confidently.
               </CardDescription>
             </Card>
-            <Card>
-              <CardIcon>⚡</CardIcon>
+            <Card role="listitem">
+              <CardIcon aria-hidden="true">⚡</CardIcon>
               <CardTitle>Copilot Mastery</CardTitle>
               <CardDescription>
                 Hands-on labs, workflow creation, and governance best practices for real-world application.
               </CardDescription>
             </Card>
-            <Card>
-              <CardIcon>🚀</CardIcon>
+            <Card role="listitem">
+              <CardIcon aria-hidden="true">🚀</CardIcon>
               <CardTitle>Advanced Enablement</CardTitle>
               <CardDescription>
                 Build agents, create connectors, and explore Azure AI Foundry for advanced capabilities.
@@ -335,7 +390,7 @@ const SherpaSkill = () => {
       <WhoIsThisFor />
 
       {/* CTA + HubSpot Form */}
-      <Section id="apply">
+      <Section id="apply" aria-label="Application section">
         <Container>
           <SectionTitle>Ready to Transform Your Productivity?</SectionTitle>
           <HubSpotForm />
@@ -343,17 +398,27 @@ const SherpaSkill = () => {
       </Section>
 
       {/* FAQ Section */}
-      <Section>
+      <Section aria-label="Frequently asked questions section">
         <Container>
           <SectionTitle>Frequently Asked Questions</SectionTitle>
-          <FAQContainer>
+          <FAQContainer role="list" aria-label="Frequently asked questions">
             {faqData.map((faq, index) => (
-              <FAQItem key={index}>
-                <FAQQuestion onClick={() => toggleFAQ(index)}>
+              <FAQItem key={index} role="listitem">
+                <FAQQuestion 
+                  onClick={() => toggleFAQ(index)}
+                  aria-expanded={openFAQ === index}
+                  aria-controls={`faq-answer-${index}`}
+                  id={`faq-question-${index}`}
+                >
                   {faq.question}
-                  <span>{openFAQ === index ? '−' : '+'}</span>
+                  <span aria-hidden="true">{openFAQ === index ? '−' : '+'}</span>
                 </FAQQuestion>
-                <FAQAnswer isOpen={openFAQ === index}>
+                <FAQAnswer 
+                  isOpen={openFAQ === index}
+                  id={`faq-answer-${index}`}
+                  aria-labelledby={`faq-question-${index}`}
+                  role="region"
+                >
                   {faq.answer}
                 </FAQAnswer>
               </FAQItem>
