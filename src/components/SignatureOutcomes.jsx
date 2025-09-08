@@ -143,9 +143,12 @@ const ModalOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 9999;
   padding: 20px;
-  animation: ${fadeIn} 0.3s ease-out;
+  /* Mobile fixes */
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   
   @media (max-width: 768px) {
     padding: 16px;
@@ -161,15 +164,18 @@ const Modal = styled.div`
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
+  max-height: 90dvh; /* Dynamic viewport height for mobile */
   overflow-y: auto;
   position: relative;
-  animation: ${slideUp} 0.4s ease-out;
   box-shadow: 0 20px 60px rgba(27, 54, 93, 0.3);
+  z-index: 10000;
   
   @media (max-width: 768px) {
     padding: 32px 24px;
     border-radius: 12px;
     max-height: 85vh;
+    max-height: 85dvh;
+    margin-top: 0;
   }
 `;
 
@@ -290,27 +296,8 @@ const StoryText = styled.p`
   line-height: 1.6;
 `;
 
-const ImagePlaceholder = styled.div`
-  width: 100%;
-  height: 200px;
-  background: ${colors.iceBlue};
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${colors.mountainBlue};
-  font-family: 'Open Sans', sans-serif;
-  margin-bottom: 32px;
-  border: 2px dashed ${colors.mountainBlue};
-  
-  @media (max-width: 768px) {
-    height: 150px;
-    margin-bottom: 24px;
-  }
-`;
-
 const CTAButton = styled.a`
-  display: inline-block;
+  display: block;
   background: ${colors.accentOrange};
   color: ${colors.alpineWhite};
   font-family: 'Inter', sans-serif;
@@ -322,6 +309,8 @@ const CTAButton = styled.a`
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
+  text-align: center;
+  width: 100%;
   
   &:hover {
     background: #e55a35;
@@ -332,8 +321,6 @@ const CTAButton = styled.a`
   }
   
   @media (max-width: 768px) {
-    width: 100%;
-    text-align: center;
     padding: 14px 24px;
   }
 `;
@@ -396,15 +383,24 @@ const outcomes = [
 
 const SignatureOutcomes = () => {
   const [selectedOutcome, setSelectedOutcome] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const openModal = (outcome) => {
+    // Save current scroll position before opening modal
+    setScrollPosition(window.pageYOffset || document.documentElement.scrollTop);
     setSelectedOutcome(outcome);
     document.body.style.overflow = 'hidden'; // Prevent background scroll
+    // Force scroll to top to ensure modal is visible
+    window.scrollTo(0, 0);
   };
 
   const closeModal = () => {
     setSelectedOutcome(null);
     document.body.style.overflow = 'unset'; // Restore scroll
+    // Restore original scroll position
+    setTimeout(() => {
+      window.scrollTo(0, scrollPosition);
+    }, 50); // Small delay to ensure DOM is updated
   };
 
   // Close modal on ESC key
@@ -471,10 +467,6 @@ const SignatureOutcomes = () => {
                 ))}
               </ExamplesList>
             </ExamplesSection>
-            
-            <ImagePlaceholder>
-              [Screenshot placeholder - {selectedOutcome.title}]
-            </ImagePlaceholder>
             
             <StorySection>
               <StoryText>
