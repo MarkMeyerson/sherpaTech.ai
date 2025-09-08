@@ -274,9 +274,13 @@ const ModalOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 9999;
   padding: 20px;
   animation: ${fadeIn} 0.3s ease-out;
+  /* Mobile fixes */
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   
   @media (max-width: 768px) {
     padding: 16px;
@@ -292,15 +296,19 @@ const Modal = styled.div`
   max-width: 700px;
   width: 100%;
   max-height: 90vh;
+  max-height: 90dvh; /* Dynamic viewport height for mobile */
   overflow-y: auto;
   position: relative;
   animation: ${slideUp} 0.4s ease-out;
   box-shadow: 0 24px 80px rgba(27, 54, 93, 0.3);
+  z-index: 10000;
   
   @media (max-width: 768px) {
     padding: 32px 24px;
     border-radius: 16px;
     max-height: 85vh;
+    max-height: 85dvh;
+    margin-top: 0;
   }
 `;
 
@@ -425,28 +433,8 @@ const QuoteText = styled.p`
   }
 `;
 
-const ImagePlaceholder = styled.div`
-  width: 100%;
-  height: 200px;
-  background: ${colors.iceBlue};
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${colors.mountainBlue};
-  font-family: 'Open Sans', sans-serif;
-  margin: 16px 0;
-  border: 2px dashed ${colors.mountainBlue};
-  font-size: 0.9rem;
-  text-align: center;
-  
-  @media (max-width: 768px) {
-    height: 150px;
-  }
-`;
-
 const CTAButton = styled.a`
-  display: inline-block;
+  display: block;
   background: ${colors.accentOrange};
   color: ${colors.alpineWhite};
   font-family: 'Inter', sans-serif;
@@ -458,6 +446,9 @@ const CTAButton = styled.a`
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
+  text-align: center;
+  margin: 0 auto;
+  width: fit-content;
   
   &:hover {
     background: #e55a35;
@@ -482,16 +473,16 @@ const weeks = [
     stage: 'Stage 1: Foundations',
     icon: '⛺',
     title: 'Basecamp: Orientation & First Steps',
-    teaser: 'Gear up with tools and mindset.',
+    teaser: 'Gear up with tools and mindset for your Copilot journey.',
     learn: [
-      'AI literacy fundamentals and Microsoft AI strategy overview',
-      'Complete Copilot app ecosystem walkthrough',
-      'Day Zero setup and environment preparation',
-      'Goal setting and success metrics definition'
+      'AI literacy fundamentals and Microsoft\'s Copilot strategy',
+      'Walkthrough of the Microsoft 365 Copilot app ecosystem (Word, Excel, Outlook, Teams)',
+      'Environment setup and permissions for a secure Day Zero start',
+      'Goal setting and success metrics to measure value in your organization'
     ],
-    homework: 'Draft a self-introduction using Copilot in Word',
-    deliverable: 'Prompt Log #1 with initial experiments',
-    snippet: 'Most participants realize 60% of their tasks are Copilot-eligible right away.',
+    homework: 'Draft a self-introduction using Copilot in Word.',
+    deliverable: 'Prompt Log #1 with initial experiments.',
+    snippet: 'Research shows most participants discover that 60% of their routine tasks can be Copilot-eligible right away.',
     isStageStart: true
   },
   {
@@ -500,16 +491,16 @@ const weeks = [
     stage: 'Stage 1: Foundations',
     icon: '🏕️',
     title: 'Camp 2: Apply Tomorrow Tasks',
-    teaser: 'First climbs with real tasks.',
+    teaser: 'First climbs with real tasks that make an immediate impact.',
     learn: [
       'Mini-labs in Outlook & Teams with guided practice',
       'Apply-tomorrow assignments for immediate impact',
       'Basic prompt engineering techniques',
       'Time tracking and productivity measurement'
     ],
-    homework: 'Summarize 25 unread emails using Copilot',
-    deliverable: 'Prompt Log #2 with refined techniques',
-    snippet: 'Students reclaim 3+ hours/week at this stage.',
+    homework: 'Summarize 25 unread emails using Copilot.',
+    deliverable: 'Prompt Log #2 with refined techniques.',
+    snippet: 'Forrester found SMB teams reclaim more than 3 hours per week at this stage by reducing email and meeting overload.',
     isStageStart: false
   },
   {
@@ -518,16 +509,16 @@ const weeks = [
     stage: 'Stage 2: Copilot Mastery',
     icon: '🧗',
     title: 'Glacier: Daily Workflows',
-    teaser: 'Deeper dives in daily apps.',
+    teaser: 'Embed Copilot into the rhythm of your day.',
     learn: [
-      'Advanced Outlook workflows and email automation',
-      'Teams meeting optimization and note-taking',
-      'Word document creation and editing mastery',
-      'Cross-app workflow integration'
+      'Daily Copilot routines across Word, Excel, and Teams',
+      'Using prompts for meeting summaries and report drafts',
+      'How to shift from one-off tasks to consistent workflows',
+      'Capturing your own use cases for repeatability'
     ],
-    homework: 'Build a prompt library for recurring tasks',
-    deliverable: 'Workflow Playbook Draft with documented processes',
-    snippet: 'SMBs save 6+ hours/month by automating reporting.',
+    homework: 'Use Copilot to generate a first draft of a recurring weekly report.',
+    deliverable: 'Prompt Log #3 showing before/after comparisons.',
+    snippet: 'Research shows power users integrate Copilot into daily routines and report higher job satisfaction and focus.',
     isStageStart: true
   },
   {
@@ -536,16 +527,16 @@ const weeks = [
     stage: 'Stage 2: Copilot Mastery',
     icon: '⛰️',
     title: 'Ridge: Reports & Content',
-    teaser: 'Turn data and ideas into outputs.',
+    teaser: 'Turn raw ideas into polished reports and presentations.',
     learn: [
-      'Excel data analysis and chart generation',
-      'PowerPoint presentation creation and design',
-      'Governance basics and best practices',
-      'Quality control and fact-checking methods'
+      'Drafting professional client proposals in Word',
+      'Generating executive summaries from data in Excel',
+      'Building PowerPoint outlines and first-pass decks with Copilot',
+      'Applying governance guardrails to ensure content accuracy'
     ],
-    homework: 'Draft a 10-slide deck outline with Copilot',
-    deliverable: 'Workflow Playbook Final with all processes',
-    snippet: 'Consultants cut proposal prep by 70%.',
+    homework: 'Use Copilot to create a 1-page proposal or 5-slide deck draft.',
+    deliverable: 'Prompt Log #4 plus a completed mini-deliverable (proposal or deck).',
+    snippet: 'Microsoft studies show Copilot reduces drafting time for proposals, reports, and decks by 45–60%.',
     isStageStart: false
   },
   {
@@ -554,31 +545,40 @@ const weeks = [
     stage: 'Stage 3: Advanced Enablement',
     icon: '🏔️',
     title: 'Summit: Agents & Guardrails',
-    teaser: 'Build your own agent.',
+    teaser: 'Scale Copilot with custom agents and safe adoption practices.',
     learn: [
-      'Copilot Studio basics and agent creation',
-      'Azure AI Foundry overview and integration',
-      'Custom connector development',
-      'Organizational AI policy framework'
+      'Intro to Microsoft Copilot Studio: topics, triggers, and publishing',
+      'Extending Copilot with custom workflows (SMB-focused use cases)',
+      'Governance Guardrails™ for compliance and security',
+      'Building your personal AI adoption roadmap'
     ],
-    homework: 'Draft an AI usage policy for your organization',
-    deliverable: 'Working Agent + Reflection Report with next steps',
-    snippet: 'Leaders leave with a tested agent and governance framework.',
+    homework: 'Build a simple Copilot Studio FAQ agent for your business.',
+    deliverable: 'Prompt Log #5 plus a draft AI Roadmap with 3–5 prioritized use cases.',
+    snippet: 'The final week takes you from user to builder. You\'ll create a simple Copilot Studio agent and learn how to apply governance guardrails so Copilot scales safely in your business.',
     isStageStart: true
   }
 ];
 
 const FiveWeekJourney = () => {
   const [selectedWeek, setSelectedWeek] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const openModal = (week) => {
+    // Save current scroll position before opening modal
+    setScrollPosition(window.pageYOffset || document.documentElement.scrollTop);
     setSelectedWeek(week);
     document.body.style.overflow = 'hidden';
+    // Force scroll to top to ensure modal is visible
+    window.scrollTo(0, 0);
   };
 
   const closeModal = () => {
     setSelectedWeek(null);
     document.body.style.overflow = 'unset';
+    // Restore original scroll position
+    setTimeout(() => {
+      window.scrollTo(0, scrollPosition);
+    }, 50); // Small delay to ensure DOM is updated
   };
 
   // Close modal on ESC key
@@ -672,10 +672,6 @@ const FiveWeekJourney = () => {
                 📦 {selectedWeek.deliverable}
               </p>
             </ContentSection>
-            
-            <ImagePlaceholder>
-              [Copilot in Action - {selectedWeek.title} Screenshot]
-            </ImagePlaceholder>
             
             <HighlightBox>
               <QuoteText>{selectedWeek.snippet}</QuoteText>
