@@ -51,7 +51,9 @@ const App = () => {
                   <Route path="/sherpaskill" element={<SherpaSkill />} />
                   <Route path="/training" element={<TrainingPlan />} />
                   <Route path="/privacy" element={<PrivacyPolicy />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/terms" element={<TermsOfService />} />
+                  <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/assessment" element={<Assessment />} />
                   <Route path="/training-app/*" element={<TrainingApp />} />
                   <Route path="/our-why" element={<OurWhyStatement />} />
