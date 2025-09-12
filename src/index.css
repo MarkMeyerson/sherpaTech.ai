@@ -788,7 +788,7 @@ html {
   min-width: 48px;
 }
 
-/* Force Vercel deployment trigger */  .touch-target-xl {
+/* Test webhook trigger - commit test */  .touch-target-xl {
     min-height: 56px;
     min-width: 56px;
   }
