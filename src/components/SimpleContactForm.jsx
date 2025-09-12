@@ -9,6 +9,9 @@ const FormContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
 `;
 
 const FormTitle = styled.h3`
@@ -31,6 +34,8 @@ const Form = styled.form`
   flex-direction: column;
   gap: 20px;
   text-align: left;
+  height: auto;
+  overflow: visible;
 `;
 
 const FormGroup = styled.div`

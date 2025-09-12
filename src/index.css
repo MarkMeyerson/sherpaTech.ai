@@ -786,30 +786,6 @@ html {
 .touch-target-large {
   min-height: 48px;
   min-width: 48px;
-}
-
-/* Enrollment Form Scrolling Fix - More targeted approach */
-#apply {
-  overflow: visible !important;
-  height: auto !important;
-  max-height: none !important;
-}
-
-/* Only target the main container, not HubSpot internals */
-#apply > * {
-  overflow: visible !important;
-  contain: none !important;
-}
-
-/* Ensure HubSpot form wrapper can scroll but don't interfere with form internals */
-#apply .hs-form-frame {
-  height: auto !important;
-  max-height: none !important;
-}
-
-#apply #hubspot-form-container {
-  height: auto !important;
-  max-height: none !important;
 }  .touch-target-xl {
     min-height: 56px;
     min-width: 56px;
