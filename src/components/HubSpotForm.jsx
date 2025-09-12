@@ -92,7 +92,7 @@ const HubSpotForm = () => {
     if (!document.getElementById(scriptId)) {
       const script = document.createElement("script");
       script.id = scriptId;
-      script.src = "https://js-na2.hsforms.net/forms/embed/243001979.js";
+      script.src = "https://js-na2.hsforms.net/forms/embed/v2.js";
       script.defer = true;
       script.async = true;
       
@@ -101,12 +101,38 @@ const HubSpotForm = () => {
         console.error("Failed to load HubSpot form script");
       };
       
+      script.onload = () => {
+        // Create the form once the script is loaded
+        if (window.hbspt) {
+          window.hbspt.forms.create({
+            region: "na2",
+            portalId: "243001979",
+            formId: "af95dab6-e285-4ac0-b3d3-9091945a27ca",
+            target: "#hubspot-form-container"
+          });
+        }
+      };
+      
       document.body.appendChild(script);
+    } else {
+      // Script already exists, create form immediately if hbspt is available
+      if (window.hbspt) {
+        window.hbspt.forms.create({
+          region: "na2",
+          portalId: "243001979",
+          formId: "af95dab6-e285-4ac0-b3d3-9091945a27ca",
+          target: "#hubspot-form-container"
+        });
+      }
     }
+    
+    // Ensure body scrolling is enabled (in case a modal left it disabled)
+    document.body.style.overflow = 'unset';
     
     // Cleanup function
     return () => {
-      // Note: We don't remove the script on unmount as it might be needed elsewhere
+      // Reset body overflow when component unmounts
+      document.body.style.overflow = 'unset';
     };
   }, []);
 
@@ -118,10 +144,8 @@ const HubSpotForm = () => {
       </FormDescription>
       <HubSpotFormWrapper>
         <div
+          id="hubspot-form-container"
           className="hs-form-frame"
-          data-region="na2"
-          data-form-id="af95dab6-e285-4ac0-b3d3-9091945a27ca"
-          data-portal-id="243001979"
         />
       </HubSpotFormWrapper>
     </FormContainer>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import HubSpotForm from './HubSpotForm';
 import SignatureOutcomes from './SignatureOutcomes';
@@ -272,6 +272,17 @@ const FAQAnswer = styled.div`
 
 const SherpaSkill = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
+  
+  // Ensure scrolling is always enabled on this page
+  useEffect(() => {
+    // Reset any overflow hidden that might have been set by modals
+    document.body.style.overflow = 'unset';
+    
+    return () => {
+      // Cleanup on unmount
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
   
   // Temporarily disabled mobile optimizations for debugging
   // const { isMobile, deviceInfo, accessibilityHelpers } = useMobileOptimizations({
