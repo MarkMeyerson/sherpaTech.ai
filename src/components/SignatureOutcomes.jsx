@@ -337,8 +337,8 @@ const outcomes = [
       'Draft routine client responses with Copilot instead of typing from scratch.'
     ],
     story: 'A project manager cut inbox time from 2.5 hrs/day to 45 minutes.',
-    cta: 'Take the AI Readiness Quiz',
-    ctaLink: '#'
+    cta: 'Join the Cohort',
+    ctaLink: '#apply'
   },
   {
     id: 2,
@@ -351,7 +351,7 @@ const outcomes = [
     ],
     story: 'A finance lead saves 6 hours per month on board reports.',
     cta: 'Join the Cohort',
-    ctaLink: '#'
+    ctaLink: '#apply'
   },
   {
     id: 3,
@@ -363,8 +363,8 @@ const outcomes = [
       'Search past meetings for "budget approval decision" in seconds.'
     ],
     story: 'A 15-person team saves 3+ hours/week avoiding rework.',
-    cta: 'Take the AI Readiness Quiz',
-    ctaLink: '#'
+    cta: 'Join the Cohort',
+    ctaLink: '#apply'
   },
   {
     id: 4,
@@ -377,7 +377,7 @@ const outcomes = [
     ],
     story: 'A consultant cut prep time for proposals by 70%.',
     cta: 'Join the Cohort',
-    ctaLink: '#'
+    ctaLink: '#apply'
   }
 ];
 
