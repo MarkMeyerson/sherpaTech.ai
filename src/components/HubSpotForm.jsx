@@ -121,7 +121,25 @@ const HubSpotForm = () => {
             region: "na2",
             portalId: "243001979",
             formId: "af95dab6-e285-4ac0-b3d3-9091945a27ca",
-            target: "#hubspot-form-container"
+            target: "#hubspot-form-container",
+            css: '',
+            cssClass: 'hs-form-scrollable',
+            onFormReady: function() {
+              // Ensure the form container can expand
+              const formContainer = document.getElementById('hubspot-form-container');
+              if (formContainer) {
+                formContainer.style.height = 'auto';
+                formContainer.style.maxHeight = 'none';
+                formContainer.style.overflow = 'visible';
+              }
+              
+              // Also target the iframe if it exists
+              const iframe = formContainer.querySelector('iframe');
+              if (iframe) {
+                iframe.style.height = 'auto';
+                iframe.style.minHeight = '600px';
+              }
+            }
           });
         }
       };
@@ -134,7 +152,25 @@ const HubSpotForm = () => {
           region: "na2",
           portalId: "243001979",
           formId: "af95dab6-e285-4ac0-b3d3-9091945a27ca",
-          target: "#hubspot-form-container"
+          target: "#hubspot-form-container",
+          css: '',
+          cssClass: 'hs-form-scrollable',
+          onFormReady: function() {
+            // Ensure the form container can expand
+            const formContainer = document.getElementById('hubspot-form-container');
+            if (formContainer) {
+              formContainer.style.height = 'auto';
+              formContainer.style.maxHeight = 'none';
+              formContainer.style.overflow = 'visible';
+            }
+            
+            // Also target the iframe if it exists
+            const iframe = formContainer.querySelector('iframe');
+            if (iframe) {
+              iframe.style.height = 'auto';
+              iframe.style.minHeight = '600px';
+            }
+          }
         });
       }
     }

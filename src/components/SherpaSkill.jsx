@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import HubSpotForm from './HubSpotForm';
+import SimpleContactForm from './SimpleContactForm';
 import SignatureOutcomes from './SignatureOutcomes';
 import FiveWeekJourney from './FiveWeekJourney';
 import WhoIsThisFor from './WhoIsThisFor';
@@ -400,7 +400,7 @@ const SherpaSkill = () => {
       <Section id="apply" aria-label="Application section">
         <Container>
           <SectionTitle>Ready to Transform Your Productivity?</SectionTitle>
-          <HubSpotForm />
+          <SimpleContactForm />
         </Container>
       </Section>
 
