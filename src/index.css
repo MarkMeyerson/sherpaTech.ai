@@ -786,7 +786,9 @@ html {
 .touch-target-large {
   min-height: 48px;
   min-width: 48px;
-}  .touch-target-xl {
+}
+
+/* Force Vercel deployment trigger */  .touch-target-xl {
     min-height: 56px;
     min-width: 56px;
   }
