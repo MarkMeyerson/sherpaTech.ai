@@ -474,7 +474,23 @@ const SignatureOutcomes = () => {
               </StoryText>
             </StorySection>
             
-            <CTAButton href={selectedOutcome.ctaLink}>
+            <CTAButton 
+              href={selectedOutcome.ctaLink}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default anchor behavior
+                closeModal();
+                // Scroll to the apply section after modal closes
+                setTimeout(() => {
+                  const applySection = document.getElementById('apply');
+                  if (applySection) {
+                    applySection.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'start' 
+                    });
+                  }
+                }, 200);
+              }}
+            >
               {selectedOutcome.cta}
             </CTAButton>
           </Modal>

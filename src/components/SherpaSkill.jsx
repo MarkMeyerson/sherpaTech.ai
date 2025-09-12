@@ -22,10 +22,6 @@ const PageContainer = styled.div`
   color: ${colors.navyBlue};
   line-height: 1.6;
   
-  /* Performance optimizations */
-  contain: layout style paint;
-  will-change: auto;
-  
   /* Smooth scrolling behavior */
   scroll-behavior: ${props => props.$reducedMotion ? 'auto' : 'smooth'};
   

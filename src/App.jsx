@@ -38,9 +38,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <ErrorBoundary>
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen">
             <Navbar />
-            <main className="flex-grow">
+            <main style={{ minHeight: 'calc(100vh - 140px)' }}>
               <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                   <Route path="/" element={<Home />} />

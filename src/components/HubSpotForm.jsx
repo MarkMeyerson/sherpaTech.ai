@@ -9,6 +9,7 @@ const FormContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  overflow: visible; /* Ensure content can expand */
 `;
 
 const FormTitle = styled.h3`
@@ -27,13 +28,25 @@ const FormDescription = styled.p`
 `;
 
 const HubSpotFormWrapper = styled.div`
+  min-height: 400px; /* Ensure minimum height for form */
+  overflow: visible; /* Allow content to expand */
+  
   .hs-form-frame {
     width: 100%;
+    min-height: 400px;
+  }
+  
+  /* Ensure the container has proper height */
+  #hubspot-form-container {
+    min-height: 300px;
+    width: 100%;
+    overflow: visible;
   }
   
   /* Style the HubSpot form to match brand */
   .hs-form {
     font-family: 'Open Sans', sans-serif !important;
+    overflow: visible !important;
   }
   
   .hs-form-field label {
