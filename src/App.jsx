@@ -25,6 +25,8 @@ const Assessment = lazy(() => import('./features/assessment/components/Assessmen
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
 const STAIAnnouncementModal = lazy(() => import('./components/STAIAnnouncementModal'));
+const CohortThankYou = lazy(() => import('./pages/CohortThankYou'));
+const ResourcesCohort = lazy(() => import('./pages/ResourcesCohort'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -57,6 +59,8 @@ const App = () => {
                   <Route path="/assessment" element={<Assessment />} />
                   <Route path="/training-app/*" element={<TrainingApp />} />
                   <Route path="/our-why" element={<OurWhyStatement />} />
+                  <Route path="/cohort-thankyou" element={<CohortThankYou />} />
+                  <Route path="/resources-cohort" element={<ResourcesCohort />} />
                 </Routes>
               </Suspense>
             </main>
