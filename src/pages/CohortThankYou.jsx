@@ -4,6 +4,14 @@ import { useNavigate } from 'react-router-dom';
 const CohortThankYou = () => {
   const navigate = useNavigate();
 
+  // Stripe payment links
+  const STRIPE_REAL = "https://buy.stripe.com/dRmbJ1R5W753eKC9KueIw00";
+  const STRIPE_TEST = "https://buy.stripe.com/dRm7sL1BG0GF7iag8SeIw01";
+
+  // Environment variable logic
+  const mode = import.meta.env.VITE_STRIPE_MODE || "test";
+  const stripeLink = mode === "real" ? STRIPE_REAL : STRIPE_TEST;
+
   const handleResourcesClick = () => {
     navigate('/resources-cohort');
   };
@@ -13,7 +21,13 @@ const CohortThankYou = () => {
   };
 
   const handlePaymentClick = () => {
-    window.open('https://buy.stripe.com/dRmbJ15RW753eKC9KueIw00', '_blank', 'noopener,noreferrer');
+    window.open(stripeLink, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleTestPaymentClick = () => {
+    // When in test mode, show the opposite link for testing both options
+    const oppositeLink = mode === "real" ? STRIPE_TEST : STRIPE_REAL;
+    window.open(oppositeLink, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -56,13 +70,23 @@ const CohortThankYou = () => {
 
           {/* Action Buttons */}
           <div className="space-y-4 mb-6">
-            {/* Payment Button - Most prominent */}
+            {/* Primary Payment Button */}
             <button
               onClick={handlePaymentClick}
               className="w-full bg-navy-blue text-alpine-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:bg-mountain-blue hover:shadow-lg transform hover:scale-105 font-inter"
             >
-              Complete Your Payment
+              Complete Your Payment {mode === "real" ? "($499)" : "($1 Test)"}
             </button>
+
+            {/* Secondary Test Button - Only show in test mode */}
+            {mode === "test" && (
+              <button
+                onClick={handleTestPaymentClick}
+                className="w-full bg-orange-500 text-alpine-white px-8 py-3 rounded-lg font-semibold text-base transition-all duration-200 hover:bg-orange-600 hover:shadow-lg transform hover:scale-105 font-inter border-2 border-orange-600"
+              >
+                Test $499 Production Link
+              </button>
+            )}
 
             {/* Secondary buttons in a row on larger screens */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
