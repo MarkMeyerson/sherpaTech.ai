@@ -2,46 +2,32 @@ import React, { useEffect } from 'react';
 
 const SherpaSkillHubSpotForm = () => {
   useEffect(() => {
-    // Function to initialize the form with redirect configuration
-    const initializeForm = () => {
-      if (window.hbspt && window.hbspt.forms) {
-        window.hbspt.forms.create({
-          region: "na2",
-          portalId: "243001979",
-          formId: "af95dab6-e285-4ac0-b3d3-9091945a27ca",
-          target: "#hubspot-form-container",
-          onFormSubmit: function($form) {
-            // Add a small delay to ensure the submission is processed
-            setTimeout(() => {
-              // Redirect to the thank you page
-              window.location.href = '/cohort-thankyou';
-            }, 500);
-          }
-        });
+    // Create and inject the HubSpot script using the basic embed method
+    const script = document.createElement('script');
+    script.src = 'https://js-na2.hsforms.net/forms/embed/243001979.js';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    // Set up form submission redirect using event listener
+    const handleFormSubmit = (event) => {
+      // Check if this is a HubSpot form submission
+      if (event.target.closest('.hs-form')) {
+        setTimeout(() => {
+          window.location.href = '/cohort-thankyou';
+        }, 1000); // Give HubSpot time to process the submission
       }
     };
 
-    // Load HubSpot script if not already loaded
-    if (!window.hbspt) {
-      const script = document.createElement('script');
-      script.src = 'https://js-na2.hsforms.net/forms/embed/243001979.js';
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        // Wait a moment for the script to fully initialize
-        setTimeout(initializeForm, 100);
-      };
-      document.head.appendChild(script);
-    } else {
-      // Script already loaded, just initialize the form
-      initializeForm();
-    }
+    // Listen for form submissions
+    document.addEventListener('submit', handleFormSubmit);
 
-    // Cleanup function to remove script on unmount
+    // Cleanup function
     return () => {
-      const container = document.getElementById('hubspot-form-container');
-      if (container) {
-        container.innerHTML = '';
+      document.removeEventListener('submit', handleFormSubmit);
+      const existingScript = document.querySelector('script[src="https://js-na2.hsforms.net/forms/embed/243001979.js"]');
+      if (existingScript) {
+        existingScript.remove();
       }
     };
   }, []);
@@ -56,9 +42,12 @@ const SherpaSkillHubSpotForm = () => {
           Seats are limited. Reserve your spot today and start your AI transformation journey.
         </p>
         
-        {/* HubSpot Form Container */}
+        {/* HubSpot Form - Using the basic embed method */}
         <div 
-          id="hubspot-form-container"
+          className="hs-form-frame" 
+          data-region="na2" 
+          data-form-id="af95dab6-e285-4ac0-b3d3-9091945a27ca" 
+          data-portal-id="243001979"
           style={{ minHeight: '400px' }}
         ></div>
         
