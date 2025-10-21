@@ -21,13 +21,12 @@ const SmallBusinesses = lazy(() => import('./components/SmallBusinesses'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
-const HubSpotForm = lazy(() => import('./components/HubSpotForm'));
 const Assessment = lazy(() => import('./features/assessment/components/Assessment'));
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
-const STAIAnnouncementModal = lazy(() => import('./components/STAIAnnouncementModal'));
 const CohortThankYou = lazy(() => import('./pages/CohortThankYou'));
 const ResourcesCohort = lazy(() => import('./pages/ResourcesCohort'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -62,20 +61,11 @@ const App = () => {
                   <Route path="/our-why" element={<OurWhyStatement />} />
                   <Route path="/cohort-thankyou" element={<CohortThankYou />} />
                   <Route path="/resources-cohort" element={<ResourcesCohort />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>
             <Footer />
-            
-            {/* SherpaSkill Cohort Announcement Modal - DISABLED */}
-            {/* <Suspense fallback={null}>
-              <STAIAnnouncementModal 
-                isOpenByDefault={true}
-                cohortHref="/sherpaskill"
-                suppressDays={30}
-                localStorageKey="stai_2cta_modal_last_dismissed_at"
-              />
-            </Suspense> */}
           </div>
         </ErrorBoundary>
       </BrowserRouter>
