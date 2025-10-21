@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from '@vercel/analytics/react';
 import { theme } from "./utils/theme";
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -78,6 +79,7 @@ const App = () => {
           </div>
         </ErrorBoundary>
       </BrowserRouter>
+      <Analytics />
     </ThemeProvider>
   );
 }
