@@ -24,6 +24,7 @@ const ContactPage = lazy(() => import('./components/ContactPage'));
 const Assessment = lazy(() => import('./features/assessment/components/Assessment'));
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
+const SixAMethod = lazy(() => import('./components/SixAMethod'));
 const CohortThankYou = lazy(() => import('./pages/CohortThankYou'));
 const ResourcesCohort = lazy(() => import('./pages/ResourcesCohort'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -59,6 +60,7 @@ const App = () => {
                   <Route path="/assessment" element={<Assessment />} />
                   <Route path="/training-app/*" element={<TrainingApp />} />
                   <Route path="/our-why" element={<OurWhyStatement />} />
+                  <Route path="/6a-method" element={<SixAMethod />} />
                   <Route path="/cohort-thankyou" element={<CohortThankYou />} />
                   <Route path="/resources-cohort" element={<ResourcesCohort />} />
                   <Route path="*" element={<NotFound />} />
