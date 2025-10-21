@@ -66,15 +66,15 @@ const App = () => {
             </main>
             <Footer />
             
-            {/* SherpaSkill Cohort Announcement Modal */}
-            <Suspense fallback={null}>
+            {/* SherpaSkill Cohort Announcement Modal - DISABLED */}
+            {/* <Suspense fallback={null}>
               <STAIAnnouncementModal 
                 isOpenByDefault={true}
                 cohortHref="/sherpaskill"
                 suppressDays={30}
                 localStorageKey="stai_2cta_modal_last_dismissed_at"
               />
-            </Suspense>
+            </Suspense> */}
           </div>
         </ErrorBoundary>
       </BrowserRouter>
