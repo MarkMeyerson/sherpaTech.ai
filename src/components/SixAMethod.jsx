@@ -53,6 +53,31 @@ const HeroDescription = styled.p`
   opacity: 0.9;
 `;
 
+const DownloadButton = styled.a`
+  display: inline-block;
+  background: ${colors.accentOrange};
+  color: ${colors.alpineWhite};
+  border: none;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 24px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(255, 106, 61, 0.3);
+  }
+  
+  &:before {
+    content: '📄 ';
+    margin-right: 8px;
+  }
+`;
+
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -531,6 +556,9 @@ const SixAMethod = () => {
           From Strategy to Success in Six Strategic Phases. SherpaTech.AI's proprietary framework
           for comprehensive AI transformation that builds capability, not dependency.
         </HeroDescription>
+        <DownloadButton href="/6A framework SherpaTech.pdf" download>
+          Download Framework PDF
+        </DownloadButton>
       </HeroSection>
 
       <Container>
@@ -573,9 +601,14 @@ const SixAMethod = () => {
         <IntroText style={{ color: colors.iceBlue, marginBottom: '32px' }}>
           Let's assess your AI readiness and create a strategic roadmap for success.
         </IntroText>
-        <CTAButton onClick={() => window.location.href = '/contact'}>
-          Schedule Your Assessment
-        </CTAButton>
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <CTAButton onClick={() => window.location.href = '/contact'}>
+            Schedule Your Assessment
+          </CTAButton>
+          <DownloadButton href="/6A framework SherpaTech.pdf" download style={{ background: colors.alpineWhite, color: colors.navyBlue }}>
+            Download Framework PDF
+          </DownloadButton>
+        </div>
       </CTASection>
 
       {selectedPhase && (
