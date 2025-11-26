@@ -71,13 +71,13 @@ const OurWhyStatement = () => {
             <div className="flex flex-col md:flex-row gap-8 mb-8">
               {/* Headshot */}
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="relative w-48 h-48 md:w-56 md:h-56">
+                <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white shadow-xl">
                   <img
-                    src="/mark-meyerson-headshot.gif"
+                    src="/mark-meyerson-headshot.jpg"
                     alt="Mark Meyerson, Founder of SherpaTech.AI"
-                    className="w-full h-full rounded-full object-cover border-4 border-white shadow-xl"
+                    className="w-full h-full object-cover object-[center_20%]"
                   />
-                  <div className="absolute inset-0 rounded-full border-4 border-ice-blue"></div>
+                  <div className="absolute inset-0 rounded-full border-4 border-ice-blue pointer-events-none"></div>
                 </div>
                 <div className="mt-4 text-center">
                   <h3 className="text-xl font-bold text-navy-blue">Mark Meyerson</h3>
