@@ -70,12 +70,12 @@ const OurWhyStatement = () => {
             {/* Headshot and intro - responsive layout */}
             <div className="flex flex-col md:flex-row gap-8 mb-8">
               {/* Headshot */}
-              <div className="flex flex-col items-center md:items-start flex-shrink-0">
-                <div className="relative">
+              <div className="flex flex-col items-center flex-shrink-0">
+                <div className="relative w-48 h-48 md:w-56 md:h-56">
                   <img
                     src="/mark-meyerson-headshot.gif"
                     alt="Mark Meyerson, Founder of SherpaTech.AI"
-                    className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-white shadow-xl"
+                    className="w-full h-full rounded-full object-cover border-4 border-white shadow-xl"
                   />
                   <div className="absolute inset-0 rounded-full border-4 border-ice-blue"></div>
                 </div>
