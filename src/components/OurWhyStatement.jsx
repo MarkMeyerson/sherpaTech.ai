@@ -66,20 +66,44 @@ const OurWhyStatement = () => {
                 The Pattern
               </h2>
             </div>
-            <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              For my whole life, I've been doing the same work in different forms:
-            </p>
-            <ul className="space-y-4">
-              {patternItems.map((item, index) => (
-                <li key={index} className="flex items-start gap-4">
-                  <div className="bg-ice-blue p-2 rounded-lg flex-shrink-0 mt-0.5">
-                    <item.icon className="w-5 h-5 text-navy-blue" />
-                  </div>
-                  <span className="text-gray-700 text-lg">{item.text}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="text-gray-700 text-lg leading-relaxed mt-6 font-medium">
+
+            {/* Headshot and intro - responsive layout */}
+            <div className="flex flex-col md:flex-row gap-8 mb-8">
+              {/* Headshot */}
+              <div className="flex flex-col items-center md:items-start flex-shrink-0">
+                <div className="relative">
+                  <img
+                    src="/mark-meyerson-headshot.gif"
+                    alt="Mark Meyerson, Founder of SherpaTech.AI"
+                    className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-white shadow-xl"
+                  />
+                  <div className="absolute inset-0 rounded-full border-4 border-ice-blue"></div>
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="text-xl font-bold text-navy-blue">Mark Meyerson</h3>
+                  <p className="text-gray-600">Founder, SherpaTech.AI</p>
+                </div>
+              </div>
+
+              {/* Intro text */}
+              <div className="flex-1">
+                <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                  For my whole life, I've been doing the same work in different forms:
+                </p>
+                <ul className="space-y-4">
+                  {patternItems.map((item, index) => (
+                    <li key={index} className="flex items-start gap-4">
+                      <div className="bg-ice-blue p-2 rounded-lg flex-shrink-0 mt-0.5">
+                        <item.icon className="w-5 h-5 text-navy-blue" />
+                      </div>
+                      <span className="text-gray-700 text-lg">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <p className="text-gray-700 text-lg leading-relaxed font-medium border-t border-gray-200 pt-6">
               The pattern is always the same: restore capability, teach independence, give back, close the circle.
             </p>
           </section>
