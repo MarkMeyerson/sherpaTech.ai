@@ -1,13 +1,14 @@
 import { render, screen, act } from '@testing-library/react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { FormStatus } from '../FormStatus';
 
 describe('FormStatus', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('renders nothing when status is idle', () => {
@@ -20,7 +21,7 @@ describe('FormStatus', () => {
     expect(screen.getByRole('alert')).toBeInTheDocument();
   });
 
-  test('renders success message with correct attributes', () => {
+  it('renders success message with correct attributes', () => {
     render(<FormStatus status="success" />);
     const status = screen.getByRole('status');
 
@@ -28,13 +29,13 @@ describe('FormStatus', () => {
     expect(status).toHaveTextContent('Message sent successfully');
   });
 
-  test('auto-hides after specified delay', () => {
+  it('auto-hides after specified delay', () => {
     render(<FormStatus status="success" autoHideDelay={1000} />);
 
     expect(screen.getByRole('status')).toBeInTheDocument();
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
 
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
