@@ -63,6 +63,7 @@ const App = () => {
                   <Route path="/6a-method" element={<SixAMethod />} />
                   <Route path="/cohort-thankyou" element={<CohortThankYou />} />
                   <Route path="/resources-cohort" element={<ResourcesCohort />} />
+                  <Route path="/banana-chat" element={<BananaChat />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
