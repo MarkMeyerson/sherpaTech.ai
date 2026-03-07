@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SimpleContactForm from './SimpleContactForm';
+import SherpaSkillHubSpotForm from './SherpaSkillHubSpotForm';
 import SignatureOutcomes from './SignatureOutcomes';
 import FiveWeekJourney from './FiveWeekJourney';
 import WhoIsThisFor from './WhoIsThisFor';
@@ -400,7 +400,7 @@ const SherpaSkill = () => {
       <Section id="apply" aria-label="Application section">
         <Container>
           <SectionTitle>Ready to Transform Your Productivity?</SectionTitle>
-          <SimpleContactForm />
+          <SherpaSkillHubSpotForm />
         </Container>
       </Section>
 

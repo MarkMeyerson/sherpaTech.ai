@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import contentRepository from './contentRepository';
 import UserRegistration from './UserRegistration';
 import trainingService from '../services/trainingService';
-import EnvDebug from './EnvDebug';
 
 const TrainingApp = () => {
   const navigate = useNavigate();
@@ -920,7 +919,6 @@ const TrainingApp = () => {
           </div>
         </div>
       </div>
-      {import.meta.env.DEV && <EnvDebug />}
     </div>
   );
 };

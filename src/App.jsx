@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from '@vercel/analytics/react';
 import { theme } from "./utils/theme";
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -20,12 +21,14 @@ const SmallBusinesses = lazy(() => import('./components/SmallBusinesses'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
-const HubSpotForm = lazy(() => import('./components/HubSpotForm'));
 const Assessment = lazy(() => import('./features/assessment/components/Assessment'));
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
-const STAIAnnouncementModal = lazy(() => import('./components/STAIAnnouncementModal'));
-
+const SixAMethod = lazy(() => import('./components/SixAMethod'));
+const CohortThankYou = lazy(() => import('./pages/CohortThankYou'));
+const ResourcesCohort = lazy(() => import('./pages/ResourcesCohort'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const BananaChat = lazy(() => import('./pages/BananaChat'));
 // Loading component
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -57,23 +60,19 @@ const App = () => {
                   <Route path="/assessment" element={<Assessment />} />
                   <Route path="/training-app/*" element={<TrainingApp />} />
                   <Route path="/our-why" element={<OurWhyStatement />} />
+                  <Route path="/6a-method" element={<SixAMethod />} />
+                  <Route path="/cohort-thankyou" element={<CohortThankYou />} />
+                  <Route path="/resources-cohort" element={<ResourcesCohort />} />
+                  <Route path="/banana-chat" element={<BananaChat />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>
             <Footer />
-            
-            {/* SherpaSkill Cohort Announcement Modal */}
-            <Suspense fallback={null}>
-              <STAIAnnouncementModal 
-                isOpenByDefault={true}
-                cohortHref="/sherpaskill"
-                suppressDays={30}
-                localStorageKey="stai_2cta_modal_last_dismissed_at"
-              />
-            </Suspense>
           </div>
         </ErrorBoundary>
       </BrowserRouter>
+      <Analytics />
     </ThemeProvider>
   );
 }
