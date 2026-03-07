@@ -28,7 +28,7 @@ const SixAMethod = lazy(() => import('./components/SixAMethod'));
 const CohortThankYou = lazy(() => import('./pages/CohortThankYou'));
 const ResourcesCohort = lazy(() => import('./pages/ResourcesCohort'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-
+const BananaChat = lazy(() => import('./pages/BananaChat'));
 // Loading component
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center">
