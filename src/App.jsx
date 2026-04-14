@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 // Lazy loaded components (split into chunks)
+const ClaudeCohort = lazy(() => import('./components/ClaudeCohort'));
 const Home = lazy(() => import('./components/Home'));
 const Services = lazy(() => import('./components/Services'));
 const About = lazy(() => import('./components/About'));
@@ -43,6 +44,7 @@ const App = () => {
             <main style={{ minHeight: 'calc(100vh - 140px)' }}>
               <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
+                  <Route path="/claude-cohort" element={<ClaudeCohort />} />
                   <Route path="/" element={<Home />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/about" element={<About />} />
