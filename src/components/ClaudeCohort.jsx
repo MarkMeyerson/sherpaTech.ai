@@ -339,14 +339,8 @@ const ClaudeCohort = () => {
           <BenefitGrid>
             <BenefitCard>
               <BenefitIcon>🧠</BenefitIcon>
-              <BenefitTitle>Hands-On Claude Training</BenefitTitle>
-              <BenefitText>Real prompts, real use cases, real results — not theory. Every session is practical and immediately usable.</BenefitText>
-            </BenefitCard>
-            <BenefitCard>
-              <BenefitIcon>📊</BenefitIcon>
-              <BenefitTitle>Strategy, Not Just Tools</BenefitTitle>
-              <BenefitText>Learn to apply AI to your specific challenges with Mark's 6A Method™ framework.</BenefitText>
-            </BenefitCard>
+              <BenefitTitle>Hands-On Claude Cowork Training<h/BenefitTitle>
+        <BenefitText>Collaborative workspace and AI training within Claude Cowork's interactive environment.</</BenefitText>
             <BenefitCard>
               <BenefitIcon>🤝</BenefitIcon>
               <BenefitTitle>Small Cohort Community</BenefitTitle>
