@@ -342,6 +342,7 @@ const ClaudeCohort = () => {
               <BenefitTitle>Hands-On Claude Cowork Training<h/BenefitTitle>
         <BenefitText>Collaborative workspace and AI training within Claude Cowork's interactive environment.</</BenefitText>
             <BenefitCard>
+                            <BenefitCard>
               <BenefitIcon>🤝</BenefitIcon>
               <BenefitTitle>Small Cohort Community</BenefitTitle>
               <BenefitText>Learn alongside peers. Ask questions, share wins, and get accountability from the group.</BenefitText>
