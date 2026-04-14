@@ -340,7 +340,7 @@ const ClaudeCohort = () => {
             <BenefitCard>
               <BenefitIcon>🧠</BenefitIcon>
               <BenefitTitle>Hands-On Claude Cowork Training</BenefitTitle>
-        <BenefitText>Collaborative workspace and AI training within Claude Cowork's interactive environment.</</BenefitText>
+        <BenefitText>Collaborative workspace and AI training within Claude Cowork's interactive environment.</BenefitText>
             <BenefitCard>
                             <BenefitCard>
               <BenefitIcon>🤝</BenefitIcon>
