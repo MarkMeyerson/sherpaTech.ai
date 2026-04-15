@@ -10,9 +10,9 @@ interface STAIAnnouncementModalProps {
 
 const STAIAnnouncementModal: React.FC<STAIAnnouncementModalProps> = ({
   isOpenByDefault = false,
-  cohortHref = '/sherpaskill',
+  cohortHref = '/claude-cohort',
   suppressDays = 30,
-  localStorageKey = 'stai_2cta_modal_last_dismissed_at'
+  localStorageKey = 'stai_claude_cohort_modal_last_dismissed_at'
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
@@ -153,10 +153,10 @@ const STAIAnnouncementModal: React.FC<STAIAnnouncementModalProps> = ({
             </span>
           </div>
           <h2 id="modal-title" className="text-xl font-bold text-gray-900 mb-2">
-            Ready to Master Microsoft Copilot?
+            Master Claude — Live with SherpaTech.AI
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Join our 5-week hands-on training program and transform your productivity.
+            Join our live cohort and put AI to work in your business starting this month.
           </p>
         </div>
 
@@ -178,17 +178,16 @@ const STAIAnnouncementModal: React.FC<STAIAnnouncementModalProps> = ({
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  SherpaSkill™ Cohort Sign-Up
+                  Claude Cohort™ — Now Enrolling
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                  Master Microsoft Copilot in 5 weeks with hands-on training, real workflows, and expert guidance.
+                  Live Zoom sessions with Mark Meyerson. Master Claude and apply AI to your real business challenges — starting this month.
                 </p>
                 <div className="flex items-center text-xs text-blue-600 font-medium">
-                  {/* Brand color: replace text-blue-600 with text-[#1B365D] */}
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                  Reserve Your Spot Now
+                  See Plans &amp; Enroll Now
                 </div>
               </div>
             </div>

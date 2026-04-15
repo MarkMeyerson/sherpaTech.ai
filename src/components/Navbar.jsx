@@ -208,7 +208,7 @@ const Navbar = () => {
           <NavLink to="/about" onClick={closeMenu} $isActive={isActive('/about')}>About</NavLink>
           <NavLink to="/our-why" onClick={closeMenu} $isActive={isActive('/our-why')}>Our Why</NavLink>
           <NavLink to="/small-businesses" onClick={closeMenu} $isActive={isActive('/small-businesses')}>Small Businesses</NavLink>
-          <NavLink to="/sherpaskill" onClick={closeMenu} $isActive={isActive('/sherpaskill')}>SherpaSkill™</NavLink>
+          <NavLink to="/claude-cohort" onClick={closeMenu} $isActive={isActive('/claude-cohort')}>Claude Cohort™</NavLink>
           <NavLink to="/contact" onClick={closeMenu} $isActive={isActive('/contact')}>Contact</NavLink>
         </NavLinks>
       </NavbarContainer>
