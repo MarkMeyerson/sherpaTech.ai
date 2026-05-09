@@ -25,7 +25,7 @@ const HubSpotForm = lazy(() => import('./components/HubSpotForm'));
 const Assessment = lazy(() => import('./features/assessment/components/Assessment'));
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
-const STAIAnnouncementModal = lazy(() => import('./components/STAIAnnouncementModal'));
+const VoiceAI = lazy(() => import('./components/VoiceAI'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -45,6 +45,7 @@ const App = () => {
               <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                   <Route path="/claude-cohort" element={<ClaudeCohort />} />
+                  <Route path="/voice-ai" element={<VoiceAI />} />
                   <Route path="/" element={<Home />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/about" element={<About />} />
@@ -64,15 +65,6 @@ const App = () => {
             </main>
             <Footer />
 
-            {/* Claude Cohort Announcement Modal */}
-            <Suspense fallback={null}>
-              <STAIAnnouncementModal
-                isOpenByDefault={true}
-                cohortHref="/claude-cohort"
-                suppressDays={30}
-                localStorageKey="stai_claude_cohort_modal_last_dismissed_at"
-              />
-            </Suspense>
           </div>
         </ErrorBoundary>
       </BrowserRouter>
