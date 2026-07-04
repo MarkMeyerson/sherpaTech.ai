@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { theme } from "./utils/theme";
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -64,7 +65,7 @@ const App = () => {
               </Suspense>
             </main>
             <Footer />
-
+            <SpeedInsights />
           </div>
         </ErrorBoundary>
       </BrowserRouter>
