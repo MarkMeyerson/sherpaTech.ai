@@ -1,0 +1,20 @@
+# SherpaTech.AI standard Dependabot config.
+# Place at .github/dependabot.yml. Add one npm block per package directory
+# (e.g. "/frontend" if the app is split like circe-airstream).
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
