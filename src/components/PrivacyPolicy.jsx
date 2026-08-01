@@ -119,7 +119,7 @@ function PrivacyPolicy() {
       <Section>
         <h2>1. Introduction</h2>
         <p>
-          SherpaTech.AI ("SherpaTech," "we," "us") respects your privacy. This notice explains what we collect, why we collect it, and the choices you have. It applies to our website, programs, cohorts, forms, and related services.
+          SherpaTech.AI is a brand operated by ISLE OF AEAEA, a Virginia limited liability company ("SherpaTech," "we," "us"). We respect your privacy. This notice explains what we collect, why we collect it, and the choices you have. It applies to our website, programs, cohorts, forms, and related services.
         </p>
       </Section>
       
@@ -210,7 +210,7 @@ function PrivacyPolicy() {
         <p>Questions or requests:</p>
         
         <ContactBox>
-          <p><strong>SherpaTech.AI</strong></p>
+          <p><strong>SherpaTech.AI</strong> (operated by ISLE OF AEAEA)</p>
           <p>5209 S. 12th Street, Arlington, VA 22204, USA</p>
           <p>Email: Info@sherpatech.ai</p>
         </ContactBox>
