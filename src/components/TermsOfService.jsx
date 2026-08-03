@@ -132,7 +132,7 @@ function TermsOfService() {
       <Section>
         <h2>1. Acceptance of Terms</h2>
         <p>
-          By purchasing or participating in SherpaTech programs or using our site, you agree to these Terms.
+          SherpaTech.AI is a brand operated by ISLE OF AEAEA, a Virginia limited liability company ("SherpaTech"). By purchasing or participating in SherpaTech programs or using our site, you agree to these Terms.
         </p>
       </Section>
       
@@ -307,12 +307,12 @@ function TermsOfService() {
         <p>For questions about these Terms:</p>
         
         <ContactBox>
-          <p><strong>SherpaTech.AI</strong></p>
+          <p><strong>SherpaTech.AI</strong> (operated by ISLE OF AEAEA)</p>
           <p>5209 S. 12th Street, Arlington, VA 22204, USA</p>
           <p>Email: Info@sherpatech.ai</p>
         </ContactBox>
       </Section>
-      
+
       <BackLink to="/">
         ← Back to Home
       </BackLink>
