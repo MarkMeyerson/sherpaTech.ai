@@ -207,7 +207,7 @@ const Navbar = () => {
           <NavLink to="/services" onClick={closeMenu} $isActive={isActive('/services')}>Services</NavLink>
           <NavLink to="/about" onClick={closeMenu} $isActive={isActive('/about')}>About</NavLink>
           <NavLink to="/our-why" onClick={closeMenu} $isActive={isActive('/our-why')}>Our Why</NavLink>
-          <NavLink to="/small-businesses" onClick={closeMenu} $isActive={isActive('/small-businesses')}>Small Businesses</NavLink>
+          <NavLink to="/cos" onClick={closeMenu} $isActive={isActive('/cos')}>COS Sprint</NavLink>
           <NavLink to="/voice-ai" onClick={closeMenu} $isActive={isActive("/voice-ai")}>Voice AI</NavLink>
           <NavLink to="/contact" onClick={closeMenu} $isActive={isActive('/contact')}>Contact</NavLink>
         </NavLinks>
