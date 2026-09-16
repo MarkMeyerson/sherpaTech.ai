@@ -650,7 +650,7 @@ const CosForm = () => {
     );
   }
 
-  return <div id="hubspot-cos-form" className="hs-form-frame" aria-live="polite" />;
+  return <div id="hubspot-cos-form" aria-live="polite" />;
 };
 
 // ── Page ─────────────────────────────────────────────────────────────────────
