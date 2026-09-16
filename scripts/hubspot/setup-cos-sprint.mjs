@@ -69,9 +69,9 @@ async function api(method, path, body) {
 }
 
 function missingScope(err) {
-  const msg = JSON.stringify(err?.data || {});
-  const m = msg.match(/scopes?[^"]*?:\s*"?([a-z0-9._-]+)/i) || msg.match(/requires the ([a-z0-9._-]+) scope/i);
-  return m ? m[1] : null;
+  const granular = err?.data?.errors?.flatMap((e) => e?.context?.requiredGranularScopes || []) || [];
+  if (granular.length) return granular.join(', ');
+  return err?.data?.category === 'MISSING_SCOPES' ? 'unknown (MISSING_SCOPES)' : null;
 }
 
 function log(step, msg) {
@@ -176,8 +176,13 @@ async function checkLeadSource() {
 
 const CONTACT = '0-1';
 
+// The portal is enrolled in the Forms "2026-09-beta" rollout. Its validator requires
+// dependentFields on every field, defaultValues on enumerated fields, and (oddly)
+// createdAt/updatedAt on create. The v3 path is tried first, then the beta path.
+const FORMS_PATHS = ['/marketing/v3/forms/', '/marketing/forms/2026-09-beta'];
+
 function textField(name, label, fieldType, required, extra = {}) {
-  return { objectTypeId: CONTACT, name, label, fieldType, required, hidden: false, ...extra };
+  return { objectTypeId: CONTACT, name, label, fieldType, required, hidden: false, dependentFields: [], ...extra };
 }
 
 function buildFormBody(includeLeadSource) {
@@ -194,6 +199,8 @@ function buildFormBody(includeLeadSource) {
       fieldType: 'multiple_checkboxes',
       required: true,
       hidden: false,
+      dependentFields: [],
+      defaultValues: [],
       options: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].map((d, i) => ({
         label: d,
         value: d,
@@ -207,6 +214,8 @@ function buildFormBody(includeLeadSource) {
       fieldType: 'dropdown',
       required: true,
       hidden: false,
+      dependentFields: [],
+      defaultValues: [],
       placeholder: 'Choose one',
       options: [
         { label: 'Google (Gmail + Google Calendar)', value: 'Google', displayOrder: 0 },
@@ -218,8 +227,8 @@ function buildFormBody(includeLeadSource) {
   ];
 
   const hidden = [
-    { objectTypeId: CONTACT, name: 'cos_sprint_interest', label: 'COS Sprint interest', fieldType: 'single_line_text', required: false, hidden: true, defaultValue: 'Fall 2026' },
-    { objectTypeId: CONTACT, name: 'cos_sprint_source', label: 'COS Sprint source', fieldType: 'single_line_text', required: false, hidden: true, defaultValue: 'sbap-lab1' },
+    textField('cos_sprint_interest', 'COS Sprint interest', 'single_line_text', false, { hidden: true, defaultValue: 'Fall 2026' }),
+    textField('cos_sprint_source', 'COS Sprint source', 'single_line_text', false, { hidden: true, defaultValue: 'sbap-lab1' }),
   ];
   if (includeLeadSource) {
     hidden.push({
@@ -229,15 +238,19 @@ function buildFormBody(includeLeadSource) {
       fieldType: 'dropdown',
       required: false,
       hidden: true,
+      dependentFields: [],
       defaultValues: ['Workshop / Webinar'],
       options: [{ label: 'Workshop / Webinar', value: 'Workshop / Webinar', displayOrder: 0 }],
     });
   }
 
+  const now = new Date().toISOString();
   return {
     formType: 'hubspot',
     name: FORM_NAME,
     archived: false,
+    createdAt: now,
+    updatedAt: now,
     fieldGroups: [...visible, ...hidden].map((f) => ({ groupType: 'default_group', richTextType: 'text', fields: [f] })),
     configuration: {
       language: 'en',
@@ -282,12 +295,26 @@ async function findFormByName(name) {
   do {
     const q = new URLSearchParams({ limit: '100' });
     if (after) q.set('after', after);
-    const page = await api('GET', `/marketing/v3/forms/?${q}`);
+    const page = await api('GET', `${FORMS_PATHS[0]}?${q}`);
     const hit = (page.results || []).find((f) => f.name === name && !f.archived);
     if (hit) return hit;
     after = page.paging?.next?.after;
   } while (after);
   return null;
+}
+
+async function tryCreateForm(body) {
+  let lastErr;
+  for (const path of FORMS_PATHS) {
+    try {
+      const created = await api('POST', path, body);
+      return { created, path };
+    } catch (err) {
+      lastErr = err;
+      log('1b', `POST ${path} failed (${err.status}): ${JSON.stringify(err.data).slice(0, 400)}`);
+    }
+  }
+  throw lastErr;
 }
 
 async function ensureForm(includeLeadSource) {
@@ -297,19 +324,18 @@ async function ensureForm(includeLeadSource) {
     log('1b', `Form "${FORM_NAME}" exists: ${existing.id}`);
     return;
   }
-  let body = buildFormBody(includeLeadSource);
+  const body = buildFormBody(includeLeadSource);
   try {
-    const created = await api('POST', '/marketing/v3/forms/', body);
-    summary.form = { id: created.id, portalId: PORTAL_ID, status: 'created' };
+    const { created, path } = await tryCreateForm(body);
+    summary.form = { id: created.id, portalId: PORTAL_ID, status: `created via ${path}` };
     log('1b', `Created form "${FORM_NAME}": ${created.id}`);
   } catch (err) {
-    // Some portals reject notifyRecipients as emails or legalConsentOptions.type=none. Retry once, simplified.
-    log('1b', `First create attempt failed (${err.status}). Retrying with simplified configuration.`);
-    log('1b', `Error detail: ${JSON.stringify(err.data).slice(0, 800)}`);
+    // Some portals reject notifyRecipients as emails. Retry once without it.
+    log('1b', 'Retrying without notifyRecipients.');
     delete body.configuration.notifyRecipients;
-    body.legalConsentOptions = { type: 'none' };
-    const created = await api('POST', '/marketing/v3/forms/', body);
-    summary.form = { id: created.id, portalId: PORTAL_ID, status: 'created (without notifyRecipients; set notifications in the HubSpot UI)' };
+    body.configuration.notifyRecipients = [];
+    const { created, path } = await tryCreateForm(body);
+    summary.form = { id: created.id, portalId: PORTAL_ID, status: `created via ${path} (without notifyRecipients; set notifications in the HubSpot UI)` };
     summary.warnings.push(`Form notifications to ${NOTIFY_EMAIL} could not be set via API. Set them in the form editor.`);
     log('1b', `Created form "${FORM_NAME}": ${created.id}`);
   }

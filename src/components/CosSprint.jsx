@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // Form GUID comes from scripts/hubspot/setup-cos-sprint.mjs (form "COS Sprint Interest (Fall 2026)").
 const HUBSPOT_PORTAL_ID = '243001979';
 const HUBSPOT_REGION = 'na2';
-const COS_FORM_ID = 'TODO_COS_FORM_GUID';
+const COS_FORM_ID = '003a5b6e-d96a-4016-91b1-ced5ba6ef4af';
 const FORM_READY = COS_FORM_ID && !COS_FORM_ID.startsWith('TODO_');
 
 const PAGE_TITLE = 'The COS Sprint | SherpaTech.AI + TechClear';
