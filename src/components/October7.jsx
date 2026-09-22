@@ -557,9 +557,9 @@ const TAKEAWAYS = [
 ];
 
 const WHO = [
-  'Owners and managers of small businesses where the phone is a bottleneck',
+  'Owners of businesses where the phone rings while your hands are busy: contractors, salons, home services, small law and accounting practices',
+  'Office managers and operations leads who would be the ones running this day to day',
   'Executive directors and program leads at nonprofits and associations who need to hear from more people than they can call',
-  "Office managers and operations leads who'd be the ones running this day to day",
   'Anyone who has been told "you should look at AI" and wants to see something real before deciding',
 ];
 
@@ -705,7 +705,7 @@ const October7 = () => {
               <HeroTitle>Watch a voice agent get built live. Then build your own.</HeroTitle>
               <HeroSubtitle>
                 In one evening, see two working AI phone agents built from scratch and tested on real calls. Leave with
-                the exact prompts to rebuild them for your organization.
+                the exact prompts to rebuild them for your business.
               </HeroSubtitle>
               <PrimaryButton href="#register" onClick={scrollToForm}>
                 Save my seat
@@ -745,7 +745,7 @@ const October7 = () => {
               <PanelText>
                 The first thing most people picture when they hear &ldquo;voice AI.&rdquo; It answers the phone when you
                 can&rsquo;t, figures out what the caller needs, captures the basics, and hands off cleanly to a person when
-                it should. Good for clinics, trades, small offices, and any organization where the phone rings while
+                it should. Built for trades, salons, small offices, and any business where the phone rings while
                 everyone is busy.
               </PanelText>
             </Panel>
@@ -754,8 +754,9 @@ const October7 = () => {
               <PanelText>
                 A different idea. Instead of waiting for calls, this agent makes them. It runs a structured interview
                 with donors, members, volunteers, staff, or customers, on their schedule, and returns organized notes from
-                every conversation. This is the one nonprofit and association leaders tend to light up for, because it
-                lets you hear from fifty people when you only have staff time to call five.
+                every conversation. For a business, think post-job check-ins, quote follow-ups, and client intake. For a
+                nonprofit or association, it is how you hear from fifty people when you only have staff time to call
+                five.
               </PanelText>
             </Panel>
           </PanelGrid>
@@ -852,8 +853,8 @@ const October7 = () => {
             <RegistrationForm />
           </FormWrap>
           <FormFootnote>
-            Already RSVP&rsquo;d on Meetup? Register here too. This is where the prompts and follow-up materials get
-            sent.
+            Already RSVP&rsquo;d on Meetup? Register here too, this is where the prompts and recording get sent.
+            Can&rsquo;t make it? Register anyway and check the box.
           </FormFootnote>
         </Container>
       </Section>
