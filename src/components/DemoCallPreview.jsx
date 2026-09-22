@@ -16,31 +16,56 @@ const colors = {
   screen: '#162c4d',
 };
 
+// Each scenario has two scripts. The preview alternates between them on every loop.
 const SCENARIOS = {
   receptionist: {
     label: 'Receptionist',
     caller: 'SherpaTech Demo Line',
-    lines: [
-      { who: 'agent', text: 'Thanks for calling Northside Community Clinic, this is the front desk assistant. How can I help?' },
-      { who: 'caller', text: 'Hi, I need to reschedule an appointment for my mom.' },
-      { who: 'agent', text: 'I can help with that. Can I get her first name and the day of the current appointment?' },
-      { who: 'caller', text: "Maria, it's Thursday." },
-      { who: 'agent', text: "Got it, Maria on Thursday. I'll flag this for the scheduling team and someone will call you back within the hour. Is this the best number?" },
-      { who: 'caller', text: "Yes, that's fine." },
-      { who: 'agent', text: "Perfect. You'll hear from us shortly. Anything else?" },
+    variants: [
+      [
+        { who: 'agent', text: 'Thanks for calling Ridgeline Heating and Air, this is the front desk assistant. How can I help?' },
+        { who: 'caller', text: "Hi, our AC quit last night and it's already 85 in the house." },
+        { who: 'agent', text: "Sorry to hear that, let's get someone out. Can I get your name and the service address?" },
+        { who: 'caller', text: 'Dana Whitfield, 412 Maple Court in Falls Church.' },
+        { who: 'agent', text: "Got it, Dana. I'm marking this urgent and sending it to dispatch now. Someone will call you within 15 minutes to confirm a time. Is this the best number?" },
+        { who: 'caller', text: 'Yes, this one.' },
+        { who: 'agent', text: "Perfect. Keep the blinds closed and the fans running. You'll hear from us shortly." },
+      ],
+      [
+        { who: 'agent', text: 'Thanks for calling Harbor Street Auto, this is the front desk assistant. How can I help?' },
+        { who: 'caller', text: "Hey, I dropped my car off this morning. Just checking if it's ready." },
+        { who: 'agent', text: "Happy to check. What's the name on the ticket?" },
+        { who: 'caller', text: 'Ortiz, the silver Civic.' },
+        { who: 'agent', text: "Thanks. I don't have a status on that one yet, so I'm pinging the shop floor now. Someone will call you back within the hour with a time. Is this the best number?" },
+        { who: 'caller', text: 'Yeah, that works.' },
+        { who: 'agent', text: 'Great. Anything else I can pass along to the tech?' },
+      ],
     ],
   },
   interview: {
     label: 'Interview',
     caller: 'SherpaTech Demo Line',
-    lines: [
-      { who: 'agent', text: 'Hi, this is the SherpaTech interview line calling on behalf of Riverbend Food Bank. Do you have about five minutes to share your experience as a volunteer?' },
-      { who: 'caller', text: "Sure, I've got a few minutes." },
-      { who: 'agent', text: 'Great. First, what made you decide to volunteer with Riverbend?' },
-      { who: 'caller', text: 'A friend brought me to a Saturday shift and I just kept coming back.' },
-      { who: 'agent', text: "That's good to hear. What's one thing that would make volunteering easier for you?" },
-      { who: 'caller', text: 'Honestly, knowing the schedule further in advance.' },
-      { who: 'agent', text: 'Noted. Last one: would you recommend Riverbend to a friend, and why?' },
+    variants: [
+      [
+        { who: 'agent', text: 'Hi, this is the interview line calling on behalf of Riverbend Food Bank. Do you have about five minutes to share your experience as a volunteer?' },
+        { who: 'caller', text: "Sure, I've got a few minutes." },
+        { who: 'agent', text: 'Great. What made you decide to volunteer with Riverbend?' },
+        { who: 'caller', text: 'A friend brought me to a Saturday shift and I just kept coming back.' },
+        { who: 'agent', text: 'So it started with a friend, but something about the shifts themselves kept you there. What was it about those Saturdays?' },
+        { who: 'caller', text: 'Honestly, the crew. Same people every week, and the shift lead actually remembers your name.' },
+        { who: 'agent', text: "Feeling known. That's a big deal. Is there anything that would make it easier to keep showing up?" },
+        { who: 'caller', text: 'Knowing the schedule further in advance.' },
+        { who: 'agent', text: "Noted, more lead time on the schedule. I'll pass that along. Thanks, this was really helpful." },
+      ],
+      [
+        { who: 'agent', text: 'Hi, this is the customer line for Greenway Lawn and Garden. We wrapped up your backyard project last week. Do you have two minutes to tell us how it went?' },
+        { who: 'caller', text: 'Sure. It looks good overall.' },
+        { who: 'agent', text: "Glad to hear it. You said \"overall.\" What's the part that isn't quite there?" },
+        { who: 'caller', text: 'The crew left some gravel in the driveway. Not a big deal, but I noticed.' },
+        { who: 'agent', text: "That's worth knowing, and I'm sorry about that. Was that the only loose end, or did anything else come up?" },
+        { who: 'caller', text: 'No, that was it. The stone wall came out better than I expected.' },
+        { who: 'agent', text: "Good to hear the wall landed. I'll flag the driveway to the crew lead and have someone come by to clean it up. Thanks for being candid." },
+      ],
     ],
   },
 };
@@ -286,6 +311,7 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
   const [seconds, setSeconds] = useState(0);
   const [doneCount, setDoneCount] = useState(0);
   const [typing, setTyping] = useState('');
+  const [variantIdx, setVariantIdx] = useState(0);
   const transcriptRef = useRef(null);
 
   useEffect(() => {
@@ -302,7 +328,11 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
     let tick = null;
 
     const run = async () => {
+      let pass = 0;
       while (!cancelled) {
+        const lines = script.variants[pass % script.variants.length];
+        setVariantIdx(pass % script.variants.length);
+        pass += 1;
         setConnected(false);
         setSeconds(0);
         setDoneCount(0);
@@ -317,8 +347,8 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
           setSeconds(s);
         }, 1000);
 
-        for (let i = 0; i < script.lines.length; i += 1) {
-          const text = script.lines[i].text;
+        for (let i = 0; i < lines.length; i += 1) {
+          const text = lines[i].text;
           for (let c = 1; c <= text.length; c += 1) {
             if (cancelled) return;
             setTyping(text.slice(0, c));
@@ -360,8 +390,9 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
   }
 
   const showAll = reduced;
-  const visibleLines = showAll ? script.lines : script.lines.slice(0, doneCount);
-  const activeLine = !showAll && typing ? script.lines[doneCount] : null;
+  const lines = script.variants[showAll ? 0 : variantIdx] || script.variants[0];
+  const visibleLines = showAll ? lines : lines.slice(0, doneCount);
+  const activeLine = !showAll && typing ? lines[doneCount] : null;
   const isConnected = showAll || connected;
 
   return (
@@ -399,7 +430,7 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
 
           <Transcript ref={transcriptRef} aria-live="polite">
             {visibleLines.map((line, i) => (
-              <Bubble key={`${scenario}-${i}`} $who={line.who}>
+              <Bubble key={`${scenario}-${variantIdx}-${i}`} $who={line.who}>
                 <Speaker>{line.who === 'agent' ? 'Agent' : 'Caller'}</Speaker>
                 {line.text}
               </Bubble>
