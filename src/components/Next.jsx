@@ -287,17 +287,17 @@ const PATHS = [
   { title: 'Build it for me', price: '$1,500', text: 'I build and launch your voice agent.' },
   { title: 'Coach me, I build it', price: '$150', unit: '/hour', text: 'We build it together on calls.' },
   { title: 'Build it in a group', price: '$497', text: 'Four-week cohort.' },
-  { title: 'Just the recording and the prompts', price: 'Free', text: 'Take them and go at your own pace.' },
+  { title: 'Just the recording and the prompts', price: 'Free', text: 'Coming soon. Sign up and I will send them when they are ready, so you can go at your own pace.' },
 ];
 
 const FAQ = [
   {
     q: 'What does it cost per call?',
-    a: 'About 25 cents a minute once your agent is live. A typical three-minute call runs under a dollar. You pay only for the minutes the agent is on the phone.',
+    a: 'Calls are billed by the minute, and you pay only for the time the agent is on the phone. What that adds up to depends on how many calls you get and how long they run. Tell me about your phone traffic on the form and I will send you a number that fits your business.',
   },
   {
     q: 'How long does setup take?',
-    a: 'If I build it for you, plan on about two weeks from our first call to a live agent answering your phone. With coaching or the cohort, the pace depends on how much time you put in between sessions.',
+    a: 'Fast. A working agent can be taking real calls on a live phone number within hours, often by the next morning. From there we tune it to how your business handles calls.',
   },
   {
     q: 'What happens after I submit?',
@@ -379,6 +379,8 @@ const Next = () => {
       setMeta('property', 'og:title', PAGE_TITLE),
       setMeta('property', 'og:description', PAGE_DESCRIPTION),
       setMeta('property', 'og:url', 'https://sherpatech.ai/next'),
+      // Follow-up page for people who heard the demo. Keep it out of search results.
+      setMeta('name', 'robots', 'noindex, nofollow'),
     ];
     return () => {
       document.title = previousTitle;
