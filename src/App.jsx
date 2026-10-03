@@ -28,6 +28,7 @@ const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
 const VoiceAI = lazy(() => import('./components/VoiceAI'));
 const CosSprint = lazy(() => import('./components/CosSprint'));
 const October7 = lazy(() => import('./components/October7'));
+const Next = lazy(() => import('./components/Next'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -50,6 +51,7 @@ const App = () => {
                   <Route path="/voice-ai" element={<VoiceAI />} />
                   <Route path="/cos" element={<CosSprint />} />
                   <Route path="/october-7" element={<October7 />} />
+                  <Route path="/next" element={<Next />} />
                   <Route path="/" element={<Home />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/about" element={<About />} />
