@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What to set up before the Oct 7 voice AI live build at the AWS Skills Center">
+<link rel="icon" type="image/svg+xml" href="/sherpa-logo.svg">
+<title>Build-Along Prep Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a one-evening checklist for attendees. Four accounts in order, each a card with a time, a cost, and tick boxes. Fill-in worksheet at the end they bring to the room. */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --surface-2:#E8EEF4; --line:#CDD6E0;
+  --ink:#16243A; --ink-2:#4A5B70; --ink-3:#6E7B8C;
+  --navy:#1B365D; --blue:#2B517A; --accent:#FF6A3D; --accent-ink:#B4431F; --accent-soft:#FFE8DF;
+  --good:#1E7F4F; --good-soft:#DDF3E6; --warn:#946C08; --warn-soft:#FBF0CC;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",Consolas,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#0F1A2B;--surface:#172740;--surface-2:#1F3352;--line:#2E4664;--ink:#EDF2F7;--ink-2:#B8C4D3;--ink-3:#8E9DB0;
+  --navy:#E8EEF4;--blue:#9CC0E6;--accent:#FF7A50;--accent-ink:#FFB59A;--accent-soft:#3D2418;--good:#5FCB8E;--good-soft:#173A29;--warn:#E0B44B;--warn-soft:#3B3114}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#0F1A2B;--surface:#172740;--surface-2:#1F3352;--line:#2E4664;--ink:#EDF2F7;--ink-2:#B8C4D3;--ink-3:#8E9DB0;
+  --navy:#E8EEF4;--blue:#9CC0E6;--accent:#FF7A50;--accent-ink:#FFB59A;--accent-soft:#3D2418;--good:#5FCB8E;--good-soft:#173A29;--warn:#E0B44B;--warn-soft:#3B3114}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:22px 64px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(32px,6vw,48px);color:var(--navy);line-height:1}
+h2{font-size:24px;font-weight:600}
+h3{font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+p{margin:0}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.lede{color:var(--ink-2);max-width:62ch;margin-top:8px}
+.head{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:10px;margin:16px 0 22px}
+.strip div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.strip b{display:block;font-family:var(--display);font-size:26px;font-weight:700;line-height:1.1;color:var(--navy)}
+.strip span{font-size:13px;color:var(--ink-2)}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:12px}
+.step header{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:baseline}
+.step .n{font-family:var(--display);font-size:34px;font-weight:700;line-height:1;color:var(--accent);min-width:1.4ch}
+.step .t{font-size:12.5px;color:var(--ink-3);white-space:nowrap;font-family:var(--display);letter-spacing:.06em}
+.why{border-left:3px solid var(--accent);padding:4px 0 4px 12px;color:var(--ink-2);font-size:15px}
+.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.check li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent)}
+.note{font-size:14px;color:var(--ink-2)}
+.warn{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:8px 12px;font-size:14px}
+code{font-family:var(--mono);font-size:13px;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.tblwrap{overflow-x:auto}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.field input,.field textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+.field textarea{min-height:72px;resize:vertical}
+.field.wide{grid-column:1/-1}
+.saved{font-size:12.5px;color:var(--ink-3)}
+@media (max-width:560px){.step header{grid-template-columns:auto 1fr}.step .t{grid-column:2}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">SherpaTech.AI · Voice AI live build · Wed Oct 7, 6 PM · AWS Skills Center</div>
+    <h1>Build-Along Prep Sheet</h1>
+    <p class="lede">On Wednesday I build an AI receptionist from an empty screen to a ringing phone number that books real appointments on a real calendar. If you want to build your own at the same time, do these four steps before you come. About 40 minutes and about $20. Step 3 is the one that takes the time; it's also the one that makes the whole thing work. If you'd rather watch and call the finished agent, bring your phone and skip all of this.</p>
+  </div>
+
+  <div class="strip">
+    <div><b>4</b><span>accounts to set up</span></div>
+    <div><b>40 min</b><span>on your own, before Wednesday</span></div>
+    <div><b>about $20</b><span>total, most of it optional</span></div>
+    <div><b>1</b><span>calendar connected to Retell before you arrive</span></div>
+  </div>
+
+  <section class="step">
+    <header><span class="n">1</span><h2>A Google account for your practice business</h2><span class="t">5 min · free</span></header>
+    <div class="why">You'll build the agent for a pretend business, so the room never sees your real calendar. A fresh Google account gives that business its own email and its own Google Calendar, which the booking tool needs.</div>
+    <ul class="check">
+      <li><input type="checkbox" id="g1"><label for="g1">Go to <b>accounts.google.com</b> and create a new account. Name it after your practice business, something like <code>ridgelineplumbing.demo@gmail.com</code>.</label></li>
+      <li><input type="checkbox" id="g2"><label for="g2">Open <b>calendar.google.com</b> once while signed in, so the calendar exists.</label></li>
+      <li><input type="checkbox" id="g3"><label for="g3">Stay signed in to this account in Chrome for the next two steps. It keeps everything in one place.</label></li>
+    </ul>
+    <p class="note">You can use your real Google account if you don't mind the calendar being visible on your own screen. Nobody else sees it.</p>
+  </section>
+
+  <section class="step">
+    <header><span class="n">2</span><h2>Retell AI</h2><span class="t">10 min · $10 in credits, $5 for a number</span></header>
+    <div class="why">Retell is where the agent lives. It handles the voice, the brain, and the phone line in one place, and you pay by the minute of talk time. Expect about 25 cents a minute for an everyday setup.</div>
+    <ul class="check">
+      <li><input type="checkbox" id="r1"><label for="r1">Go to <b>retellai.com</b>, Sign up, and use <b>Continue with Google</b> with the account from step 1.</label></li>
+      <li><input type="checkbox" id="r2"><label for="r2">Open <b>Billing</b>, add a card, and buy <b>$10 of credits</b>. Leave <b>auto recharge off</b>. Two reasons: the $10 is your spending cap (when it's gone, the line stops answering and nothing else gets charged), and Conductor, the assistant we build with, only runs in an account with a card on file.</label></li>
+      <li><input type="checkbox" id="r3"><label for="r3">Optional but recommended: <b>Phone Numbers</b>, then <b>+</b>, then <b>Buy a number</b>. Pick a local US number. About $5 a month, cancel any time. Without a number you can still test the agent through your laptop.</label></li>
+      <li><input type="checkbox" id="r4"><label for="r4">Look for the <b>Conductor</b> box on the Home page. That's the assistant that builds agents from a description. We'll use it in the room. Don't ask it to build anything yet.</label></li>
+    </ul>
+    <p class="warn">Don't build the agent ahead of time. The empty workspace is the point. Watching it go from nothing to a phone that answers is the whole lesson.</p>
+  </section>
+
+  <section class="step">
+    <header><span class="n">3</span><h2>Cal.com, and plug it into Retell</h2><span class="t">20 min · free · the one that matters</span></header>
+    <div class="why">This is the calendar the agent books into. It checks real availability while the caller is on the line and sends the confirmation email. The free plan does everything we need. The last two steps connect it to Retell. Do them at home: in the room, connecting the calendar is the part I'll say "took me ten minutes to two hours," and I'm not joking. With it done, you add two functions on Wednesday and your agent books for real.</div>
+    <ul class="check">
+      <li><input type="checkbox" id="c1"><label for="c1">Go to <b>cal.com</b>, Sign up, <b>Continue with Google</b>, same account as step 1. Pick a username that matches your business. Time zone: <b>America/New York</b>.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">When it offers to <b>connect Google Calendar</b>, say yes. If you skipped it, it's under Apps, Calendar.</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Make one event type: <b>Event Types</b>, <b>+ New</b>, name it <b>Intro call</b>, 15 minutes. Save. Open its <b>Limits</b> tab and make sure "Limit future bookings" is off and "requires confirmation" is off. Under <b>Availability</b>, give it a few hours on a few weekdays. Empty availability means the agent finds nothing to offer.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Open that event type and copy the number at the end of the web address, like <code>app.cal.com/event-types/<b>1234567</b></code>. Write it in the worksheet below.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5"><b>Make an API key.</b> Settings, Developer, API keys, <b>+ Add</b>. Name it <code>Retell</code>, no expiry. Copy it right away. Cal.com shows it once.</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6"><b>Connect it to Retell.</b> In Retell, open any agent (make a throwaway one if the list is empty: Agents, Create, single prompt, any name). Scroll the right panel to <b>Functions</b>, <b>+ Add</b>, <b>Add integration</b>, <b>Cal.com</b>, paste the API key, save. From now on "Cal.com - API key" shows under Connected Integrations on every agent in your account.</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7"><b>Prove it.</b> Same menu, Connected Integrations, Cal.com, <b>Check Availability</b>. Name it <code>test</code>, event_type_id = your ID, timezone = <code>America/New_York</code> (click the T next to the field, choose Value, paste). Click <b>Run a test</b>. If it returns open times, you're done; delete the test function and the throwaway agent. If it errors, screenshot it and email me; that's exactly the kind of thing I'll fix in the room.</label></li>
+    </ul>
+    <p class="note">If you lose the key before you paste it, make a new one. It takes a minute.</p>
+  </section>
+
+  <section class="step">
+    <header><span class="n">4</span><h2>Bring these</h2><span class="t">5 min · free</span></header>
+    <ul class="check">
+      <li><input type="checkbox" id="b1"><label for="b1"><b>A laptop with Chrome</b>, signed in to Retell and Cal.com. A tablet won't cut it for this one.</label></li>
+      <li><input type="checkbox" id="b2"><label for="b2"><b>Earbuds or headphones with a mic.</b> You'll be testing your agent by talking to it, and the room will be loud.</label></li>
+      <li><input type="checkbox" id="b3"><label for="b3"><b>Your phone</b>, charged, to call your own agent and mine.</label></li>
+      <li><input type="checkbox" id="b4"><label for="b4"><b>Your Cal.com event type ID</b> from step 3, written down. You'll type it into two functions on Wednesday.</label></li>
+      <li><input type="checkbox" id="b5"><label for="b5"><b>The brief below</b>, filled in. On Wednesday you hand your answers to Conductor along with the house rules I've tuned, and it writes your agent's prompt. No brief, no custom agent.</label></li>
+    </ul>
+  </section>
+
+  <section class="step">
+    <header><span class="n">✎</span><h2>Brief your receptionist</h2><span class="t">15 min · the part that matters most</span></header>
+    <div class="why">On Wednesday I'll hand you a prompt I've already tuned and we'll merge your answers into it, so the agent you leave with is built around your business, not a coffee shop. The prompt is my job. The facts and the judgment calls below are yours, and nobody can fill them in for you.</div>
+    <p class="note">Write it the way you'd brief a new hire on their first morning at the front desk. Short, plain, specific. Make the business up, or use your real one with the numbers rounded. Real or pretend, leave out anything you wouldn't say to a stranger on the phone.</p>
+    <div class="form">
+      <div class="field"><label for="f_name">Business name</label><input id="f_name" placeholder="Ridgeline Plumbing"></div>
+      <div class="field"><label for="f_owner">Owner's first name (who the agent covers for)</label><input id="f_owner" placeholder="Mark"></div>
+      <div class="field"><label for="f_town">Town and area served</label><input id="f_town" placeholder="Arlington, Alexandria, Falls Church"></div>
+      <div class="field"><label for="f_hours">Hours</label><input id="f_hours" placeholder="Mon to Fri 7 AM to 6 PM, Sat 8 to noon"></div>
+      <div class="field wide"><label for="f_sells">What you sell or do (three to five lines, the facts a caller asks about)</label><textarea id="f_sells" placeholder="Leaks and clogs. Water heaters. Annual inspections. $95 diagnostic visit, applied to the repair."></textarea></div>
+      <div class="field wide"><label for="f_calls">The three calls you get most often, and what a good answer sounds like</label><textarea id="f_calls" placeholder="Are you open Saturday? (yes, 8 to noon). Can you come today? (ask if water is actively leaking first). How much for a water heater? (never quote, book a visit)"></textarea></div>
+      <div class="field wide"><label for="f_books">The one thing callers should be able to book</label><input id="f_books" placeholder="A 15-minute intro call"></div>
+      <div class="field wide"><label for="f_cant">When the agent can't help, what should happen?</label><input id="f_cant" placeholder="Take a message. Say Mark calls back by end of day. For emergencies say 15 minutes."></div>
+      <div class="field wide"><label for="f_capture">What should it capture from every call?</label><input id="f_capture" placeholder="Name, callback number, what it's about, whether they'd like a follow-up"></div>
+      <div class="field wide"><label for="f_never">Two things the agent must never do</label><textarea id="f_never" placeholder="Quote repair prices. Promise a same-day visit."></textarea></div>
+      <div class="field wide"><label for="f_nervous">What makes you nervous about an AI answering your phone?</label><input id="f_nervous" placeholder="Sounding like a robot to my regulars"></div>
+      <div class="field"><label for="f_calid">Cal.com event type ID (from step 3)</label><input id="f_calid" inputmode="numeric" placeholder="1234567"></div>
+      <div class="field"><label for="f_number">Retell phone number (if you bought one)</label><input id="f_number" placeholder="(703) 555-0100"></div>
+    </div>
+    <p class="saved" id="saved">Saved on this device as you type. Nobody else can see it. Bring the laptop you filled it in on, or copy the answers into a note.</p>
+  </section>
+
+  <section class="step">
+    <header><span class="n">$</span><h2>What it all costs</h2><span class="t">rounded up on purpose</span></header>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Item</th><th class="r">Before Wednesday</th><th class="r">Ongoing, if you keep it</th></tr></thead>
+      <tbody>
+        <tr><td>Google account and Google Calendar</td><td class="r">$0</td><td class="r">$0</td></tr>
+        <tr><td>Retell credits (your spending cap)</td><td class="r">$10</td><td class="r">about 25¢ a minute of calls</td></tr>
+        <tr><td>Retell phone number (optional)</td><td class="r">about $5</td><td class="r">about $5 a month</td></tr>
+        <tr><td>Cal.com free plan</td><td class="r">$0</td><td class="r">$0</td></tr>
+        <tr><td>A typical 3-minute test call</td><td class="r">under $1</td><td class="r">under $1</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">These are round numbers with headroom. Your real rate will be lower. The $10 of credits covers Wednesday's testing with room to spare.</p>
+  </section>
+
+  <section class="step">
+    <header><span class="n">?</span><h2>If you get stuck</h2><span class="t">it's fine</span></header>
+    <p>Skip the step and come anyway. Everything I type on Wednesday goes on a sheet I'll send to everyone who registered, and the agent you call on stage is the one you'd build. You can finish on your own time with the sheet, or ask me for help afterward at <b>sherpatech.ai/next</b>.</p>
+    <p class="note">Questions before Wednesday: <b>mark@sherpatech.ai</b></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const fields=['f_name','f_owner','f_town','f_hours','f_sells','f_calls','f_books','f_cant','f_capture','f_never','f_nervous','f_calid','f_number'];
+  fields.forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    try{ const v=localStorage.getItem('bap_'+id); if(v) el.value=v; }catch(e){}
+    el.addEventListener('input',()=>{ try{ localStorage.setItem('bap_'+id,el.value); }catch(e){} });
+  });
+  document.querySelectorAll('.check input').forEach(cb=>{
+    const k='bap_'+cb.id;
+    try{ cb.checked=localStorage.getItem(k)==='1'; }catch(e){}
+    cb.addEventListener('change',()=>{ try{ localStorage.setItem(k,cb.checked?'1':'0'); }catch(e){} });
+  });
+})();
+</script>
+</body>
+</html>

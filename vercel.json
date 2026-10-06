@@ -59,7 +59,14 @@
     }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/prep",
+      "destination": "/prep.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ],
   "env": {
     "ROLLUP_NATIVE_DISABLE": "true"
