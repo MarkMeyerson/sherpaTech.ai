@@ -11,7 +11,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 // Lazy loaded components (split into chunks)
-const ClaudeCohort = lazy(() => import('./components/ClaudeCohort'));
 const Home = lazy(() => import('./components/Home'));
 const Services = lazy(() => import('./components/Services'));
 const About = lazy(() => import('./components/About'));
@@ -21,7 +20,6 @@ const SmallBusinesses = lazy(() => import('./components/SmallBusinesses'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
-const HubSpotForm = lazy(() => import('./components/HubSpotForm'));
 const Assessment = lazy(() => import('./features/assessment/components/Assessment'));
 const TrainingApp = lazy(() => import('./components/TrainingApp'));
 const OurWhyStatement = lazy(() => import('./components/OurWhyStatement'));
@@ -47,7 +45,6 @@ const App = () => {
             <main style={{ minHeight: 'calc(100vh - 140px)' }}>
               <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
-                  <Route path="/claude-cohort" element={<ClaudeCohort />} />
                   <Route path="/voice-ai" element={<VoiceAI />} />
                   <Route path="/cos" element={<CosSprint />} />
                   <Route path="/october-7" element={<October7 />} />
