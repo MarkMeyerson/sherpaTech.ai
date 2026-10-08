@@ -629,7 +629,9 @@ const NextForm = ({ pathKey }) => {
   }
 
   return (
-    <FormGrid id="next-form" onSubmit={submit} noValidate={false}>
+    // hs-do-not-collect keeps HubSpot's tracking script from logging this as a
+    // second "non-HubSpot form"; the submit handler already posts to HubSpot.
+    <FormGrid id="next-form" hs-do-not-collect="" onSubmit={submit} noValidate={false}>
       <Field>
         First name
         <input type="text" name="firstname" autoComplete="given-name" value={values.firstname} onChange={update} />
