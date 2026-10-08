@@ -10,9 +10,10 @@ import { track } from '@vercel/analytics';
 const BOOKING_URL =
   'https://outlook.office.com/bookwithme/user/6234b8ab86204535933296e86a1a6799@sherpatech.ai?anonymous';
 
-// Stripe payment link for the $497 cohort. Empty until one exists; while it is
-// empty the group card sends people to the form as a waitlist instead.
-const COHORT_CHECKOUT_URL = '';
+// Stripe payment link for the $497 cohort (product prod_VP4N321d8Wlcd6, live).
+// Stripe sends the buyer back to /next?paid=cohort afterwards. If this is ever
+// emptied, the group card falls back to the form as a waitlist.
+const COHORT_CHECKOUT_URL = 'https://buy.stripe.com/dRm28r4NS8977iaaOyeIw04';
 
 // Build sheet with every prompt from the live build. Shown after the form submits.
 const BUILD_SHEET_URL = 'https://tinyurl.com/SherpatechLive';
@@ -686,6 +687,12 @@ const NextForm = ({ pathKey }) => {
 
 const Next = () => {
   const [pathKey, setPathKey] = useState(() => readPathParam());
+  // Stripe lands the buyer here after the cohort payment.
+  const [paidCohort] = useState(() => new URLSearchParams(window.location.search).get('paid') === 'cohort');
+
+  useEffect(() => {
+    if (paidCohort) track('next_cohort_paid');
+  }, [paidCohort]);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -806,10 +813,27 @@ const Next = () => {
       {/* 3. Form */}
       <Section id="choose" $bg={colors.iceBlue} style={{ scrollMarginTop: 80 }}>
         <Container>
-          <SectionTitle>Not sure which one? Tell me about your business.</SectionTitle>
-          <FormWrap>
-            <NextForm pathKey={pathKey} />
-          </FormWrap>
+          {paidCohort ? (
+            <>
+              <SectionTitle>You are in.</SectionTitle>
+              <FormWrap>
+                <ThankYou>
+                  <h3>Seat reserved.</h3>
+                  <p>Your receipt is on its way. Mark emails the cohort dates and the prep steps within one business day.</p>
+                  <PrimaryButton href={BUILD_SHEET_URL} target="_blank" rel="noopener noreferrer">
+                    Open the build sheet with every prompt
+                  </PrimaryButton>
+                </ThankYou>
+              </FormWrap>
+            </>
+          ) : (
+            <>
+              <SectionTitle>Not sure which one? Tell me about your business.</SectionTitle>
+              <FormWrap>
+                <NextForm pathKey={pathKey} />
+              </FormWrap>
+            </>
+          )}
         </Container>
       </Section>
 

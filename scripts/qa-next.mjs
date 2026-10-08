@@ -101,10 +101,20 @@ for (const [label, viewport] of viewports) {
   const sel = await page.$eval('form#next-form select', (el) => el.value);
   check(`${label}: card click preselects the path on the form`, sel === 'recording_only', sel);
 
-  await page.click('a[data-cta="group"]');
-  await page.waitForTimeout(800);
-  const sel2 = await page.$eval('form#next-form select', (el) => el.value);
-  check(`${label}: group button sets ?path=group and preselects cohort`, new URL(page.url()).searchParams.get('path') === 'group' && sel2 === 'cohort', `${page.url()} select=${sel2}`);
+  const [popup3] = await Promise.all([page.waitForEvent('popup', { timeout: 8000 }), page.click('a[data-cta="group"]')]);
+  check(`${label}: group button opens the Stripe payment link`, popup3.url().startsWith('https://buy.stripe.com/dRm28r4NS8977iaaOyeIw04'), popup3.url());
+  await popup3.close();
+  await page.close();
+}
+
+// Return from Stripe shows the cohort thank-you instead of the form.
+{
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await page.goto(`${base}/next?paid=cohort`, { waitUntil: 'networkidle' });
+  const h = (await page.textContent('#choose h2')).trim();
+  const hasForm = (await page.$('form#next-form')) !== null;
+  check('?paid=cohort shows the seat-reserved message and no form', h === 'You are in.' && !hasForm, `h2=${h} form=${hasForm}`);
+  await page.screenshot({ path: 'screenshots/next-mobile-paid-cohort.png', fullPage: false });
   await page.close();
 }
 
