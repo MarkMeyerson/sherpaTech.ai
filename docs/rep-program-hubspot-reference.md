@@ -55,7 +55,7 @@ Both are classic forms with no CAPTCHA and notifications to mark@sherpatech.ai, 
 | Rep Lead: Omer | first name, last name, email (required), phone, business, what you would want handled, sales_rep (hidden, Omer Polanco), rep_intro_date (hidden, set by the page) | pending | pending | created |
 | Rep Lead Registration | same fields, sales_rep as a visible required dropdown, rep_intro_date visible | pending | pending | created |
 
-The forms API does not return hosted links. Open the form in the editor, Share, copy the link, and paste it here and into `src/data/reps.js` (`hostedFormUrl`).
+Share links come from the form's page in HubSpot: Actions, View, then copy the address of the tab that opens.
 
 ### Omer's own contact
 
@@ -122,7 +122,6 @@ Not deleted. Mark removes it by hand.
 
 ## Open items for Mark
 
-1. Copy the two hosted share links (steps above) into this doc and `src/data/reps.js`.
-2. Delete test contact 575684944594 when done.
-3. Set Omer's contact to non-marketing by hand (Actions, Set as non-marketing).
-4. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
+1. Delete test contact 575684944594 when done.
+2. Set Omer's contact to non-marketing by hand (Actions, Set as non-marketing).
+3. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
