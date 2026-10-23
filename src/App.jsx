@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route } from "react-router-dom";
+import { REPS } from './data/reps';
 import { theme } from "./utils/theme";
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -29,6 +30,7 @@ const VoiceAI = lazy(() => import('./components/VoiceAI'));
 const CosSprint = lazy(() => import('./components/CosSprint'));
 const October7 = lazy(() => import('./components/October7'));
 const Next = lazy(() => import('./components/Next'));
+const RepPage = lazy(() => import('./components/RepPage'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -52,6 +54,9 @@ const App = () => {
                   <Route path="/cos" element={<CosSprint />} />
                   <Route path="/october-7" element={<October7 />} />
                   <Route path="/next" element={<Next />} />
+                  {Object.values(REPS).map((rep) => (
+                    <Route key={rep.slug} path={`/${rep.slug}`} element={<RepPage rep={rep} />} />
+                  ))}
                   <Route path="/" element={<Home />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/about" element={<About />} />

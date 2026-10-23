@@ -301,8 +301,11 @@ function formatTimer(s) {
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-const DemoCallPreview = ({ videoSrc, poster }) => {
-  const [scenario, setScenario] = useState('receptionist');
+// scenarios: optional list of scenario keys to offer. Default is all of them.
+// With one key the toggle is hidden (used by the rep pages).
+const DemoCallPreview = ({ videoSrc, poster, scenarios, caption }) => {
+  const scenarioKeys = scenarios && scenarios.length ? scenarios.filter((k) => SCENARIOS[k]) : Object.keys(SCENARIOS);
+  const [scenario, setScenario] = useState(scenarioKeys[0] || 'receptionist');
   const reduced = useReducedMotion();
   const script = useMemo(() => SCENARIOS[scenario], [scenario]);
 
@@ -384,7 +387,7 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
     return (
       <Wrap>
         <Video src={videoSrc} poster={poster} muted loop playsInline autoPlay controls aria-label="Demo of a voice agent on a live call" />
-        <Caption>Both agents get built and tested live on October 7.</Caption>
+        <Caption>{caption ?? 'Both agents get built and tested live on October 7.'}</Caption>
       </Wrap>
     );
   }
@@ -397,20 +400,22 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
 
   return (
     <Wrap>
-      <Toggle role="tablist" aria-label="Demo scenario">
-        {Object.entries(SCENARIOS).map(([key, s]) => (
-          <ToggleButton
-            key={key}
-            type="button"
-            role="tab"
-            aria-selected={scenario === key}
-            $active={scenario === key}
-            onClick={() => setScenario(key)}
-          >
-            {s.label}
-          </ToggleButton>
-        ))}
-      </Toggle>
+      {scenarioKeys.length > 1 && (
+        <Toggle role="tablist" aria-label="Demo scenario">
+          {scenarioKeys.map((key) => (
+            <ToggleButton
+              key={key}
+              type="button"
+              role="tab"
+              aria-selected={scenario === key}
+              $active={scenario === key}
+              onClick={() => setScenario(key)}
+            >
+              {SCENARIOS[key].label}
+            </ToggleButton>
+          ))}
+        </Toggle>
+      )}
 
       <Phone aria-label={`Simulated ${script.label.toLowerCase()} call`}>
         <Screen>
@@ -446,7 +451,7 @@ const DemoCallPreview = ({ videoSrc, poster }) => {
         </Screen>
       </Phone>
 
-      <Caption>Simulated preview. Both agents get built and tested live on October 7.</Caption>
+      <Caption>{caption ?? 'Simulated preview. Both agents get built and tested live on October 7.'}</Caption>
     </Wrap>
   );
 };
