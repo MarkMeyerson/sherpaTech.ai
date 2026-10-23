@@ -31,6 +31,7 @@ const CosSprint = lazy(() => import('./components/CosSprint'));
 const October7 = lazy(() => import('./components/October7'));
 const Next = lazy(() => import('./components/Next'));
 const RepPage = lazy(() => import('./components/RepPage'));
+const OnePager = lazy(() => import('./components/OnePager'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -55,7 +56,11 @@ const App = () => {
                   <Route path="/october-7" element={<October7 />} />
                   <Route path="/next" element={<Next />} />
                   {Object.values(REPS).map((rep) => (
-                    <Route key={rep.slug} path={`/${rep.slug}`} element={<RepPage rep={rep} />} />
+                    <React.Fragment key={rep.slug}>
+                      <Route path={`/${rep.slug}`} element={<RepPage rep={rep} />} />
+                      <Route path={`/${rep.slug}/one-pager`} element={<OnePager rep={rep} />} />
+                      <Route path={`/${rep.slug}/one-pager/:product`} element={<OnePager rep={rep} />} />
+                    </React.Fragment>
                   ))}
                   <Route path="/" element={<Home />} />
                   <Route path="/services" element={<Services />} />
