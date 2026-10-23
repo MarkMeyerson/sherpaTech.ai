@@ -63,7 +63,7 @@ The forms API does not return hosted links. Open the form in the editor, Share, 
 |---|---|
 | Contact | https://app.hubspot.com/contacts/243001979/record/0-1/565662794469 (djomerdmv@gmail.com) |
 | sales_rep | left empty on purpose |
-| Marketing status | set to non-marketing on 2026-10-23 |
+| Marketing status | still marketing. The script's API update returned success but HubSpot ignored it (hs_marketable_status is not writable this way). Set it by hand: open his record, Actions, Set as non-marketing. |
 
 ## Pipeline convention (no new stage)
 
@@ -107,10 +107,22 @@ Playwright, Chromium, script in `scripts/qa/omer-page.mjs`. 35 checks, all pass.
 | Submission payload: sales_rep = Omer Polanco, rep_intro_date = today at midnight UTC in ms, pageUri keeps utm_source, utm_medium, utm_campaign, pageName set | Pass | |
 | /next, /october-7, /cos, /voice-ai still load | Pass | |
 
-Not done: the real test submission (test+rep@sherpatech.ai, "ZZ Test Business"). It needs the real "Rep Lead: Omer" form id, which needs the live script run.
+Real test submission, 2026-10-23, through the page to the live "Rep Lead: Omer" form:
+
+| Item | Value |
+|---|---|
+| Contact | Test Rep, test+rep@sherpatech.ai, record id 575684944594 |
+| Record | https://app.hubspot.com/contacts/243001979/record/0-1/575684944594 |
+| sales_rep | Omer Polanco |
+| rep_intro_date | 2026-10-23 |
+| company | ZZ Test Business |
+| Original source | Other campaigns, drill-down 1 "omer-test", drill-down 2 "rep / referral" (the utm values from the page URL) |
+
+Not deleted. Mark removes it by hand.
 
 ## Open items for Mark
 
 1. Copy the two hosted share links (steps above) into this doc and `src/data/reps.js`.
-2. Submit the real test entry on /omer (test+rep@sherpatech.ai, ZZ Test Business) and confirm the contact in HubSpot.
-3. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
+2. Delete test contact 575684944594 when done.
+3. Set Omer's contact to non-marketing by hand (Actions, Set as non-marketing).
+4. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
