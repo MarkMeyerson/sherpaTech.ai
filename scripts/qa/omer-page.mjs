@@ -24,7 +24,7 @@ for (const [label, w, h] of [['390x844', 390, 844], ['1366x900', 1366, 900]]) {
   check(`${label} minutes note`, body.includes('Call minutes beyond that are billed by the minute.'));
   check(`${label} proof line`, body.includes('chiropractic practice in Virginia'));
   check(`${label} faq count`, (await page.locator('details').count()) === 3);
-  check(`${label} no banned words`, !/—|Retell|Twilio|SMS|texting|per minute/.test(body));
+  check(`${label} no banned words`, !/\u2014|Retell|Twilio|SMS|texting|per minute/.test(body));
   const gutter = await page.evaluate(() => Math.round(document.querySelector('#rep-form').getBoundingClientRect().left));
   check(`${label} 16px gutter`, gutter >= 16, `${gutter}px`);
   // Validation: empty email blocks submit (browser validation), no network call.
