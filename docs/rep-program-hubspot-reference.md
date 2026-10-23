@@ -21,30 +21,30 @@ The script is idempotent. To add a rep: add the name to `REP_OPTIONS` and an ent
 
 ## HubSpot reference (portal 243001979)
 
-Status: **blocked, 2026-10-23**. The script has been written and dry-run twice. The live run was attempted with `HUBSPOT_PRIVATE_APP_TOKEN` set, but every call to api.hubapi.com came back 401 "Authentication credentials not found", the error HubSpot returns when no Authorization header arrives. The same header reaches other hosts from the build environment, and a fake token gets the same message instead of "invalid or expired", so the header is being dropped or rewritten on the way to HubSpot, not rejected by HubSpot. Rerun the script from a machine where the token reaches HubSpot (for example locally, as the Oct 7 scripts were run), then fill in the ids below.
+Status: **created 2026-10-23** by running the script locally in PowerShell. Property groups, six properties, both forms, and Omer's non-marketing flag all reported created. Hosted share links still to be copied from the form editor (steps below).
 
 ### Property group
 
 | Object | Internal name | Label | Status |
 |---|---|---|---|
-| contacts | sales_rep_program | Sales Rep Program | pending |
-| deals | sales_rep_program | Sales Rep Program | pending |
+| contacts | sales_rep_program | Sales Rep Program | created |
+| deals | sales_rep_program | Sales Rep Program | created |
 
 ### Contact properties
 
 | Internal name | Label | Type | Options / notes | Status |
 |---|---|---|---|---|
-| sales_rep | Sales Rep | Dropdown | Direct, Omer Polanco, Dr. Tom Campbell | pending |
-| rep_intro_date | Rep Intro Date | Date | Set by the rep page on submit, or by the rep on the registration form | pending |
+| sales_rep | Sales Rep | Dropdown | Direct, Omer Polanco, Dr. Tom Campbell | created |
+| rep_intro_date | Rep Intro Date | Date | Set by the rep page on submit, or by the rep on the registration form | created |
 
 ### Deal properties
 
 | Internal name | Label | Type | Options / notes | Status |
 |---|---|---|---|---|
-| sales_rep | Sales Rep | Dropdown | Same options as contact | pending |
-| commission_amount | Commission Amount | Number | 250 or 100 | pending |
-| commission_status | Commission Status | Dropdown | Not owed, Owed, Paid | pending |
-| commission_paid_date | Commission Paid Date | Date | | pending |
+| sales_rep | Sales Rep | Dropdown | Same options as contact | created |
+| commission_amount | Commission Amount | Number | 250 or 100 | created |
+| commission_status | Commission Status | Dropdown | Not owed, Owed, Paid | created |
+| commission_paid_date | Commission Paid Date | Date | | created |
 
 ### Forms
 
@@ -52,8 +52,8 @@ Both are classic forms with no CAPTCHA and notifications to mark@sherpatech.ai, 
 
 | Form | Fields | Form id | Hosted link | Status |
 |---|---|---|---|---|
-| Rep Lead: Omer | first name, last name, email (required), phone, business, what you would want handled, sales_rep (hidden, Omer Polanco), rep_intro_date (hidden, set by the page) | pending | pending | pending |
-| Rep Lead Registration | same fields, sales_rep as a visible required dropdown, rep_intro_date visible | pending | pending | pending |
+| Rep Lead: Omer | first name, last name, email (required), phone, business, what you would want handled, sales_rep (hidden, Omer Polanco), rep_intro_date (hidden, set by the page) | pending | pending | created |
+| Rep Lead Registration | same fields, sales_rep as a visible required dropdown, rep_intro_date visible | pending | pending | created |
 
 The forms API does not return hosted links. Open the form in the editor, Share, copy the link, and paste it here and into `src/data/reps.js` (`hostedFormUrl`).
 
@@ -63,7 +63,7 @@ The forms API does not return hosted links. Open the form in the editor, Share, 
 |---|---|
 | Contact | https://app.hubspot.com/contacts/243001979/record/0-1/565662794469 (djomerdmv@gmail.com) |
 | sales_rep | left empty on purpose |
-| Marketing status | pending: script sets hs_marketable_status to false so he never gets prospect emails |
+| Marketing status | set to non-marketing on 2026-10-23 |
 
 ## Pipeline convention (no new stage)
 
@@ -111,7 +111,6 @@ Not done: the real test submission (test+rep@sherpatech.ai, "ZZ Test Business").
 
 ## Open items for Mark
 
-1. Run `scripts/hubspot/setup-rep-program.mjs` from a machine where the token reaches HubSpot, then paste the "Rep Lead: Omer" form id into `formId` in `src/data/reps.js` and the ids into the tables above.
-2. Copy the two hosted share links (steps above) into this doc and `src/data/reps.js`.
-3. Submit the real test entry on /omer (test+rep@sherpatech.ai, ZZ Test Business) and confirm the contact in HubSpot.
-4. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
+1. Copy the two hosted share links (steps above) into this doc and `src/data/reps.js`.
+2. Submit the real test entry on /omer (test+rep@sherpatech.ai, ZZ Test Business) and confirm the contact in HubSpot.
+3. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
