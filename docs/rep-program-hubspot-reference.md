@@ -21,7 +21,7 @@ The script is idempotent. To add a rep: add the name to `REP_OPTIONS` and an ent
 
 ## HubSpot reference (portal 243001979)
 
-Status: **pending**. The script has been written and dry-run. It has not been run against the portal because `HUBSPOT_PRIVATE_APP_TOKEN` was not available in the build environment. Fill in the ids below after the live run.
+Status: **blocked, 2026-10-23**. The script has been written and dry-run twice. The live run was attempted with `HUBSPOT_PRIVATE_APP_TOKEN` set, but every call to api.hubapi.com came back 401 "Authentication credentials not found", the error HubSpot returns when no Authorization header arrives. The same header reaches other hosts from the build environment, and a fake token gets the same message instead of "invalid or expired", so the header is being dropped or rewritten on the way to HubSpot, not rejected by HubSpot. Rerun the script from a machine where the token reaches HubSpot (for example locally, as the Oct 7 scripts were run), then fill in the ids below.
 
 ### Property group
 
@@ -79,8 +79,39 @@ The forms API does not return hosted links. Open the form in the editor, Share, 
 | src/data/reps.js | One entry per rep: name, slug, blurb, bio, photo, form id, hosted form link |
 | src/components/RepPage.jsx | The rep page, rendered from a rep config |
 
+## Where to copy the hosted share links
+
+HubSpot does not return share links through the forms API. For each form:
+
+1. In HubSpot go to Marketing, then Forms (left sidebar, or https://app.hubspot.com/forms/243001979).
+2. Open the form ("Rep Lead: Omer" or "Rep Lead Registration").
+3. Click Share in the top right of the editor, then the Share link tab.
+4. Copy the link. It looks like https://40odiz.share-na2.hsforms.com/<code>, same shape as the /next hosted form.
+5. Paste the "Rep Lead: Omer" link into `hostedFormUrl` in `src/data/reps.js` and both links into the forms table above.
+
+## QA performed on /omer, 2026-10-23 (local preview, branch rep-program)
+
+Playwright, Chromium, script in `scripts/qa/omer-page.mjs`. 35 checks, all pass.
+
+| Check | 390x844 | 1366x900 |
+|---|---|---|
+| No horizontal scroll, 16px gutter at phone width | Pass | Pass |
+| Headline, rep pill, prices, minutes note, proof line, three FAQs | Pass | Pass |
+| Tap-to-call links (hero button and large number) point at tel:+12029993475 | Pass | Pass |
+| Booking button opens Mark's 20-minute booking link | Pass | Pass |
+| noindex, nofollow meta tag | Pass | Pass |
+| No em dashes, vendor names, SMS, texting, or per-minute price in the rendered page | Pass | Pass |
+| Empty email blocks submit, nothing posted | Pass | Pass |
+| Failed post shows the fallback message | Pass | Pass |
+| Success state copy ("Got it. Mark will reach out within one business day. Omer will check in too.") | Pass (mocked post) | |
+| Submission payload: sales_rep = Omer Polanco, rep_intro_date = today at midnight UTC in ms, pageUri keeps utm_source, utm_medium, utm_campaign, pageName set | Pass | |
+| /next, /october-7, /cos, /voice-ai still load | Pass | |
+
+Not done: the real test submission (test+rep@sherpatech.ai, "ZZ Test Business"). It needs the real "Rep Lead: Omer" form id, which needs the live script run.
+
 ## Open items for Mark
 
-1. Add `HUBSPOT_PRIVATE_APP_TOKEN` to the environment and run the script, then fill in the ids above.
-2. Copy the two hosted form links from the form editor into this doc and `src/data/reps.js`.
-3. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
+1. Run `scripts/hubspot/setup-rep-program.mjs` from a machine where the token reaches HubSpot, then paste the "Rep Lead: Omer" form id into `formId` in `src/data/reps.js` and the ids into the tables above.
+2. Copy the two hosted share links (steps above) into this doc and `src/data/reps.js`.
+3. Submit the real test entry on /omer (test+rep@sherpatech.ai, ZZ Test Business) and confirm the contact in HubSpot.
+4. Send the "Rep Lead Registration" hosted link to Omer to bookmark on his phone.
