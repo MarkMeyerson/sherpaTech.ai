@@ -24,5 +24,11 @@ export const REPS = {
     hostedFormUrl: 'https://share-na2.hsforms.com/1bj_8lWyHSdeXfhtNugHGrw40odiz',
     // Short link to the Rep Lead Registration form (redirect in vercel.json). Reps bookmark this.
     lead_registration_url: '/rep',
+    // Printable one-pagers, exported by Playwright from /omer/one-pager. Served from public/.
+    onePagers: [
+      { label: 'Both products', file: '/one-pagers/2026-10-23-omer-one-pager.pdf' },
+      { label: 'AI Receptionist', file: '/one-pagers/2026-10-23-omer-one-pager-receptionist.pdf' },
+      { label: 'Personal AI Assistant', file: '/one-pagers/2026-10-23-omer-one-pager-assistant.pdf' },
+    ],
   },
 };

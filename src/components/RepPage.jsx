@@ -689,6 +689,51 @@ const Faq = styled.details`
   }
 `;
 
+const Downloads = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const DownloadLink = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 14px 16px;
+  background: ${colors.alpineWhite};
+  border: 1px solid ${colors.line};
+  border-radius: 12px;
+  color: ${colors.ink};
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.98rem;
+
+  &:hover {
+    border-color: ${colors.gold};
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    color: ${colors.gold};
+  }
+
+  small {
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.82rem;
+    color: ${colors.muted};
+  }
+`;
+
 const FootNote = styled.footer`
   padding: 28px 0 40px;
   color: ${colors.muted};
@@ -718,6 +763,15 @@ const CheckIcon = () => (
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M12 2 15 8.5l7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.1l1.4-7L2 9.3l7-.8z" />
+  </svg>
+);
+
+const FileIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6" />
+    <path d="M12 18v-6" />
+    <path d="m9 15 3 3 3-3" />
   </svg>
 );
 
@@ -1085,6 +1139,37 @@ const RepPage = ({ rep }) => {
           </Stack>
         </Wrap>
       </Section>
+
+      {/* 9. Printable one-pagers */}
+      {rep.onePagers && rep.onePagers.length > 0 && (
+        <Section>
+          <Wrap>
+            <Stack>
+              <Eyebrow>Take it with you</Eyebrow>
+              <H2>One page you can print or share.</H2>
+              <Lead>Prices, the demo number, and a code back to this page. Letter size.</Lead>
+              <Downloads>
+                {rep.onePagers.map((p) => (
+                  <DownloadLink
+                    key={p.file}
+                    href={p.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cta="pdf"
+                    onClick={() => clicked('rep_click_pdf', { file: p.label })}
+                  >
+                    <FileIcon />
+                    <span>
+                      {p.label}
+                      <small>PDF, one page</small>
+                    </span>
+                  </DownloadLink>
+                ))}
+              </Downloads>
+            </Stack>
+          </Wrap>
+        </Section>
+      )}
 
       <FootNote>
         <Wrap>

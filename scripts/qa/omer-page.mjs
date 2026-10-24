@@ -28,12 +28,14 @@ for (const [label, w, h] of [['390x844', 390, 844], ['1366x900', 1366, 900]]) {
   const gutter = await page.evaluate(() => Math.round(document.querySelector('#rep-form').getBoundingClientRect().left));
   check(`${label} 16px gutter`, gutter >= 16, `${gutter}px`);
   // Validation: empty email blocks submit (browser validation), no network call.
+  check(`${label} pdf links`, (await page.locator('[data-cta="pdf"]').count()) === 3);
   let posted = false;
   page.on('request', (r) => { if (r.url().includes('hsforms.com')) posted = true; });
   await page.click('[data-cta="submit"]');
   const invalid = await page.evaluate(() => !document.querySelector('#rep-form').checkValidity());
   check(`${label} empty email blocked`, invalid && !posted);
-  // Fallback: live post with placeholder form id fails, page shows fallback.
+  // Fallback: the HubSpot post is aborted so nothing reaches the live form; page shows fallback.
+  await page.route(/hsforms\.com/, (route) => route.abort('failed'));
   await page.fill('input[name="email"]', 'qa@example.com');
   await page.click('[data-cta="submit"]');
   await page.waitForSelector('[role="alert"]', { timeout: 15000 });
