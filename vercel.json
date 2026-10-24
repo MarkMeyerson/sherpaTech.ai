@@ -58,6 +58,13 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/rep",
+      "destination": "https://share-na2.hsforms.com/1km_WNEh0Qj6HYeOsQXH89Q40odiz",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/prep",

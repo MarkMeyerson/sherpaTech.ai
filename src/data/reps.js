@@ -22,5 +22,7 @@ export const REPS = {
     contactPhone: null,
     formId: '6e3ffc95-6c87-49d7-977e-1b4dba01c6af', // Rep Lead: Omer, created 2026-10-23
     hostedFormUrl: 'https://share-na2.hsforms.com/1bj_8lWyHSdeXfhtNugHGrw40odiz',
+    // Short link to the Rep Lead Registration form (redirect in vercel.json). Reps bookmark this.
+    lead_registration_url: '/rep',
   },
 };
